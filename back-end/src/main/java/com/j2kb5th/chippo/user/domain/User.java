@@ -1,14 +1,20 @@
 package com.j2kb5th.chippo.user.domain;
 
 import com.j2kb5th.chippo.global.domain.BaseTimeEntity;
-import lombok.Getter;
+import com.j2kb5th.chippo.like.domain.Like;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 @Getter
 @Entity
 public class User extends BaseTimeEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,12 +32,18 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private Role role;
 
-    private String provider;
-
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private boolean activated = true;
+    private Provider provider;
 
+    @ColumnDefault("1")
     @Column(nullable = false)
-    private boolean deleted = false;
+    private boolean activated;
 
+    @ColumnDefault("0")
+    @Column(nullable = false)
+    private boolean deleted;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Like> likes = new ArrayList<>();
 }

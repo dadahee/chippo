@@ -1,8 +1,6 @@
-package com.j2kb5th.chippo.preanswer.domain;
+package com.j2kb5th.chippo.tag.domain;
 
-import com.j2kb5th.chippo.global.domain.BaseTimeEntity;
 import com.j2kb5th.chippo.interview.domain.Interview;
-import com.j2kb5th.chippo.user.domain.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,21 +10,16 @@ import javax.persistence.*;
 @Builder
 @Getter
 @Entity
-public class PreAnswer extends BaseTimeEntity {
-
+public class InterviewTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(length = 300, nullable = false)
-    private String content;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "interview_id", nullable = false)
     private Interview interview;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tag_id", nullable = false)
+    private Tag tag;
 }
