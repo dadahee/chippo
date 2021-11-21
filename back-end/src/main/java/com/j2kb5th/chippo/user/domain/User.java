@@ -4,11 +4,13 @@ import com.j2kb5th.chippo.global.domain.BaseTimeEntity;
 import com.j2kb5th.chippo.like.domain.Like;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@DynamicInsert
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
