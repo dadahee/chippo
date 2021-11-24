@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, HStack } from "@chakra-ui/react"
+import { Button, HStack } from "@chakra-ui/react";
 import { Flex, Spacer } from '@chakra-ui/layout';
 
-import { Header, LogoImg } from './theme/header.style.js'
+import { Header, LogoImg } from './theme/header.style.js';
 
 function ChippoHeader(){
     return (
@@ -10,12 +10,12 @@ function ChippoHeader(){
             <Flex> 
                 <HStack spacing = "24px">
                     <LogoImg />
-                    <div>CHIPPO</div>
+                    <h1>CHIPPO</h1>
                 </HStack>
-            <Spacer />
+                <Spacer />
                 <HStack spacing = "48px">
-                    <Button bg = "#5078E7" color = "white">새 글 작성</Button>
-                    <Button bg = "#5078E7" color = "white">로그인</Button>   
+                    <Button variant="normal"> 새 글 작성 </Button>
+                    <Button variant="normal"> 로그인 </Button>   
                 </HStack>
             </Flex>
         </Header>

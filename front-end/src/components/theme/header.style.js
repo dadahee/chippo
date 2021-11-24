@@ -13,8 +13,8 @@ const Header = styled.header`
 `
 // 다크모드 화이트 모드 시 두 개의 버전이 필요할 수도??
 const LogoImg = styled.div`
-    width : 48px;
-    height : 48px;
+    width : 64px;
+    height : 64px;
     background-image : url(${logo});
     background-size : cover;
     background-position: center;
