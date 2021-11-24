@@ -7,6 +7,7 @@ import {
 
 import Home from './routes/home.jsx';
 import ChippoHeader from './components/header.jsx';
+import DarkModeComponent from "./components/darkComponent.jsx"
 
 // 1. router 다운로드 및 세팅 (0)
 // 2. 차크라 ui 다운로드 (0)
@@ -19,6 +20,7 @@ function App(){
     return (
         <Router>
             <ChippoHeader />
+            <DarkModeComponent />
             <div>
                 <Routes>
                     <Route path = "/" element = {<Home />} />

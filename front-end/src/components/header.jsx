@@ -1,15 +1,16 @@
 import React from 'react';
-import { Button, HStack } from "@chakra-ui/react";
+import { Button, HStack, Image } from "@chakra-ui/react";
 import { Flex, Spacer } from '@chakra-ui/layout';
 
-import { Header, LogoImg } from './theme/header.style.js';
+import logo from "./theme/img/logo.png"
+import { Header } from './theme/header.style.js';
 
 function ChippoHeader(){
     return (
         <Header>
             <Flex> 
                 <HStack spacing = "24px">
-                    <LogoImg />
+                    <Image objectFit="cover" boxSize="64px" src= {logo} alt="chippo_logo" />
                     <h1>CHIPPO</h1>
                 </HStack>
                 <Spacer />
