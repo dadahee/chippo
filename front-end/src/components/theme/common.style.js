@@ -1,17 +1,24 @@
-import { extendTheme } from "@chakra-ui/react"
+import styled from '@emotion/styled';
 
-const theme = extendTheme({
-  components: {
-    Button: {
-      variants: {
-        "normal": {
-          bg: "#5078E7",
-          color : "white",
-          _hover : { bg: '#E6F0FF', color: '#5078E7' }
-        },
-      },
-    },
-  },
-})
+// import logo from './img/logo.png'
 
-export { theme }
+const Header = styled.header`
+    color : #5078E7;
+    font-size : 32px;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-weight: bold;
+    font-style: italic; 
+    padding : 10px;
+    border-bottom: 1px solid #5078E7;
+`
+
+const Section = styled.section`
+    color : black;
+    font-size : 20px;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+`
+
+export {
+    Header,
+    Section,
+}

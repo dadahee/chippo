@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, HStack, Image } from "@chakra-ui/react";
 import { Flex, Spacer } from '@chakra-ui/layout';
 
-import { Header } from './theme/header.style.js';
+import { Header } from './theme/common.style.js';
 
 function ChippoHeader(){
     return (

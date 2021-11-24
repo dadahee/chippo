@@ -13,8 +13,9 @@ import DarkModeComponent from "./components/darkComponent.jsx"
 // 2. 차크라 ui 다운로드 (0)
 // 3. 헤더 작성 구현 + 버튼 커스터 마이징(0)
 // 4. 다크모드 구현 (0)
-// 5. nav 구현
+// 5. tab 구현
 // 6. 사진 레이아웃 구성 (table)
+// 7. 더보기 버튼 구현 ?
 
 function App(){
     return (
