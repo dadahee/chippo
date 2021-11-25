@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor // dummy data용 임시
 public class CommentResponse {
     private final Long id;
-    private final CommentParentResponse parent;
+    private final Long parentId;
     private final CommentUserResponse user;
     private final String content;
 
@@ -24,7 +24,7 @@ public class CommentResponse {
     public CommentResponse(Comment comment) {
         this.id = comment.getId();
         this.user = new CommentUserResponse(comment);
-        this.parent = new CommentParentResponse(comment);
+        this.parentId = comment.getParent().getId(); // 수정 필요
         this.content = comment.getContent();
         this.createdAt = comment.getCreatedAt();
         this.updatedAt = comment.getUpdatedAt();

@@ -1,6 +1,5 @@
 package com.j2kb5th.chippo.comment.controller;
 
-import com.j2kb5th.chippo.comment.controller.dto.reponse.CommentParentResponse;
 import com.j2kb5th.chippo.comment.controller.dto.reponse.CommentResponse;
 import com.j2kb5th.chippo.comment.controller.dto.reponse.CommentsResponse;
 import com.j2kb5th.chippo.comment.controller.dto.request.CommentRequest;
@@ -38,7 +37,7 @@ public class CommentController {
         List<CommentResponse> comments = new ArrayList<>();
         comments.add(new CommentResponse(
                 5L,
-                new CommentParentResponse(null),
+                null,
                 new CommentUserResponse(3L, "참새"),
                 "다른 기술면접에 비해 그래도 쉬운편이네요.",
                 LocalDateTime.now(),
@@ -46,7 +45,7 @@ public class CommentController {
         ));
         comments.add(new CommentResponse(
                 6L,
-                new CommentParentResponse(null),
+                null,
                 new CommentUserResponse(4L, "판교꿈나무"),
                 "저걸 뚝딱 대답하시다니 대단해요....",
                 LocalDateTime.now(),
@@ -55,9 +54,9 @@ public class CommentController {
 
         comments.add(new CommentResponse(
                 7L,
-                new CommentParentResponse(null),
+                6L,
                 new CommentUserResponse(5L, "니꼴라스동생"),
-                "니꼴라스도 울고 가겠어요",
+                "그러니까요. 니꼴라스도 울고 가겠어요",
                 LocalDateTime.now(),
                 LocalDateTime.now()
         ));
