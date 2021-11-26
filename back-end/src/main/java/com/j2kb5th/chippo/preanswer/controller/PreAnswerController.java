@@ -1,14 +1,17 @@
 package com.j2kb5th.chippo.preanswer.controller;
 
+import com.j2kb5th.chippo.global.controller.dto.UserResponse;
 import com.j2kb5th.chippo.preanswer.controller.dto.request.PreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.controller.dto.response.PreAnswerResponse;
-import com.j2kb5th.chippo.preanswer.controller.dto.response.PreAnswerUserResponse;
 import com.j2kb5th.chippo.preanswer.controller.dto.response.PreAnswersResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,25 +26,29 @@ public class PreAnswerController {
     ){
         List<PreAnswerResponse> preAnswers = new ArrayList<>();
         preAnswers.add(new PreAnswerResponse(
-                1L,
+                interviewId,
                 "저는 말하는 감자라 모르겠어요..",
-                new PreAnswerUserResponse(9L, "말하는감자")
+                new UserResponse(9L, "말하는감자"),
+                LocalDateTime.now()
         ));
         preAnswers.add(new PreAnswerResponse(
-                2L,
+                interviewId,
                 "저는 말하는 고구마라 알지만 비밀이에요...",
-                new PreAnswerUserResponse(10L, "말하는고구마")
+                new UserResponse(10L, "말하는고구마"),
+                LocalDateTime.now()
         ));
         return ResponseEntity.ok(new PreAnswersResponse(preAnswers));
     }
 
     @PostMapping
     public ResponseEntity<PreAnswerResponse> save(
+        UriComponentsBuilder uriBuilder,
         @PathVariable(name = "interviewId") Long interviewId,
         @Valid @RequestBody PreAnswerRequest preAnswerRequest
     ){
-        PreAnswerResponse response = new PreAnswerResponse(11L, "리덕스는 어쩌구저쩌구 리덕스 사가는어쩌구저쩌구", new PreAnswerUserResponse(10L, "리액트개발자"));
-        return ResponseEntity.ok(response);
+        URI uri = uriBuilder.path("/api/interviews/{interviewId}/pre-answers").buildAndExpand(interviewId).toUri();
+        PreAnswerResponse response = new PreAnswerResponse(interviewId, preAnswerRequest.getContent(), new UserResponse(10L, "리액트개발자"), LocalDateTime.now());
+        return ResponseEntity.created(uri).body(response);
     }
 
     @PatchMapping("/{preAnswerId}")
@@ -49,7 +56,7 @@ public class PreAnswerController {
             @PathVariable(name = "interviewId") Long interviewId,
             @Valid @RequestBody PreAnswerRequest preAnswerRequest
     ){
-        PreAnswerResponse response = new PreAnswerResponse(12L, "nest.js란 어쩌구저쩌구", new PreAnswerUserResponse(11L, "노드개발자"));
+        PreAnswerResponse response = new PreAnswerResponse(interviewId, preAnswerRequest.getContent(), new UserResponse(11L, "노드개발자"), LocalDateTime.now());
         return ResponseEntity.ok(response);
     }
 

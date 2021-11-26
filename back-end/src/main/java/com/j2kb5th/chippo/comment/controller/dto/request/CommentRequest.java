@@ -16,6 +16,9 @@ import java.util.List;
 @NoArgsConstructor
 public class CommentRequest {
 
+    @NotNull
+    private Long userId;
+
     @Size(max = 300)
     @NotNull
     private String content;
