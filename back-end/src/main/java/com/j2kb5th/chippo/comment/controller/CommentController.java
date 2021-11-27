@@ -40,17 +40,16 @@ public class CommentController {
         comments.add(new CommentResponse(
                 5L,
                 null,
-                new UserResponse(3L, "참새"),
+                new UserResponse(3L, "고인물"),
                 "다른 기술면접에 비해 그래도 쉬운편이네요.",
-                LocalDateTime.now(),
                 LocalDateTime.now()
         ));
+
         comments.add(new CommentResponse(
                 6L,
                 null,
-                new UserResponse(4L, "판교꿈나무"),
+                new UserResponse(4L, "고인물"),
                 "저걸 뚝딱 대답하시다니 대단해요....",
-                LocalDateTime.now(),
                 LocalDateTime.now()
         ));
 
@@ -59,7 +58,6 @@ public class CommentController {
                 6L,
                 new UserResponse(5L, "니꼴라스동생"),
                 "그러니까요. 니꼴라스도 울고 가겠어요",
-                LocalDateTime.now(),
                 LocalDateTime.now()
         ));
         return ResponseEntity.ok(new CommentsResponse(comments));

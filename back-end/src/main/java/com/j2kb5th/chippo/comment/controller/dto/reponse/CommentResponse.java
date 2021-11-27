@@ -9,15 +9,12 @@ import lombok.RequiredArgsConstructor;
 import java.time.LocalDateTime;
 
 @Getter
-@RequiredArgsConstructor // dummy data용 임시
+@RequiredArgsConstructor // dummy data용 임시 어노테이션 (로직 구현 후 제거)
 public class CommentResponse {
     private final Long id;
     private final Long parentId;
     private final UserResponse user;
     private final String content;
-
-    @JsonFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss", timezone = "Asia/Seoul")
-    private final LocalDateTime createdAt;
 
     @JsonFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss", timezone = "Asia/Seoul")
     private final LocalDateTime updatedAt;
@@ -27,7 +24,6 @@ public class CommentResponse {
         this.user = new UserResponse(comment.getUser());
         this.parentId = comment.getParent().getId(); // 수정 필요
         this.content = comment.getContent();
-        this.createdAt = comment.getCreatedAt();
         this.updatedAt = comment.getUpdatedAt();
     }
 }
