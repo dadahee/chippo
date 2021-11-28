@@ -4,6 +4,7 @@ import com.j2kb5th.chippo.global.controller.dto.UserResponse;
 import com.j2kb5th.chippo.interview.controller.dto.request.SaveInterviewRequest;
 import com.j2kb5th.chippo.interview.controller.dto.request.SaveInterviewTagDetailRequest;
 import com.j2kb5th.chippo.interview.controller.dto.request.UpdateInterviewRequest;
+import com.j2kb5th.chippo.interview.controller.dto.request.UpdateInterviewTagDetailRequest;
 import com.j2kb5th.chippo.interview.controller.dto.response.*;
 import com.j2kb5th.chippo.interview.service.InterviewService;
 import com.j2kb5th.chippo.tag.domain.InterviewTag;
@@ -140,18 +141,20 @@ public class InterviewController {
                 "여기저기거기에서 본 면접 질문과 비슷하네요.", LocalDateTime.now()));
 
         List<InterviewTagDetailResponse> testTags = new ArrayList<>();
-        testTags.add(new InterviewTagDetailResponse(1L, TagType.COMPANY, "카카오"));
-        testTags.add(new InterviewTagDetailResponse(2L, TagType.TECHSTACK, "프론트엔드"));
+        List<UpdateInterviewTagDetailRequest> tags = interviewRequest.getInterviewTags();
+        for (int i=0; i<interviewRequest.getInterviewTags().size(); i++){
+            testTags.add(new InterviewTagDetailResponse(1L, tags.get(i).getType(), tags.get(i).getName()));
+        }
 
         Long testInterviewId = 100L;
 
         InterviewDetailResponse testResponse = new InterviewDetailResponse(
                 testInterviewId,
                 new UserResponse(101L, "면접본사람"),
-                "카카오 1024번 공채 면접 질문 1번: 프로그래밍을 왜 시작했나요?",
-                "어려서부터 컴퓨터 게임을 좋아했고 어쩌구저쩌구 중학교 때 C언어의 매력에 어쩌구",
-                "면접 분위기가 굉장히 유한 편이었고 면접관분들 모두 친절하셨어요",
-                true,
+                interviewRequest.getQuestion(),
+                interviewRequest.getAnswer(),
+                interviewRequest.getExtraInfo(),
+                interviewRequest.isVisible(),
                 testTags,
                 testComments,
                 3L,
