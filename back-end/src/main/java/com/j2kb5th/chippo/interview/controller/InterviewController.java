@@ -1,9 +1,12 @@
 package com.j2kb5th.chippo.interview.controller;
 
 import com.j2kb5th.chippo.global.controller.dto.UserResponse;
-import com.j2kb5th.chippo.interview.controller.dto.request.InterviewRequest;
+import com.j2kb5th.chippo.interview.controller.dto.request.SaveInterviewRequest;
+import com.j2kb5th.chippo.interview.controller.dto.request.SaveInterviewTagDetailRequest;
+import com.j2kb5th.chippo.interview.controller.dto.request.UpdateInterviewRequest;
 import com.j2kb5th.chippo.interview.controller.dto.response.*;
 import com.j2kb5th.chippo.interview.service.InterviewService;
+import com.j2kb5th.chippo.tag.domain.InterviewTag;
 import com.j2kb5th.chippo.tag.domain.TagType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +36,9 @@ public class InterviewController {
         testComments.add(new InterviewCommentResponse(2L, null, new UserResponse(123L, "배민에서 탈주한 사람"),
                 "여기저기거기에서 본 면접 질문과 비슷하네요.", LocalDateTime.now()));
 
-        List<InterviewTagResponse> testTags = new ArrayList<>();
-        testTags.add(new InterviewTagResponse(1L, new InterviewTagDetailResponse(1L, TagType.COMPANY, "카카오")));
-        testTags.add(new InterviewTagResponse(2L, new InterviewTagDetailResponse(2L, TagType.TECHSTACK, "프론트엔드")));
+        List<InterviewTagDetailResponse> testTags = new ArrayList<>();
+        testTags.add(new InterviewTagDetailResponse(1L, TagType.COMPANY, "카카오"));
+        testTags.add(new InterviewTagDetailResponse(2L, TagType.TECHSTACK, "프론트엔드"));
 
         return ResponseEntity.ok(new InterviewDetailResponse(
                 interviewId,
@@ -54,13 +57,13 @@ public class InterviewController {
 
     @GetMapping
     public ResponseEntity<InterviewsResponse> findInterviewsByTag(
-            @PathVariable(name = "tagName") String tagName,
-            @PathVariable(name = "tagType") String tagType,
-            @PathVariable(name = "size") Long size
+            @RequestParam(name = "tag_name") String tagName,
+            @RequestParam(name = "tag_type") String tagType,
+            @RequestParam(name = "size") Long size
     ){
-        List<InterviewTagResponse> testTags = new ArrayList<>();
+        List<InterviewTagDetailResponse> testTags = new ArrayList<>();
         for (Long i=1L; i<size; i++){
-            testTags.add(new InterviewTagResponse(i, new InterviewTagDetailResponse(i, TagType.COMPANY, tagName)));
+            testTags.add(new InterviewTagDetailResponse(i, TagType.COMPANY, tagName));
         }
 
         InterviewResponse testInterview = new InterviewResponse(
@@ -98,30 +101,25 @@ public class InterviewController {
     @PostMapping
     public ResponseEntity<InterviewDetailResponse> saveInterview(
             UriComponentsBuilder uriBuilder,
-            @RequestBody InterviewRequest interviewRequest
+            @RequestBody SaveInterviewRequest interviewRequest
     ){
-        List<InterviewCommentResponse> testComments = new ArrayList<>();
-        testComments.add(new InterviewCommentResponse(1L, null, new UserResponse(123L, "카카오꿈나무"),
-                "헉 정말 좋은 답변이네요!", LocalDateTime.now()));
-        testComments.add(new InterviewCommentResponse(2L, null, new UserResponse(123L, "배민에서 탈주한 사람"),
-                "여기저기거기에서 본 면접 질문과 비슷하네요.", LocalDateTime.now()));
-
-        List<InterviewTagResponse> testTags = new ArrayList<>();
-        testTags.add(new InterviewTagResponse(1L, new InterviewTagDetailResponse(1L, TagType.COMPANY, "카카오")));
-        testTags.add(new InterviewTagResponse(2L, new InterviewTagDetailResponse(2L, TagType.TECHSTACK, "프론트엔드")));
+        List<InterviewTagDetailResponse> testTags = new ArrayList<>();
+        List<SaveInterviewTagDetailRequest> tags = interviewRequest.getInterviewTags();
+        for (int i=0; i<interviewRequest.getInterviewTags().size(); i++){
+            testTags.add(new InterviewTagDetailResponse(1L, tags.get(i).getType(), tags.get(i).getName()));
+        }
 
         Long testInterviewId = 100L;
-
         InterviewDetailResponse testResponse = new InterviewDetailResponse(
                 testInterviewId,
                 new UserResponse(101L, "면접본사람"),
-                "카카오 1024번 공채 면접 질문 1번: 프로그래밍을 왜 시작했나요?",
-                "어려서부터 컴퓨터 게임을 좋아했고 어쩌구저쩌구 중학교 때 C언어의 매력에 어쩌구",
-                "면접 분위기가 굉장히 유한 편이었고 면접관분들 모두 친절하셨어요",
-                true,
+                interviewRequest.getQuestion(),
+                interviewRequest.getAnswer(),
+                interviewRequest.getExtraInfo(),
+                interviewRequest.isVisible(),
                 testTags,
-                testComments,
-                3L,
+                null,
+                0L,
                 LocalDateTime.now()
         );
 
@@ -132,7 +130,8 @@ public class InterviewController {
 
     @PutMapping
     public ResponseEntity<InterviewDetailResponse> updateInterview(
-            @PathVariable(name = "interviewId") Long interviewId
+            @PathVariable(name = "interviewId") Long interviewId,
+            @RequestBody UpdateInterviewRequest interviewRequest
     ){
         List<InterviewCommentResponse> testComments = new ArrayList<>();
         testComments.add(new InterviewCommentResponse(1L, null, new UserResponse(123L, "카카오꿈나무"),
@@ -140,9 +139,9 @@ public class InterviewController {
         testComments.add(new InterviewCommentResponse(2L, null, new UserResponse(123L, "배민에서 탈주한 사람"),
                 "여기저기거기에서 본 면접 질문과 비슷하네요.", LocalDateTime.now()));
 
-        List<InterviewTagResponse> testTags = new ArrayList<>();
-        testTags.add(new InterviewTagResponse(1L, new InterviewTagDetailResponse(1L, TagType.COMPANY, "카카오")));
-        testTags.add(new InterviewTagResponse(2L, new InterviewTagDetailResponse(2L, TagType.TECHSTACK, "프론트엔드")));
+        List<InterviewTagDetailResponse> testTags = new ArrayList<>();
+        testTags.add(new InterviewTagDetailResponse(1L, TagType.COMPANY, "카카오"));
+        testTags.add(new InterviewTagDetailResponse(2L, TagType.TECHSTACK, "프론트엔드"));
 
         Long testInterviewId = 100L;
 

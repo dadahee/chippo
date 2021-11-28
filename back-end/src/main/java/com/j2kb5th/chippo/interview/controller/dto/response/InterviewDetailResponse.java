@@ -18,10 +18,10 @@ public class InterviewDetailResponse {
     private final UserResponse user;
     private final String question;
     private final String answer;
-    private final String extra_info;
+    private final String extraInfo;
     private final boolean visible;
 
-    private final List<InterviewTagResponse> interviewTags;
+    private final List<InterviewTagDetailResponse> interviewTags;
     private final List<InterviewCommentResponse> comments;
     private final Long likeCount;
 
@@ -33,10 +33,10 @@ public class InterviewDetailResponse {
         this.user = new UserResponse(interview.getUser());
         this.question = interview.getQuestion();
         this.answer = interview.getAnswer();
-        this.extra_info = interview.getExtra_info();
+        this.extraInfo = interview.getExtraInfo();
         this.visible = interview.isVisible();
-        this.interviewTags = interview.getInterviewTags().stream().map(InterviewTagResponse::new).collect(Collectors.toList());
-        this.likeCount = interview.getLikes().stream().count();
+        this.interviewTags = interview.getInterviewTags().stream().map(InterviewTagDetailResponse::new).collect(Collectors.toList());
+        this.likeCount = interview.getThumbs().stream().count();
         this.comments = interview.getComments().stream().map(InterviewCommentResponse::new).collect(Collectors.toList());
         this.updatedAt = interview.getUpdatedAt();
     }

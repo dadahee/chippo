@@ -18,7 +18,7 @@ public class InterviewResponse {
     private final UserResponse user;
     private final String question;
 
-    private final List<InterviewTagResponse> interviewTags;
+    private final List<InterviewTagDetailResponse> interviewTags;
     private final Long likeCount;
 
     @JsonFormat(pattern = "yyyy-NN-dd`T`HH:mm:ss", timezone = "Asia/Seoul")
@@ -28,8 +28,8 @@ public class InterviewResponse {
         this.id = interview.getId();
         this.user = new UserResponse(interview.getUser());
         this.question = interview.getQuestion();
-        this.interviewTags = interview.getInterviewTags().stream().map(InterviewTagResponse::new).collect(Collectors.toList());
-        this.likeCount = interview.getLikes().stream().count();
+        this.interviewTags = interview.getInterviewTags().stream().map(InterviewTagDetailResponse::new).collect(Collectors.toList());
+        this.likeCount = interview.getThumbs().stream().count();
         this.updatedAt = interview.getUpdatedAt();
     }
 }

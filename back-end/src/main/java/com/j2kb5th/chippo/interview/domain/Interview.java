@@ -2,9 +2,8 @@ package com.j2kb5th.chippo.interview.domain;
 
 import com.j2kb5th.chippo.comment.domain.Comment;
 import com.j2kb5th.chippo.global.domain.BaseTimeEntity;
-import com.j2kb5th.chippo.like.domain.Like;
+import com.j2kb5th.chippo.thumb.domain.Thumb;
 import com.j2kb5th.chippo.tag.domain.InterviewTag;
-import com.j2kb5th.chippo.tag.domain.Tag;
 import com.j2kb5th.chippo.user.domain.User;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -36,6 +35,9 @@ public class Interview extends BaseTimeEntity {
     @Column(length = 300, nullable = false)
     private String answer;
 
+    @Column(length = 300, nullable = false)
+    private String extraInfo;
+
     @ColumnDefault("1")
     @Column(nullable = false)
     private boolean visible;
@@ -44,7 +46,7 @@ public class Interview extends BaseTimeEntity {
     private List<InterviewTag> interviewTags = new ArrayList<>();
 
     @OneToMany(mappedBy = "interview", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Like> likes = new ArrayList<>();
+    private List<Thumb> thumbs = new ArrayList<>();
 
     @OneToMany(mappedBy = "interview", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
