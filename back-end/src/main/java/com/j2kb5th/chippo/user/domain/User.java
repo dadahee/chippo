@@ -21,14 +21,14 @@ public class User extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 20, nullable = false, unique = true)
+    private String nickname;
+
     @Column(length = 50, nullable = false, unique = true)
     private String email;
 
     @Column(length = 40)
     private String password;
-
-    @Column(length = 20, nullable = false, unique = true)
-    private String nickname;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

@@ -28,6 +28,7 @@ public class CommentController {
 
     private final CommentServiceImpl commentService;
 
+    // 페이지네이션 구현할 때만 필요
     @GetMapping
     public ResponseEntity<CommentsResponse> find(
         @PathVariable(name = "interviewId") Long interviewId
@@ -74,11 +75,7 @@ public class CommentController {
         //// entity -> response dto & return
         // return ResponseEntity.ok(new CommentResponse(comment));
 
-        User interviewUser = new User(1L, "dev_kid1234@naver.com", "12345678", "개린이", Role.ROLE_USER, Provider.GOOGLE, true, false, null);
-        User commentUser = new User(1L, "dobby_wanna_be_free@google.com", "12345678", "n년차도비", Role.ROLE_USER, Provider.NAVER, true, false, null);
-        Interview interview = new Interview(interviewId, interviewUser, "VM과 Container 차이에 대해 설명하세요.", "VM은 어려운 것이고 Container도 어려운 것이다.", null, true, null, null, null);
-        Comment comment = new Comment(1L, commentUser, "면접 분위기는 전체적으로 어땠나요?", interview, null);
-        CommentResponse commentResponse = new CommentResponse(comment);
+        CommentResponse commentResponse = new CommentResponse(1L, null, new UserResponse(123L, "n년차 도비"), "면접 분위기는 어땠나요?", LocalDateTime.now());
 
         URI uri = uriBuilder.path("/api/interviews/{interviewId}/comments").buildAndExpand(interviewId).toUri();
         return ResponseEntity.created(uri).body(commentResponse);
