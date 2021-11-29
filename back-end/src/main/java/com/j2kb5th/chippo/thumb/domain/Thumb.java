@@ -1,4 +1,4 @@
-package com.j2kb5th.chippo.like.domain;
+package com.j2kb5th.chippo.thumb.domain;
 
 import com.j2kb5th.chippo.interview.domain.Interview;
 import com.j2kb5th.chippo.user.domain.User;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Entity
-public class Like {
+public class Thumb {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
