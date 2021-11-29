@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: ENC(TjtpzkBS6yzE2lu0ZemgIzsK4AUYN+z4Axqrz2kG4IQ=)
+    url: ENC(JdPupoq7iChkoTVDTp/uFddPAkNCbDAewZdAGCvX/XkujI6fe8emrtvJoD9fSlIcwBBIAcjzfBI=)
+    username: ENC(CaHyJFIih0mrolZnNi8WbA==)
+    password: ENC(+rpSB9ezo2SMZJbhTBNfwA==)
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
