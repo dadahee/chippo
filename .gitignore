@@ -45,6 +45,7 @@ out/
 
 # testing
 /coverage
+/back-end/src/test/java/com/j2kb5th/chippo/config/JasyptConfigTest.java
 
 # production
 /build
