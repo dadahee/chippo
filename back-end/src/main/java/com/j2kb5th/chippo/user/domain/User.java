@@ -1,7 +1,7 @@
 package com.j2kb5th.chippo.user.domain;
 
 import com.j2kb5th.chippo.global.domain.BaseTimeEntity;
-import com.j2kb5th.chippo.like.domain.Likes;
+import com.j2kb5th.chippo.thumb.domain.Thumb;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
@@ -47,7 +47,7 @@ public class User extends BaseTimeEntity {
     private boolean deleted;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Likes> likes = new ArrayList<>();
+    private List<Thumb> likes = new ArrayList<>();
 
     @Builder
     public User(String email, String password, String nickname, Role role, Provider provider) {
