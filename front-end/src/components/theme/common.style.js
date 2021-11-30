@@ -18,7 +18,18 @@ const Section = styled.section`
     font-family: 'IBM Plex Sans KR', sans-serif;
 `
 
+const LoginTitle = styled.div`
+    color : #5078E7;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-weight: bold;
+    font-style: italic; 
+    font-size : 72px;
+    text-align : center;
+    padding-top : 2em; 
+`
+
 export {
     Header,
     Section,
+    LoginTitle,
 }
