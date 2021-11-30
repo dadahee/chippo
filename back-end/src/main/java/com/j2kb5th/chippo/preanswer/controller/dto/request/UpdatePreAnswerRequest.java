@@ -6,7 +6,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
-public class PreAnswerRequest {
+public class UpdatePreAnswerRequest {
+
+    @NotNull
+    private Long id;
+
+    @NotNull
+    private Long userId;
 
     @Size(max = 300)
     @NotNull

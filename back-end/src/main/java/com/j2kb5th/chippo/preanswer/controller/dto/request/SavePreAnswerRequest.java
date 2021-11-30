@@ -1,14 +1,12 @@
-package com.j2kb5th.chippo.comment.controller.dto.request;
+package com.j2kb5th.chippo.preanswer.controller.dto.request;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
-@NoArgsConstructor
-public class CommentRequest {
+public class SavePreAnswerRequest {
 
     @NotNull
     private Long userId;
@@ -16,9 +14,4 @@ public class CommentRequest {
     @Size(max = 300)
     @NotNull
     private String content;
-
-    @NotNull
-    private Long parentId;
-
-    // toEntity 삽입
 }

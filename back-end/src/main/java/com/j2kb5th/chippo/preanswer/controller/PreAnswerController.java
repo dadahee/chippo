@@ -1,7 +1,8 @@
 package com.j2kb5th.chippo.preanswer.controller;
 
 import com.j2kb5th.chippo.global.controller.dto.UserResponse;
-import com.j2kb5th.chippo.preanswer.controller.dto.request.PreAnswerRequest;
+import com.j2kb5th.chippo.preanswer.controller.dto.request.SavePreAnswerRequest;
+import com.j2kb5th.chippo.preanswer.controller.dto.request.UpdatePreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.controller.dto.response.PreAnswerResponse;
 import com.j2kb5th.chippo.preanswer.controller.dto.response.PreAnswersResponse;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +45,7 @@ public class PreAnswerController {
     public ResponseEntity<PreAnswerResponse> save(
         UriComponentsBuilder uriBuilder,
         @PathVariable(name = "interviewId") Long interviewId,
-        @Valid @RequestBody PreAnswerRequest preAnswerRequest
+        @Valid @RequestBody SavePreAnswerRequest preAnswerRequest
     ){
         URI uri = uriBuilder.path("/api/interviews/{interviewId}/pre-answers").buildAndExpand(interviewId).toUri();
         PreAnswerResponse response = new PreAnswerResponse(interviewId, preAnswerRequest.getContent(), new UserResponse(10L, "리액트개발자"), LocalDateTime.now());
@@ -54,7 +55,7 @@ public class PreAnswerController {
     @PatchMapping("/{preAnswerId}")
     public ResponseEntity<PreAnswerResponse> update(
             @PathVariable(name = "interviewId") Long interviewId,
-            @Valid @RequestBody PreAnswerRequest preAnswerRequest
+            @Valid @RequestBody UpdatePreAnswerRequest preAnswerRequest
     ){
         PreAnswerResponse response = new PreAnswerResponse(interviewId, preAnswerRequest.getContent(), new UserResponse(11L, "노드개발자"), LocalDateTime.now());
         return ResponseEntity.ok(response);
