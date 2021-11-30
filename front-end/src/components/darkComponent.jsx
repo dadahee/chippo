@@ -6,8 +6,8 @@ import { FaSun, FaMoon } from "react-icons/fa"
 import { Flex, Spacer } from '@chakra-ui/layout';
 
 function DarkModeComponent(){
+
     const { colorMode, toggleColorMode } = useColorMode();
-    
     const isDark = colorMode === "dark";
 
     return (
