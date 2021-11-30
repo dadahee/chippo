@@ -7,6 +7,7 @@ import {
 
 import Home from './pages/home.jsx';
 import Login from './pages/login.jsx';
+import InterviewList from './pages/interviewList.jsx';
 
 import ChippoHeader from './components/header.jsx';
 
@@ -18,12 +19,12 @@ import ChippoHeader from './components/header.jsx';
 function App(){
     return (
         <Router>
-
             <ChippoHeader />
             <Routes>
                 <Route path = "/login" element = {<Login />} />
                 <Route path = "/" element = {<Home />} />
                 <Route path = "/username" element = {<Home />} />
+                <Route path = "/:name" element = {<InterviewList />}/>
             </Routes>
             
         </Router>   
