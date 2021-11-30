@@ -7,11 +7,20 @@ import { Section } from '../components/theme/common.style.js';
 
 function Home(){
     const tabList = ["기업별", "스택별", "직무별"];
-    // const [imgJson, setimgJson] = useState({});
 
-    useEffect(() => {
-        // setimgJson(homeTabDummy[0]);
-    })
+    const [ companyImages, setcompanyImages ] = useState([
+        "kakao.png", 
+        "naver.png", 
+        "deliver.png", 
+        "line.png", 
+        "coupang.png"
+    ]) 
+
+    const [ stackImages, setstackImage ] = useState([]);
+
+    const [ jobImages, setjobImage ] = useState([]); 
+
+    useEffect(() => {})
 
     return (
         <Section >
@@ -30,7 +39,14 @@ function Home(){
                 <TabPanels bg = "white">
                     {
                         tabList.map((tab) => {
-                            return <TabPanel><p>{tab}</p></TabPanel>
+                            return (
+                                <TabPanel>
+                                    { tab === "기업별" && <HomeTabPanel images = {companyImages}/> }
+                                    { tab === "스택별" && <HomeTabPanel images = {stackImages}/> }
+                                    { tab === "직무별" && <HomeTabPanel images = {jobImages}/> }
+                                </TabPanel>
+                            )
+                                
                         })
                     }
                 </TabPanels>
@@ -40,18 +56,22 @@ function Home(){
     )
 }
 
-function HomeTabPanel(){
-    
+function HomeTabPanel({ images }){
     return (
         <SimpleGrid columns = {3} spacing = {8} minChildWidth = "30%">
-            {/* <Image 
-                objectFit="contain" 
-                htmlHeight = "200px"
-                htmlWidth = "300px"
-                src= {process.env.PUBLIC_URL + kakao.카카오이미지} 
-                alt="chippo_logo" 
-            /> */}
-
+            {
+                images.map((img) => {
+                    return (
+                        <Image 
+                            objectFit="contain" 
+                            htmlHeight = "200px"
+                            htmlWidth = "300px"
+                            src= {process.env.PUBLIC_URL + `img/company/${img}`} 
+                            alt="chippo_logo" 
+                        />
+                    )
+                })
+            }
         </SimpleGrid>
     )
 }
