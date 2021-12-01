@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useParams } from 'react-router';
 
-import { Center, Box, VStack, Textarea, Container, Button, Spacer } from "@chakra-ui/react"
+import { Center, Box, VStack, Textarea, Container, Button } from "@chakra-ui/react"
 
 import { interviewList } from "../data.js";
 import { SectionUseBox, SectionUseText } from '../components/theme/common.style.js';
@@ -15,6 +15,7 @@ function CardNewsAnswer(){
     })
 
     const { answer, addInfo } = choiceInterview.answer_context.ownWriter;
+    const commentList = choiceInterview.answer_context.other;
 
     return (
         <div>
@@ -56,6 +57,33 @@ function CardNewsAnswer(){
                     </VStack>
                 </Center>
             </SectionUseText>
+
+            <SectionUseText>
+                <Center>
+                    <VStack w = "80%" spacing = {4}>
+                        <Box w = "100%">
+                        {
+                            commentList.map(comment => {
+                                return (
+                                    <>
+                                        <Container mt = {4} maxW='container.xl' fontWeight = "bold"> 
+                                            {comment.user} 
+                                        </Container>
+                                        <Box color = "#5078E7" 
+                                            mt = {4} borderLeft = "5px solid #E6F0FF"  p = "20px" 
+                                        > { comment.data }
+                                        </Box>
+                                    </>
+                                )
+                            })
+                        }
+                            
+                        </Box>
+                    </VStack>
+                </Center>
+            </SectionUseText>
+
+            
         </div>
     )
 }
