@@ -41,7 +41,7 @@ public class OAuthAttributes {
     public User toEntity() {
         return User.builder()
                 .email(email)
-                .password("chippo")
+                .password("chippo") // 암호화 필요
                 .nickname(nickname)
                 .role(Role.USER)
                 .provider(Provider.GOOGLE)
