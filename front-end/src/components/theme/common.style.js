@@ -26,8 +26,16 @@ const LoginTitle = styled.div`
     padding-top : 2em; 
 `
 
+const SectionUseBox = styled.section`
+    color : #5078E7;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-weight: bold;
+    font-size : 32px;
+`
+
 export {
     Header,
     Section,
     LoginTitle,
+    SectionUseBox,
 }
