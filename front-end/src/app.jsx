@@ -9,6 +9,7 @@ import Home from './pages/home.jsx';
 import Login from './pages/login.jsx';
 import InterviewList from './pages/interviewList.jsx';
 import CardNews from './pages/cardNews.jsx';
+import CardNewsAnswer from './pages/cardNewsAnswer.jsx';
 
 import ChippoHeader from './components/header.jsx';
 
@@ -28,6 +29,7 @@ function App(){
                 <Route path = "/username" element = {<Home />} />
                 <Route path = "/:name" element = {<InterviewList />} /> 
                 <Route path = "/:name/:interviewId" element = {<CardNews />} />
+                <Route path = "/:name/:interviewId/answer" element = {<CardNewsAnswer />} />
             </Routes>
             
         </Router>   
