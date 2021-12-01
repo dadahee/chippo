@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 
-// import logo from './img/logo.png'
-
 const Header = styled.header`
     color : #5078E7;
     font-size : 32px;
