@@ -26,7 +26,8 @@ function App(){
                 <Route path = "/login" element = {<Login />} />
 
                 <Route path = "/username" element = {<Home />} />
-                <Route path = "/:name" element = {<InterviewList />} />
+                <Route path = "/:name" element = {<InterviewList />} /> 
+                <Route path = "/:name/:interviewId" element = {<CardNews />} />
             </Routes>
             
         </Router>   

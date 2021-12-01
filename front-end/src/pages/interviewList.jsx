@@ -1,6 +1,6 @@
 import React, { useState }  from 'react';
 import { Center, Box, VStack } from "@chakra-ui/react"
-import { useParams, Route, Routes, Link } from "react-router-dom";
+import { useParams, Link, } from "react-router-dom";
 
 import { Section } from '../components/theme/common.style.js';
 import CardNews from "./cardNews.jsx";
@@ -37,7 +37,7 @@ function InterviewList(){
                                         pl = "10px" display = "flex" alignItems = "center"
                                         border = "5px solid #E6F0FF"
                                     >
-                                        <Link to = {interview._id}  >{interview.context}</Link>
+                                        <Link to = {JSON.stringify(interview._id)}>{interview.context}</Link>
                                     </Box>   
                                     
                                     
