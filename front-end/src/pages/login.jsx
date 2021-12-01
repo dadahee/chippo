@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useNavigate , useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button, HStack, Image, Center, VStack } from "@chakra-ui/react";
 
 import { LoginTitle } from '../components/theme/common.style.js';

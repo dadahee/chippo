@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 import { Center, Box, VStack, Button, Textarea, HStack, Spacer } from "@chakra-ui/react"
 
@@ -16,6 +17,11 @@ import { SectionUseBox } from '../components/theme/common.style.js';
 
 function CardNews(){
     const params = useParams();
+    const navigator = useNavigate();
+
+    const linkToAnswerEvent = () => {
+        navigator("answer");
+    }
 
     const choiceInterview = interviewList.find(interview =>{
         return interview._id === parseInt(params.interviewId)
@@ -44,8 +50,18 @@ function CardNews(){
                 <Center>
                     <HStack w = "80%" spacing = {4} mt = {5}>
                         <Spacer />
-                        <Button w = "250px" variant = "normal">작성자 답변 보기</Button>
-                        <Button w = "250px" variant = "normal">내 답변 제출하기</Button>
+                        <Button 
+                            w = "250px" variant = "normal"
+                            onClick = {linkToAnswerEvent}
+                        >
+                            작성자 답변 보기
+                        </Button>
+                        <Button 
+                            w = "250px" variant = "normal"
+                            onClick = {linkToAnswerEvent}
+                        >
+                            내 답변 제출하기
+                        </Button>
                     </HStack>
                 </Center>
             </SectionUseBox>
