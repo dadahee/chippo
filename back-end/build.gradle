@@ -30,8 +30,13 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+
+	// https://mvnrepository.com/artifact/com.github.ulisesbocchio/jasypt-spring-boot-starter
+	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3'
+
 }
 
 test {
 	useJUnitPlatform()
+	systemProperty "jasypt.encryptor.password", project.getProperties().get("jasypt.encryptor.password")
 }
