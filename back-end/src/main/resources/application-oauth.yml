@@ -1,0 +1,11 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ENC(Yh4NfpYX/m/CUIjlvCp4jWYZJSWIonC+Zz7353CsUMtY7g+IG+ChwkHaOrN0eezLM4rYTzC0x57tNa++ucZdIYuqdLpa3oksWUZCLcAOX+si8BxDU3p17A==)
+            client-secret: ENC(RtH+i0aunIgmy12FXe61+CObZpfdCNCoJy7k9FJRozUg+EhLySkn+dnbpaG7y+ZY)
+            scope:
+              - email
+              - profile
