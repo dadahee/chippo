@@ -30,7 +30,13 @@ const SectionUseBox = styled.section`
     color : #5078E7;
     font-family: 'IBM Plex Sans KR', sans-serif;
     font-weight: bold;
-    font-size : 32px;
+    font-size : 24px;
+`
+
+const SectionUseText = styled.section`
+    color : #5078E7;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-size : 16px;
 `
 
 export {
@@ -38,4 +44,5 @@ export {
     Section,
     LoginTitle,
     SectionUseBox,
+    SectionUseText,
 }
