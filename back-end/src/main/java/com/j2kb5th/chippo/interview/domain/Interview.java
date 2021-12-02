@@ -46,7 +46,7 @@ public class Interview extends BaseTimeEntity {
     private List<InterviewTag> interviewTags = new ArrayList<>();
 
     @OneToMany(mappedBy = "interview", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Thumb> likes = new ArrayList<>();
+    private List<Thumb> thumbs = new ArrayList<>();
 
     @OneToMany(mappedBy = "interview", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
