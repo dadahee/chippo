@@ -25,25 +25,42 @@ public class OAuthAttributes {
     }
 
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
+
+        if ("naver".equals(registrationId)) {
+            return ofNaver("id", attributes);
+        }
         return ofGoogle(userNameAttributeName, attributes);
     }
 
+    private static OAuthAttributes ofNaver(String userNameAttributeName, Map<String, Object> attributes) {
+        Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+
+        return OAuthAttributes.builder()
+                .email((String) response.get("email"))
+                .nickname("naver_" + response.get("nickname"))
+                .attributes(response)
+                .nameAttributeKey(userNameAttributeName)
+                .build();
+    }
+
     private static OAuthAttributes ofGoogle(String userNameAttributeName, Map<String, Object> attributes) {
-        System.out.println(attributes.toString());
+
         return OAuthAttributes.builder()
                 .email((String) attributes.get("email"))
-                .nickname("google_" + attributes.get("given_name"))
+                .nickname("google_" + attributes.get("name"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
 
     public User toEntity() {
+        Provider provider = nameAttributeKey.equals("sub") ? Provider.GOOGLE : Provider.NAVER;
+
         return User.builder()
                 .email(email)
                 .nickname(nickname)
                 .role(Role.USER)
-                .provider(Provider.GOOGLE)
+                .provider(provider)
                 .build();
     }
 }
