@@ -38,10 +38,6 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private Provider provider;
 
-    @ColumnDefault("1")
-    @Column(nullable = false)
-    private boolean activated;
-
     @ColumnDefault("0")
     @Column(nullable = false)
     private boolean deleted;
