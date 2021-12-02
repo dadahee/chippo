@@ -17,8 +17,5 @@ public class CommentRequest {
     @NotNull
     private String content;
 
-    @NotNull
-    private Long parentId;
-
     // toEntity 삽입
 }

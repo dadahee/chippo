@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 public class InterviewCommentResponse {
 
     private final Long id;
-    private final Long parentId;
     private final UserResponse user;
     private final String content;
 
@@ -24,7 +23,6 @@ public class InterviewCommentResponse {
     public InterviewCommentResponse(Comment comment) {
         this.id = comment.getId();
         this.user = new UserResponse(comment.getUser());
-        this.parentId = comment.getParent().getId(); // 수정 필요
         this.content = comment.getContent();
         this.updatedAt = comment.getUpdatedAt();
     }

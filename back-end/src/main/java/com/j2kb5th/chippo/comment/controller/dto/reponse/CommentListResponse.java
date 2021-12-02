@@ -5,10 +5,10 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class CommentsResponse {
+public class CommentListResponse {
     private final List<CommentResponse> comments;
 
-    public CommentsResponse(List<CommentResponse> comments) {
+    public CommentListResponse(List<CommentResponse> comments) {
         this.comments = comments;
     }
 }

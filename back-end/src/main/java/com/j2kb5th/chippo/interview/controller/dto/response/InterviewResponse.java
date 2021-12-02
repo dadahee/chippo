@@ -19,7 +19,7 @@ public class InterviewResponse {
     private final String question;
 
     private final List<InterviewTagDetailResponse> interviewTags;
-    private final Long likeCount;
+    private final Long thumbCount;
 
     @JsonFormat(pattern = "yyyy-NN-dd`T`HH:mm:ss", timezone = "Asia/Seoul")
     private final LocalDateTime updatedAt;
@@ -29,7 +29,7 @@ public class InterviewResponse {
         this.user = new UserResponse(interview.getUser());
         this.question = interview.getQuestion();
         this.interviewTags = interview.getInterviewTags().stream().map(InterviewTagDetailResponse::new).collect(Collectors.toList());
-        this.likeCount = interview.getThumbs().stream().count();
+        this.thumbCount = interview.getThumbs().stream().count();
         this.updatedAt = interview.getUpdatedAt();
     }
 }

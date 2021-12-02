@@ -4,7 +4,6 @@ import com.j2kb5th.chippo.global.controller.dto.UserResponse;
 import com.j2kb5th.chippo.preanswer.controller.dto.request.SavePreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.controller.dto.request.UpdatePreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.controller.dto.response.PreAnswerResponse;
-import com.j2kb5th.chippo.preanswer.controller.dto.response.PreAnswersResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,36 +12,29 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/interviews/{interviewId}/pre-answers")
 @RestController
 public class PreAnswerController {
 
-    @GetMapping
-    public ResponseEntity<PreAnswersResponse> find(
+    // 현재는 interview 조회 시 preanswer도 있으면 동시에 전달
+    // 혹시 몰라 단건 조회도 첨부
+    @GetMapping("/{preAnswerId}")
+    public ResponseEntity<PreAnswerResponse> findPreAnswer(
         @PathVariable(name = "interviewId") Long interviewId
     ){
-        List<PreAnswerResponse> preAnswers = new ArrayList<>();
-        preAnswers.add(new PreAnswerResponse(
+        PreAnswerResponse testPreAnswer = new PreAnswerResponse(
                 interviewId,
                 "저는 말하는 감자라 모르겠어요..",
                 new UserResponse(9L, "말하는감자"),
                 LocalDateTime.now()
-        ));
-        preAnswers.add(new PreAnswerResponse(
-                interviewId,
-                "저는 말하는 고구마라 알지만 비밀이에요...",
-                new UserResponse(10L, "말하는고구마"),
-                LocalDateTime.now()
-        ));
-        return ResponseEntity.ok(new PreAnswersResponse(preAnswers));
+        );
+        return ResponseEntity.ok(testPreAnswer);
     }
 
     @PostMapping
-    public ResponseEntity<PreAnswerResponse> save(
+    public ResponseEntity<PreAnswerResponse> savePreAnswer(
         UriComponentsBuilder uriBuilder,
         @PathVariable(name = "interviewId") Long interviewId,
         @Valid @RequestBody SavePreAnswerRequest preAnswerRequest
@@ -53,7 +45,7 @@ public class PreAnswerController {
     }
 
     @PatchMapping("/{preAnswerId}")
-    public ResponseEntity<PreAnswerResponse> update(
+    public ResponseEntity<PreAnswerResponse> updatePreAnswer(
             @PathVariable(name = "interviewId") Long interviewId,
             @Valid @RequestBody UpdatePreAnswerRequest preAnswerRequest
     ){
@@ -62,7 +54,7 @@ public class PreAnswerController {
     }
 
     @DeleteMapping("/{preAnswerId}")
-    public ResponseEntity<Void> delete(
+    public ResponseEntity<Void> deletePreAnswer(
             @PathVariable(name = "interviewId") Long interviewId,
             @PathVariable(name = "preAnswerId") Long preAnswerId
     ){

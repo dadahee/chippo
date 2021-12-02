@@ -4,14 +4,14 @@ import com.j2kb5th.chippo.global.domain.BaseTimeEntity;
 import com.j2kb5th.chippo.interview.domain.Interview;
 import com.j2kb5th.chippo.user.domain.User;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@DynamicInsert
+@DynamicUpdate
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 @Getter
 @Entity
 public class Comment extends BaseTimeEntity {
@@ -31,7 +31,11 @@ public class Comment extends BaseTimeEntity {
     @JoinColumn(name = "interview_id", nullable = false)
     private Interview interview;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
-    private Comment parent;
+    @Builder
+    public Comment(Long id, User user, String content, Interview interview) {
+        this.id = id;
+        this.user = user;
+        this.content = content;
+        this.interview = interview;
+    }
 }

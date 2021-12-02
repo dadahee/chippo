@@ -26,11 +26,7 @@ public class UpdateInterviewRequest {
     private String answer;
 
     @Size(max = 300)
-    @NotNull
     private String extraInfo;
-
-    @NotNull
-    private boolean visible;
 
     private List<UpdateInterviewTagDetailRequest> interviewTags;
 

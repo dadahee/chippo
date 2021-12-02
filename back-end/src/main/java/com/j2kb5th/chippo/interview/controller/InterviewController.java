@@ -7,7 +7,6 @@ import com.j2kb5th.chippo.interview.controller.dto.request.UpdateInterviewReques
 import com.j2kb5th.chippo.interview.controller.dto.request.UpdateInterviewTagDetailRequest;
 import com.j2kb5th.chippo.interview.controller.dto.response.*;
 import com.j2kb5th.chippo.interview.service.InterviewService;
-import com.j2kb5th.chippo.tag.domain.InterviewTag;
 import com.j2kb5th.chippo.tag.domain.TagType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +31,9 @@ public class InterviewController {
             @PathVariable(name = "interviewId") Long interviewId
     ){
         List<InterviewCommentResponse> testComments = new ArrayList<>();
-        testComments.add(new InterviewCommentResponse(1L, null, new UserResponse(123L, "카카오꿈나무"),
+        testComments.add(new InterviewCommentResponse(1L, new UserResponse(123L, "카카오꿈나무"),
                 "헉 정말 좋은 답변이네요!", LocalDateTime.now()));
-        testComments.add(new InterviewCommentResponse(2L, null, new UserResponse(123L, "배민에서 탈주한 사람"),
+        testComments.add(new InterviewCommentResponse(2L, new UserResponse(123L, "배민에서 탈주한 사람"),
                 "여기저기거기에서 본 면접 질문과 비슷하네요.", LocalDateTime.now()));
 
         List<InterviewTagDetailResponse> testTags = new ArrayList<>();
@@ -47,17 +46,17 @@ public class InterviewController {
                 "카카오 1024번 공채 면접 질문 1번: 프로그래밍을 왜 시작했나요?",
                 "어려서부터 컴퓨터 게임을 좋아했고 어쩌구저쩌구 중학교 때 C언어의 매력에 어쩌구",
                 "면접 분위기가 굉장히 유한 편이었고 면접관분들 모두 친절하셨어요",
-                true,
+                null,
+                new InterviewThumbResponse(true, 12L),
                 testTags,
                 testComments,
-                3L,
                 LocalDateTime.now()
         ));
     }
 
 
     @GetMapping
-    public ResponseEntity<InterviewsResponse> findInterviewsByTag(
+    public ResponseEntity<InterviewListResponse> findInterviewsByTag(
             @RequestParam(name = "tag_name") String tagName,
             @RequestParam(name = "tag_type") String tagType,
             @RequestParam(name = "size") Long size
@@ -95,7 +94,7 @@ public class InterviewController {
         );
 
         List<InterviewResponse> testInterviews = new ArrayList<>(Arrays.asList(testInterview, testInterview2, testInterview3));
-        return ResponseEntity.ok(new InterviewsResponse(testInterviews));
+        return ResponseEntity.ok(new InterviewListResponse(testInterviews));
     }
 
 
@@ -117,10 +116,10 @@ public class InterviewController {
                 interviewRequest.getQuestion(),
                 interviewRequest.getAnswer(),
                 interviewRequest.getExtraInfo(),
-                interviewRequest.isVisible(),
+                null,
+                new InterviewThumbResponse(true, 9L),
                 testTags,
                 null,
-                0L,
                 LocalDateTime.now()
         );
 
@@ -135,9 +134,9 @@ public class InterviewController {
             @RequestBody UpdateInterviewRequest interviewRequest
     ){
         List<InterviewCommentResponse> testComments = new ArrayList<>();
-        testComments.add(new InterviewCommentResponse(1L, null, new UserResponse(123L, "카카오꿈나무"),
+        testComments.add(new InterviewCommentResponse(1L, new UserResponse(123L, "카카오꿈나무"),
                 "헉 정말 좋은 답변이네요!", LocalDateTime.now()));
-        testComments.add(new InterviewCommentResponse(2L, null, new UserResponse(123L, "배민에서 탈주한 사람"),
+        testComments.add(new InterviewCommentResponse(2L, new UserResponse(123L, "배민에서 탈주한 사람"),
                 "여기저기거기에서 본 면접 질문과 비슷하네요.", LocalDateTime.now()));
 
         List<InterviewTagDetailResponse> testTags = new ArrayList<>();
@@ -154,10 +153,10 @@ public class InterviewController {
                 interviewRequest.getQuestion(),
                 interviewRequest.getAnswer(),
                 interviewRequest.getExtraInfo(),
-                interviewRequest.isVisible(),
+                null,
+                new InterviewThumbResponse(false, 9L),
                 testTags,
                 testComments,
-                3L,
                 LocalDateTime.now()
         );
         return ResponseEntity.ok(testResponse);

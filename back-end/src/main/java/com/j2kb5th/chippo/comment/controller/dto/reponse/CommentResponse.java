@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor // dummy data용 임시 어노테이션 (로직 구현 후 제거)
 public class CommentResponse {
     private final Long id;
-    private final Long parentId;
     private final UserResponse user;
     private final String content;
 
@@ -22,7 +21,6 @@ public class CommentResponse {
     public CommentResponse(Comment comment) {
         this.id = comment.getId();
         this.user = new UserResponse(comment.getUser());
-        this.parentId = comment.getParent().getId(); // 수정 필요
         this.content = comment.getContent();
         this.updatedAt = comment.getUpdatedAt();
     }

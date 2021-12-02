@@ -38,10 +38,6 @@ public class Interview extends BaseTimeEntity {
     @Column(length = 300, nullable = false)
     private String extraInfo;
 
-    @ColumnDefault("1")
-    @Column(nullable = false)
-    private boolean visible;
-
     @OneToMany(mappedBy = "interview", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<InterviewTag> interviewTags = new ArrayList<>();
 
