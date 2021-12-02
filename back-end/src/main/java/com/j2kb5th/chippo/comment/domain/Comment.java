@@ -10,7 +10,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 
 @DynamicInsert
-@DynamicUpdate
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity

@@ -14,9 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @DynamicInsert
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 @Getter
 @Entity
 public class Interview extends BaseTimeEntity {
@@ -47,4 +45,15 @@ public class Interview extends BaseTimeEntity {
     @OneToMany(mappedBy = "interview", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
+    @Builder
+    public Interview(Long id, User user, String question, String answer, String extraInfo, List<InterviewTag> interviewTags, List<Thumb> thumbs, List<Comment> comments) {
+        this.id = id;
+        this.user = user;
+        this.question = question;
+        this.answer = answer;
+        this.extraInfo = extraInfo;
+        this.interviewTags = interviewTags;
+        this.thumbs = thumbs;
+        this.comments = comments;
+    }
 }
