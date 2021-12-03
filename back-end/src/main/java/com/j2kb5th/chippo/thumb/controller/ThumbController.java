@@ -1,6 +1,5 @@
 package com.j2kb5th.chippo.thumb.controller;
 
-import com.j2kb5th.chippo.thumb.controller.dto.request.ThumbRequest;
 import com.j2kb5th.chippo.thumb.controller.dto.response.CheckThumbResponse;
 import com.j2kb5th.chippo.thumb.controller.dto.response.ThumbResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +19,7 @@ public class ThumbController {
     @PostMapping("/thumbs")
     public ResponseEntity<ThumbResponse> saveThumb(
             UriComponentsBuilder uriBuilder,
-            @PathVariable(name = "interviewId") Long interviewId,
-            @Valid @RequestBody ThumbRequest thumbRequest
+            @PathVariable(name = "interviewId") Long interviewId
     ){
         ThumbResponse testResponse = new ThumbResponse((123L), LocalDateTime.now());
 
