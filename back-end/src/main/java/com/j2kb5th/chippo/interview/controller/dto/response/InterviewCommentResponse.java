@@ -21,6 +21,7 @@ public class InterviewCommentResponse {
     private final LocalDateTime updatedAt;
 
     public InterviewCommentResponse(Comment comment) {
+        // 예외처리
         this.id = comment.getId();
         this.user = new UserResponse(comment.getUser());
         this.content = comment.getContent();

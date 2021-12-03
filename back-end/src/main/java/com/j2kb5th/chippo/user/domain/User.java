@@ -43,7 +43,7 @@ public class User extends BaseTimeEntity {
     private boolean deleted;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Thumb> likes = new ArrayList<>();
+    private List<Thumb> thumbs = new ArrayList<>();
 
     @Builder
     public User(String email, String password, String nickname, Role role, Provider provider) {
