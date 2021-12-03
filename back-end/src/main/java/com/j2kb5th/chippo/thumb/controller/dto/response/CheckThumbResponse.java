@@ -8,11 +8,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CheckThumbResponse {
 
-    private final boolean thumbsUp;
+    private final boolean clicked;
     private final ThumbResponse thumb;
 
-    public CheckThumbResponse(boolean thumbsUp, Thumb thumb) {
-        this.thumbsUp = thumbsUp;
+    public CheckThumbResponse(boolean clicked, Thumb thumb) {
+        this.clicked = clicked;
         this.thumb = new ThumbResponse(thumb);
     }
 }
