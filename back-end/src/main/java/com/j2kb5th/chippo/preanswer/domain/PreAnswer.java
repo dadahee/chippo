@@ -7,9 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 @Getter
 @Entity
 public class PreAnswer extends BaseTimeEntity {
@@ -29,4 +27,11 @@ public class PreAnswer extends BaseTimeEntity {
     @JoinColumn(name = "interview_id", nullable = false)
     private Interview interview;
 
+    @Builder
+    public PreAnswer(Long id, String content, User user, Interview interview) {
+        this.id = id;
+        this.content = content;
+        this.user = user;
+        this.interview = interview;
+    }
 }
