@@ -37,7 +37,9 @@ public class InterviewDetailResponse {
         this.extraInfo = interview.getExtraInfo();
         this.preAnswer = new InterviewPreAnswerResponse(preAnswer);
         this.thumb = new InterviewThumbResponse(thumbClicked, interview.getThumbs().stream().count());
-        this.interviewTags = interview.getInterviewTags().stream().map(InterviewTagDetailResponse::new).collect(Collectors.toList());
+        this.interviewTags = interview.getInterviewTags().stream()
+                .map((interviewTag) -> new InterviewTagDetailResponse(interviewTag.getTag()))
+                .collect(Collectors.toList());
         this.comments = interview.getComments().stream().map(InterviewCommentResponse::new).collect(Collectors.toList());
         this.updatedAt = interview.getUpdatedAt();
     }

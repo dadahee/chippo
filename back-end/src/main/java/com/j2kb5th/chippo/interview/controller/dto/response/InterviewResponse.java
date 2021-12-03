@@ -28,7 +28,9 @@ public class InterviewResponse {
         this.id = interview.getId();
         this.user = new UserResponse(interview.getUser());
         this.question = interview.getQuestion();
-        this.interviewTags = interview.getInterviewTags().stream().map(InterviewTagDetailResponse::new).collect(Collectors.toList());
+        this.interviewTags = interview.getInterviewTags().stream()
+                .map((interviewTag) -> new InterviewTagDetailResponse(interviewTag.getTag()))
+                .collect(Collectors.toList());
         this.thumbCount = interview.getThumbs().stream().count();
         this.updatedAt = interview.getUpdatedAt();
     }
