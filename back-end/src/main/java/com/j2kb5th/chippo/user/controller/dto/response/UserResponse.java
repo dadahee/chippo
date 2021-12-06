@@ -1,5 +1,6 @@
 package com.j2kb5th.chippo.user.controller.dto.response;
 
+import com.j2kb5th.chippo.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,6 +16,12 @@ public class UserResponse {
         this.id = id;
         this.email = email;
         this.nickname = nickname;
+    }
+
+    public UserResponse(User user) {
+        this.id = user.getId();
+        this.email = user.getEmail();
+        this.nickname = user.getNickname();
     }
 
 }
