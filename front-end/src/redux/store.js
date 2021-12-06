@@ -1,6 +1,10 @@
-import { createStore } from 'redux';
-import loadHomeTagReducer from './homeTags/reducer.js';
+import logger from 'redux-logger';
+import { createStore, applyMiddleware } from 'redux';
 
-const store = createStore(loadHomeTagReducer);
+import rootReducer from './rootReducer.js';
+
+const middleware = [logger];
+
+const store = createStore(loadHomeTagReducer, applyMiddleware(...middleware));
 
 export default store;
