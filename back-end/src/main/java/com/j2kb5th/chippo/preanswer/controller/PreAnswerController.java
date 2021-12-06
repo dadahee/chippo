@@ -5,6 +5,7 @@ import com.j2kb5th.chippo.preanswer.controller.dto.request.SavePreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.controller.dto.request.UpdatePreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.controller.dto.response.PreAnswerResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class PreAnswerController {
             description = "현재는 기술면접 단건 조회 시 등록된 사전답안 게시글이 있다면 함께 전달됩니다. 혹시 몰라 추가해둔 API입니다.")
     @GetMapping("/{preAnswerId}")
     public ResponseEntity<PreAnswerResponse> findPreAnswer(
-        @PathVariable(name = "interviewId") Long interviewId
+        @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId
     ){
         PreAnswerResponse testPreAnswer = new PreAnswerResponse(
                 interviewId,
@@ -42,7 +43,7 @@ public class PreAnswerController {
     @PostMapping
     public ResponseEntity<PreAnswerResponse> savePreAnswer(
         UriComponentsBuilder uriBuilder,
-        @PathVariable(name = "interviewId") Long interviewId,
+        @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
         @Valid @RequestBody SavePreAnswerRequest preAnswerRequest
     ){
         URI uri = uriBuilder.path("/api/interviews/{interviewId}/pre-answers").buildAndExpand(interviewId).toUri();
@@ -53,8 +54,8 @@ public class PreAnswerController {
     @Operation(summary = "사전답안 수정", description = "id를 이용해 사전답안을 수정합니다.")
     @PatchMapping("/{preAnswerId}")
     public ResponseEntity<PreAnswerResponse> updatePreAnswer(
-            @PathVariable(name = "interviewId") Long interviewId,
-            @Valid @RequestBody UpdatePreAnswerRequest preAnswerRequest
+        @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
+        @Valid @RequestBody UpdatePreAnswerRequest preAnswerRequest
     ){
         PreAnswerResponse response = new PreAnswerResponse(interviewId, preAnswerRequest.getContent(), new UserResponse(11L, "노드개발자"), LocalDateTime.now());
         return ResponseEntity.ok(response);
@@ -63,8 +64,8 @@ public class PreAnswerController {
     @Operation(summary = "사전답안 삭제", description = "id를 이용해 사전답안을 삭제합니다.")
     @DeleteMapping("/{preAnswerId}")
     public ResponseEntity<Void> deletePreAnswer(
-            @PathVariable(name = "interviewId") Long interviewId,
-            @PathVariable(name = "preAnswerId") Long preAnswerId
+        @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
+        @Parameter(description = "사전답안 ID") @PathVariable(name = "preAnswerId") Long preAnswerId
     ){
         return ResponseEntity.noContent().build();
     }

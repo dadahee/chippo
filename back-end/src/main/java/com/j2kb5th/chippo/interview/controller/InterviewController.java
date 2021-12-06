@@ -9,6 +9,7 @@ import com.j2kb5th.chippo.interview.controller.dto.response.*;
 import com.j2kb5th.chippo.interview.service.InterviewService;
 import com.j2kb5th.chippo.tag.domain.TagType;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ public class InterviewController {
     @Operation(summary = "기술면접 단건 조회", description = "id를 이용하여 기술면접 게시글을 단건 조회합니다.")
     @GetMapping("/{interviewId}")
     public ResponseEntity<InterviewDetailResponse> findInterview(
-            @PathVariable(name = "interviewId") Long interviewId
+            @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId
     ){
         List<InterviewCommentResponse> testComments = new ArrayList<>();
         testComments.add(new InterviewCommentResponse(1L, new UserResponse(123L, "카카오꿈나무"),
@@ -138,7 +139,7 @@ public class InterviewController {
     @Operation(summary = "기술면접 수정", description = "id를 이용하여 기술면접 게시글을 수정합니다.")
     @PutMapping("/{interviewId}")
     public ResponseEntity<InterviewDetailResponse> updateInterview(
-            @PathVariable(name = "interviewId") Long interviewId,
+            @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
             @Valid @RequestBody UpdateInterviewRequest interviewRequest
     ){
         List<InterviewCommentResponse> testComments = new ArrayList<>();
@@ -173,7 +174,7 @@ public class InterviewController {
     @Operation(summary = "기술면접 삭제", description = "id를 이용해 기술면접 게시글을 삭제합니다. (실제 삭제)")
     @DeleteMapping("/{interviewId}")
     public ResponseEntity<Void> deleteInterview(
-            @PathVariable(name = "interviewId") Long interviewId
+            @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId
     ){
         return ResponseEntity.noContent().build();
     }
