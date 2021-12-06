@@ -11,8 +11,6 @@ import { Section } from '../components/theme/common.style.js';
 function Home(){
     const dispatch = useDispatch();
     const homeTags = useSelector(state => state);
-
-    console.log(homeTags);
     
     useEffect(() => {},[])
 
