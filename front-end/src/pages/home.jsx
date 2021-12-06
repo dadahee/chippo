@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { connect } from "react-redux";
 
 import { Link } from 'react-router-dom';
 
@@ -8,14 +8,23 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel, Image } from "@chakra-ui/react
 
 import { Section } from '../components/theme/common.style.js';
 
-function Home(){
-    const dispatch = useDispatch();
-    const homeTags = useSelector(state => state);
+import { fetchTags } from "../redux/indexAction.js"
+
+function Home({ fetchTags, loading, homeTags }){
     
-    useEffect(() => {},[])
+    useEffect(() => {
+        fetchTags();
+    },[])   
 
     return (
-        <Section >
+        <Section>
+            {
+                homeTags.map(tag => {
+                    return (<div>
+                        {JSON.stringify(tag.tabList)}
+                    </div>)
+                })
+            }
             {/* <Center>
                 <Tabs w= "80%" p = {4}>
                 <TabList 
@@ -78,5 +87,15 @@ function HomeTabPanel({ images, tab }){
     )
 }
 
+const mapStateToProps = ({ homeTags }) => { 
+    return {
+        homeTags : homeTags.items
+    }
+}
 
-export default Home;
+const mapDispatchToProps = {
+    fetchTags
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

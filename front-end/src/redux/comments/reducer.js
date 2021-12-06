@@ -1,8 +1,9 @@
 import { 
-    FETCH_TAGS_SUCCESS,
-    FETCH_TAGS_FAILURE,
-    FETCH_TAGS_REQEUST,
-} from './types.js';
+    FETCH_COMMENTS,
+    FETCH_COMMENTS_REQEUST,
+    FETCH_COMMENTS_SUCCESS,
+    FETCH_COMMENTS_FAILURE 
+} from "./types.js";
 
 const initialState = {
     items : [],
@@ -10,31 +11,31 @@ const initialState = {
     err : null,
 }
 
-const loadHomeTagReducer = (state = initialState, action) => {
+const commentsReducer = (state = initialState, action) => {
     switch(action.type){
-        case FETCH_TAGS_REQEUST:
+        case FETCH_COMMENTS_REQEUST:
             return {
                 ...state,
                 loading: true,
             }
         
-        case FETCH_TAGS_SUCCESS:
+        case FETCH_COMMENTS_SUCCESS:
             return {
                 ...state,
                 items: action.payload,
                 loading : false,
             }
         
-        case FETCH_TAGS_FAILURE:
+        case FETCH_COMMENTS_FAILURE:
             return {
                 ...state,
                 err: action.payload,
                 loading : false,
             }
-
+            
         default:
             return state;
     }
 }
 
-export default loadHomeTagReducer;
+export default commentsReducer;
