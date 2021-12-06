@@ -2,6 +2,7 @@ package com.j2kb5th.chippo.user.service;
 
 import com.j2kb5th.chippo.config.auth.dto.SessionUser;
 import com.j2kb5th.chippo.user.controller.dto.request.UpdateUserRequest;
+import com.j2kb5th.chippo.user.controller.dto.request.ValidateNicknameRequest;
 import com.j2kb5th.chippo.user.controller.dto.response.UserDetailResponse;
 import com.j2kb5th.chippo.user.controller.dto.response.UserResponse;
 import com.j2kb5th.chippo.user.domain.User;
@@ -42,6 +43,12 @@ public class UserServiceImpl implements UserService {
         findUser(user.getUserId()).get().delete();
 
         return user.getUserId();
+    }
+
+    @Override
+    public boolean validateNickname(ValidateNicknameRequest request) {
+
+        return userRepository.findByNickname(request.getNickname()).isPresent();
     }
 
     private Optional<User> findUser(Long userId) {

@@ -13,4 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM USER WHERE id = :id AND deleted <> true")
     Optional<User> findById(@Param("id") Long id);
+
+    Optional<User> findByNickname(String nickname); // 탈퇴한 회원의 닉네임도 중복 사용 불가
 }
