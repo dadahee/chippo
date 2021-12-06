@@ -10,4 +10,6 @@ public interface UserService {
     UserDetailResponse getUserDetail(SessionUser user);
 
     UserResponse update(SessionUser user, UpdateUserRequest request);
+
+    Long withdraw(SessionUser user);
 }

@@ -28,7 +28,7 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserDetail(user), HttpStatus.OK);
     }
 
-    @PatchMapping("/users/{userId}")
+    @PutMapping ("/users/{userId}")
     public ResponseEntity<UserResponse> updateUserInfo(@PathVariable Long userId, @LoginUser SessionUser user, @RequestBody UpdateUserRequest request) {
 
         if (user == null || user.getUserId() != userId) {
@@ -36,5 +36,14 @@ public class UserController {
         }
 
         return new ResponseEntity<>(userService.update(user, request), HttpStatus.OK);
+    }
+
+    @PatchMapping("/users/{userId}")
+    public ResponseEntity<Long> deleteUser(@PathVariable Long userId, @LoginUser SessionUser user) {
+
+        if (user == null || user.getUserId() != userId) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>(userService.withdraw(user), HttpStatus.OK);
     }
 }

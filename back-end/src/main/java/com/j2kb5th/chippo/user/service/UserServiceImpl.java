@@ -31,9 +31,17 @@ public class UserServiceImpl implements UserService {
     public UserResponse update(SessionUser user, UpdateUserRequest request) {
 
         return Optional.of(findUser(user.getUserId()).get()
-                .update(request.getNickname()))
+                        .update(request.getNickname()))
                 .map(u -> new UserResponse(u))
                 .get();
+    }
+
+    @Transactional
+    @Override
+    public Long withdraw(SessionUser user) {
+        findUser(user.getUserId()).get().delete();
+
+        return user.getUserId();
     }
 
     private Optional<User> findUser(Long userId) {
