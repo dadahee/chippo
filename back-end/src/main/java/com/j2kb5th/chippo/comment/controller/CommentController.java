@@ -80,7 +80,7 @@ public class CommentController {
         return ResponseEntity.created(uri).body(commentResponse);
     }
 
-    @Operation(summary = "댓글 수정", description = "id를 이용하여 댓글을 삭제합니다.")
+    @Operation(summary = "댓글 삭제", description = "id를 이용하여 댓글을 삭제합니다.")
     @DeleteMapping("/{commentId}")
     public ResponseEntity<Void> deleteComment(
             @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
