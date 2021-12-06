@@ -5,6 +5,9 @@ import com.j2kb5th.chippo.comment.controller.dto.reponse.CommentListResponse;
 import com.j2kb5th.chippo.comment.controller.dto.request.CommentRequest;
 import com.j2kb5th.chippo.comment.service.CommentService;
 import com.j2kb5th.chippo.global.controller.dto.UserResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Tag(name = "댓글(Comment)", description = "댓글 API")
 @RequiredArgsConstructor
 @RequestMapping("/api/interviews/{interviewId}/comments")
 @RestController
@@ -24,9 +28,11 @@ public class CommentController {
     private final CommentService commentService;
 
     // 페이지네이션 구현할 때만 필요
+    @Operation(summary = "댓글 목록 조회(임시용)",
+            description = "페이지네이션 기능 구현 시 필요한 댓글 목록 조회 기능입니다. 현재는 기술면접 조회 시 댓글 목록이 함께 리턴됩니다.")
     @GetMapping
     public ResponseEntity<CommentListResponse> findComments(
-        @PathVariable(name = "interviewId") Long interviewId
+        @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId
     ){
         //// find comments by interview id
         // commentService.findByInterviewId(interviewId);
@@ -56,10 +62,11 @@ public class CommentController {
         return ResponseEntity.ok(new CommentListResponse(comments));
     }
 
+    @Operation(summary = "댓글 저장", description = "요청된 정보를 댓글로 등록합니다.")
     @PostMapping
     public ResponseEntity<CommentResponse> saveComment(
             UriComponentsBuilder uriBuilder,
-            @PathVariable(name = "interviewId") Long interviewId,
+            @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
             @Valid @RequestBody CommentRequest commentRequest
     ){
         //// save comment & get entity to response
@@ -73,10 +80,11 @@ public class CommentController {
         return ResponseEntity.created(uri).body(commentResponse);
     }
 
+    @Operation(summary = "댓글 수정", description = "id를 이용하여 댓글을 삭제합니다.")
     @DeleteMapping("/{commentId}")
     public ResponseEntity<Void> deleteComment(
-            @PathVariable(name = "interviewId") Long interviewId,
-            @PathVariable(name = "commentId") Long commentId
+            @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
+            @Parameter(description = "댓글 ID") @PathVariable(name = "commentId") Long commentId
     ){
         //// delete comment
         // commentService.delete(interviewId, commentId);

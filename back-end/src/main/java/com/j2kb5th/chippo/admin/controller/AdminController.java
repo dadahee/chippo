@@ -7,6 +7,9 @@ import com.j2kb5th.chippo.global.controller.dto.UserResponse;
 import com.j2kb5th.chippo.tag.domain.TagType;
 import com.j2kb5th.chippo.user.domain.Provider;
 import com.j2kb5th.chippo.user.domain.Role;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +19,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Tag(name = "관리자(Admin)", description = "관리자 API")
 @RequiredArgsConstructor
 @RequestMapping("/api/admin")
 @RestController
 public class AdminController {
 
+    @Operation(summary = "전체 유저 조회", description = "전체 유저 정보를 조회합니다.")
     @GetMapping("/users")
     public ResponseEntity<AdminUserListResponse> findAllUsersWithAdmin(){
         List<AdminUserResponse> testUsers = new ArrayList<>();
@@ -43,9 +48,10 @@ public class AdminController {
         return ResponseEntity.ok(testUserListResponse);
     }
 
+    @Operation(summary = "유저 정보 수정", description = "id를 이용하여 유저 정보를 수정합니다.")
     @PutMapping("/users/{userId}")
     public ResponseEntity<UpdateAdminUserResponse> updateUserWithAdmin(
-            @PathVariable(name = "userId") Long userId,
+            @Parameter(description = "유저 ID") @PathVariable(name = "userId") Long userId,
             @Valid @RequestBody AdminUserRequest userRequest
     ){
         UpdateAdminUserResponse testUserResponse = new UpdateAdminUserResponse(123L, "개발곰발",
@@ -53,13 +59,15 @@ public class AdminController {
         return ResponseEntity.ok(testUserResponse);
     }
 
+    @Operation(summary = "유저 삭제", description = "id를 이용하여 유저를 삭제합니다(실제 삭제X, 삭제여부를 1로 변경)")
     @DeleteMapping("/users/{userId}")
     public ResponseEntity<Void> deleteUserWithAdmin(
-            @PathVariable(name = "userId") Long userId
+            @Parameter(description = "유저 ID") @PathVariable(name = "userId") Long userId
     ){
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "전체 기술면접 조회", description = "전체 기술면접 게시글 목록을 조회합니다.")
     @GetMapping("/interviews")
     public ResponseEntity<AdminInterviewListResponse> findAllInterviewsWithAdmin(){
         UserResponse testUser1 = new UserResponse(123L, "개발곰발");
@@ -115,9 +123,10 @@ public class AdminController {
         return ResponseEntity.ok(new AdminInterviewListResponse(testInterviews));
     }
 
+    @Operation(summary = "기술면접 정보 수정", description = "id를 이용하여 기술면접 정보를 수정합니다.")
     @PutMapping("/interviews/{interviewId}")
     public ResponseEntity<UpdateAdminInterviewResponse> updateInterviewWithAdmin(
-            @PathVariable(name = "interviewId") Long interviewId,
+            @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
             @Valid @RequestBody AdminInterviewRequest interviewRequest
     ){
         List<AdminTagDetailResponse> testTag1 = new ArrayList<>();
@@ -129,18 +138,18 @@ public class AdminController {
         testTag1.add(new AdminTagDetailResponse(1L, TagType.TECHSTACK, "java"));
 
         UpdateAdminInterviewResponse testInterviewResponse = new UpdateAdminInterviewResponse(
-                1111L,
+                interviewId,
                 testUser1,
-                "JVM의 정의와 장단점을 서술하세요", "JVM은 짱짱 멋진 것임",
-                "면접관님이 후드티 입음"
+                interviewRequest.getQuestion(), interviewRequest.getAnswer(),
+                interviewRequest.getExtraInfo()
         );
         return ResponseEntity.ok(testInterviewResponse);
     }
 
-
+    @Operation(summary = "기술면접 삭제", description = "id를 이용하여 기술면접 게시글을 삭제합니다(실제 삭제)")
     @DeleteMapping("/interviews/{interviewId}")
     public ResponseEntity<Void> deleteInterviewWithAdmin(
-            @PathVariable(name = "interviewId") Long interviewId
+            @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId
     ){
         return ResponseEntity.noContent().build();
     }

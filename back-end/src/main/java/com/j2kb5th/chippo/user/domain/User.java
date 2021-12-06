@@ -2,6 +2,7 @@ package com.j2kb5th.chippo.user.domain;
 
 import com.j2kb5th.chippo.global.domain.BaseTimeEntity;
 import com.j2kb5th.chippo.thumb.domain.Thumb;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
@@ -17,6 +18,7 @@ import java.util.List;
 @Getter
 @Entity
 public class User extends BaseTimeEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

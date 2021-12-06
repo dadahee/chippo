@@ -1,6 +1,7 @@
 package com.j2kb5th.chippo.tag.domain;
 
 import com.j2kb5th.chippo.interview.domain.Interview;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import javax.persistence.*;

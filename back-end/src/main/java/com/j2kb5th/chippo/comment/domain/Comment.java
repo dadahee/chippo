@@ -3,6 +3,7 @@ package com.j2kb5th.chippo.comment.domain;
 import com.j2kb5th.chippo.global.domain.BaseTimeEntity;
 import com.j2kb5th.chippo.interview.domain.Interview;
 import com.j2kb5th.chippo.user.domain.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
