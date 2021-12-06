@@ -7,35 +7,18 @@ import { Center, SimpleGrid } from '@chakra-ui/layout';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Image } from "@chakra-ui/react"
 
 import { Section } from '../components/theme/common.style.js';
-import { loadTags } from "../stores/tags.js"
 
 function Home(){
     const dispatch = useDispatch();
+    const homeTags = useSelector(state => state);
 
-    const [tabList, settabList] = useState(["company", "stack", "job"]);
-    const [companyImages, setcompanyImages] = useState([]);
-    const [stackImages, setstackImages] = useState([]);
-    const [jobImages, setjobImages] = useState([])
+    console.log(homeTags);
     
-    useEffect(() => {
-        const initState = {
-            tabList : ["company", "stack", "job"],
-            companyImages : [ "kakao", "naver", "deliver", "line", "coupang" ],
-            stackImages : [ "spring", "reactjs", "nodejs", "vuejs", "django" ],
-            jobImages : [ "front-end", "back-end", "android", "data-engineer", "ios"]  
-        }
-
-        const tags = dispatch(loadTags(initState)).payload;
-        
-        setcompanyImages(tags.companyImages);
-        setstackImages(tags.stackImages);
-        setjobImages(tags.jobImages)
-    },[])
-
+    useEffect(() => {},[])
 
     return (
         <Section >
-            <Center>
+            {/* <Center>
                 <Tabs w= "80%" p = {4}>
                 <TabList 
                     w = "100%" 
@@ -67,7 +50,7 @@ function Home(){
                     }
                 </TabPanels>
                 </Tabs>
-            </Center>
+            </Center> */}
         </Section>
     )
 }
