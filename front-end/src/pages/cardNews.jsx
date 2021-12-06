@@ -7,14 +7,6 @@ import { Center, Box, VStack, Button, Textarea, HStack, Spacer } from "@chakra-u
 import { interviewList } from "../data.js";
 import { SectionUseBox } from '../components/theme/common.style.js';
 
-// 오늘 아침 6시까지 
-// 1. 주관식 카드 내용
-// 2. 모범답안 + 유저 답안 리스트
-
-// 3. 마이 페이지
-// 4. 작성한 게시물 리스트
-// 5. 좋아요한 게시물
-
 function CardNews(){
     const params = useParams();
     const navigator = useNavigate();

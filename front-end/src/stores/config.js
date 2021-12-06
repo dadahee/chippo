@@ -1,18 +1,21 @@
 // 액션
-const increase = () => {
+export const loadTags = (state) => {
     return (
-        { type : "INCREASE" }
+        { type : "LOAD_TAGS", payload : state }
     )
 }
 
 const initState = {
-    number : 0,
+    tabList : [],
+    companyImages : [],
+    stackImages : [],
+    jobImages : [],  
 }
 
 const reducer = (state = initState, action) => {
     switch(action.type){
-        case "INCREASE":
-            return {number:state.number + 1};
+        case "LOAD_TAGS":
+            return { ...state };
         default:
             return state;
     }

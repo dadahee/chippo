@@ -1,39 +1,37 @@
-import React, { useEffect, useState , useRef } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { Link } from 'react-router-dom';
 
 import { Center, SimpleGrid } from '@chakra-ui/layout';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Image } from "@chakra-ui/react"
 
 import { Section } from '../components/theme/common.style.js';
+import { loadTags } from "../stores/config.js"
 
 function Home(){
-    const tabList = useRef(["company", "stack", "job"]);
+    const dispatch = useDispatch();
 
-    const [ companyImages, setcompanyImages ] = useState([
-        "kakao", 
-        "naver", 
-        "deliver", 
-        "line", 
-        "coupang"
-    ]) 
+    const [tabList, settabList] = useState(["company", "stack", "job"]);
+    const [companyImages, setcompanyImages] = useState([]);
+    const [stackImages, setstackImages] = useState([]);
+    const [jobImages, setjobImages] = useState([])
+    
+    useEffect(() => {
+        const initState = {
+            tabList : ["company", "stack", "job"],
+            companyImages : [ "kakao", "naver", "deliver", "line", "coupang" ],
+            stackImages : [ "spring", "reactjs", "nodejs", "vuejs", "django" ],
+            jobImages : [ "front-end", "back-end", "android", "data-engineer", "ios"]  
+        }
 
-    const [ stackImages, setstackImage ] = useState([
-        "spring",
-        "reactjs",
-        "nodejs",
-        "vuejs",
-        "django",
-    ]);
+        const tags = dispatch(loadTags(initState)).payload;
+        
+        setcompanyImages(tags.companyImages);
+        setstackImages(tags.stackImages);
+        setjobImages(tags.jobImages)
+    },[])
 
-    const [ jobImages, setjobImage ] = useState([
-        "front-end",
-        "back-end",
-        "Android",
-        "data-engineer",
-        "ios",
-    ]); 
-
-    useEffect(() => {})
 
     return (
         <Section >
@@ -44,7 +42,7 @@ function Home(){
                     h = "50px" 
                     bgGradient = "linear(to-r, #E6F0FF, #5078E7)" >
                     {
-                        tabList.current.map((tab) => {
+                        tabList.map((tab) => {
                             return (
                                 <Tab w = "100px">
                                     {tab === "company" && "기업별"}
@@ -57,7 +55,7 @@ function Home(){
                 </TabList>
                 <TabPanels bg = "white">
                     {
-                        tabList.current.map((tab) => {
+                        tabList.map((tab) => {
                             return (
                                 <TabPanel>
                                     { tab === "company" && <HomeTabPanel images = {companyImages} tab = {tab}/> }
