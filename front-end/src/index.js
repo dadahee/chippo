@@ -8,9 +8,9 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { theme } from "./components/theme/custom.js"
 
 import App from './app.jsx';
-import { reducer } from './stores/config.js'
+import { rootReducer } from './stores/config.js'
 
-const store = createStore(reducer);
+const store = createStore(rootReducer);
 
 ReactDOM.render(
     <Provider store = {store}>

@@ -1,26 +1,11 @@
-// 액션
-export const loadTags = (state) => {
-    return (
-        { type : "LOAD_TAGS", payload : state }
-    )
-}
+import { combineReducers } from 'redux';
 
-const initState = {
-    tabList : [],
-    companyImages : [],
-    stackImages : [],
-    jobImages : [],  
-}
+import tags from "./tags.js";
+import interviews from "./interview.js";
 
-const reducer = (state = initState, action) => {
-    switch(action.type){
-        case "LOAD_TAGS":
-            return { ...state };
-        default:
-            return state;
-    }
-}
+const rootReducer = combineReducers({
+    tags,
+    interviews,
+})
 
-export {
-    reducer
-}
+export { rootReducer }

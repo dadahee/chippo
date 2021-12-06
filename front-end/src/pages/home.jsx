@@ -7,7 +7,7 @@ import { Center, SimpleGrid } from '@chakra-ui/layout';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Image } from "@chakra-ui/react"
 
 import { Section } from '../components/theme/common.style.js';
-import { loadTags } from "../stores/config.js"
+import { loadTags } from "../stores/tags.js"
 
 function Home(){
     const dispatch = useDispatch();
