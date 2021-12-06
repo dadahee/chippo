@@ -1,10 +1,13 @@
 package com.j2kb5th.chippo.user.service;
 
 import com.j2kb5th.chippo.config.auth.dto.SessionUser;
+import com.j2kb5th.chippo.interview.controller.dto.response.InterviewListResponse;
 import com.j2kb5th.chippo.user.controller.dto.request.UpdateUserRequest;
 import com.j2kb5th.chippo.user.controller.dto.request.ValidateNicknameRequest;
 import com.j2kb5th.chippo.user.controller.dto.response.UserDetailResponse;
 import com.j2kb5th.chippo.user.controller.dto.response.UserResponse;
+import com.j2kb5th.chippo.user.controller.dto.response.UserRoleResponse;
+import com.j2kb5th.chippo.user.domain.Role;
 import com.j2kb5th.chippo.user.domain.User;
 import com.j2kb5th.chippo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +52,12 @@ public class UserServiceImpl implements UserService {
     public boolean validateNickname(ValidateNicknameRequest request) {
 
         return userRepository.findByNickname(request.getNickname()).isPresent();
+    }
+
+    @Override
+    public UserRoleResponse getUserRole(Long userId) {
+        // RoleKey -> ROLE_USER / Role -> USER
+        return findUser(userId).map(user -> new UserRoleResponse(user.getRole())).get();
     }
 
     private Optional<User> findUser(Long userId) {
