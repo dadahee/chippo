@@ -5,6 +5,7 @@ import com.j2kb5th.chippo.global.domain.BaseTimeEntity;
 import com.j2kb5th.chippo.thumb.domain.Thumb;
 import com.j2kb5th.chippo.tag.domain.InterviewTag;
 import com.j2kb5th.chippo.user.domain.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;

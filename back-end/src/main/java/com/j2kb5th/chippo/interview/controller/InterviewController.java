@@ -8,11 +8,15 @@ import com.j2kb5th.chippo.interview.controller.dto.request.UpdateInterviewTagDet
 import com.j2kb5th.chippo.interview.controller.dto.response.*;
 import com.j2kb5th.chippo.interview.service.InterviewService;
 import com.j2kb5th.chippo.tag.domain.TagType;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,15 +24,17 @@ import java.util.Arrays;
 import java.util.List;
 
 
+@Tag(name = "기술면접(Interview)", description = "기술면접 API")
 @RequiredArgsConstructor
 @RequestMapping("/api/interviews")
 @RestController
 public class InterviewController {
     private final InterviewService interviewService;
 
+    @Operation(summary = "기술면접 단건 조회", description = "id를 이용하여 기술면접 게시글을 단건 조회합니다.")
     @GetMapping("/{interviewId}")
     public ResponseEntity<InterviewDetailResponse> findInterview(
-            @PathVariable(name = "interviewId") Long interviewId
+            @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId
     ){
         List<InterviewCommentResponse> testComments = new ArrayList<>();
         testComments.add(new InterviewCommentResponse(1L, new UserResponse(123L, "카카오꿈나무"),
@@ -55,6 +61,8 @@ public class InterviewController {
     }
 
 
+    @Operation(summary = "태그 정보로 기술면접 목록 조회",
+            description = "태그명(tag_name), 태그타입(tag_type), 요청할 최대 게시글수(size)를 이용해 기술면접 목록을 조회합니다.")
     @GetMapping
     public ResponseEntity<InterviewListResponse> findInterviewsByTag(
             @RequestParam(name = "tag_name") String tagName,
@@ -97,11 +105,11 @@ public class InterviewController {
         return ResponseEntity.ok(new InterviewListResponse(testInterviews));
     }
 
-
+    @Operation(summary = "기술면접 저장", description = "요청한 정보를 기술면접 게시글로 등록합니다.")
     @PostMapping
     public ResponseEntity<InterviewDetailResponse> saveInterview(
             UriComponentsBuilder uriBuilder,
-            @RequestBody SaveInterviewRequest interviewRequest
+            @Valid @RequestBody SaveInterviewRequest interviewRequest
     ){
         List<InterviewTagDetailResponse> testTags = new ArrayList<>();
         List<SaveInterviewTagDetailRequest> tags = interviewRequest.getInterviewTags();
@@ -128,10 +136,11 @@ public class InterviewController {
     }
 
 
-    @PutMapping
+    @Operation(summary = "기술면접 수정", description = "id를 이용하여 기술면접 게시글을 수정합니다.")
+    @PutMapping("/{interviewId}")
     public ResponseEntity<InterviewDetailResponse> updateInterview(
-            @PathVariable(name = "interviewId") Long interviewId,
-            @RequestBody UpdateInterviewRequest interviewRequest
+            @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
+            @Valid @RequestBody UpdateInterviewRequest interviewRequest
     ){
         List<InterviewCommentResponse> testComments = new ArrayList<>();
         testComments.add(new InterviewCommentResponse(1L, new UserResponse(123L, "카카오꿈나무"),
@@ -162,9 +171,10 @@ public class InterviewController {
         return ResponseEntity.ok(testResponse);
     }
 
-    @DeleteMapping
+    @Operation(summary = "기술면접 삭제", description = "id를 이용해 기술면접 게시글을 삭제합니다. (실제 삭제)")
+    @DeleteMapping("/{interviewId}")
     public ResponseEntity<Void> deleteInterview(
-            @PathVariable(name = "interviewId") Long interviewId
+            @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId
     ){
         return ResponseEntity.noContent().build();
     }
