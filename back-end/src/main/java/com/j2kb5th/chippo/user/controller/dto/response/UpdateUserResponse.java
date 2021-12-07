@@ -8,13 +8,13 @@ import lombok.Getter;
 @AllArgsConstructor
 @Builder
 @Getter
-public class UserUpdateResponse {
+public class UpdateUserResponse {
 
     private final Long id;
     private final String email;
     private final String nickname;
 
-    public UserUpdateResponse(User user) {
+    public UpdateUserResponse(User user) {
         this.id = user.getId();
         this.email = user.getEmail();
         this.nickname = user.getNickname();

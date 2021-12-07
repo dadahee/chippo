@@ -18,7 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                 .authorizeRequests()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 public class UpdateUserRequest {
 
     @NotBlank
+    @Size(min = 3, max = 20)
     private String nickname;
 
 }

@@ -5,7 +5,7 @@ import com.j2kb5th.chippo.config.auth.dto.SessionUser;
 import com.j2kb5th.chippo.user.controller.dto.request.UpdateUserRequest;
 import com.j2kb5th.chippo.user.controller.dto.request.ValidateNicknameRequest;
 import com.j2kb5th.chippo.user.controller.dto.response.UserDetailResponse;
-import com.j2kb5th.chippo.user.controller.dto.response.UserUpdateResponse;
+import com.j2kb5th.chippo.user.controller.dto.response.UpdateUserResponse;
 import com.j2kb5th.chippo.user.controller.dto.response.UserRoleResponse;
 import com.j2kb5th.chippo.user.controller.dto.response.ValidateNicknameResponse;
 import com.j2kb5th.chippo.user.service.UserService;
@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{userId}")
-    public ResponseEntity<UserUpdateResponse> updateUserInfo(
+    public ResponseEntity<UpdateUserResponse> updateUserInfo(
             @PathVariable Long userId,
             @LoginUser SessionUser user,
             @Valid @RequestBody UpdateUserRequest request

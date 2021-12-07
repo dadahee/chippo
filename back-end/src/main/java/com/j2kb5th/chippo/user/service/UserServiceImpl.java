@@ -4,7 +4,7 @@ import com.j2kb5th.chippo.config.auth.dto.SessionUser;
 import com.j2kb5th.chippo.user.controller.dto.request.UpdateUserRequest;
 import com.j2kb5th.chippo.user.controller.dto.request.ValidateNicknameRequest;
 import com.j2kb5th.chippo.user.controller.dto.response.UserDetailResponse;
-import com.j2kb5th.chippo.user.controller.dto.response.UserUpdateResponse;
+import com.j2kb5th.chippo.user.controller.dto.response.UpdateUserResponse;
 import com.j2kb5th.chippo.user.controller.dto.response.UserRoleResponse;
 import com.j2kb5th.chippo.user.controller.dto.response.ValidateNicknameResponse;
 import com.j2kb5th.chippo.user.domain.User;
@@ -33,11 +33,11 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserUpdateResponse updateUser(SessionUser user, UpdateUserRequest request) {
+    public UpdateUserResponse updateUser(SessionUser user, UpdateUserRequest request) {
 
         return Optional.of(findUser(user.getUserId())
                         .update(request.getNickname()))
-                .map(u -> new UserUpdateResponse(u))
+                .map(u -> new UpdateUserResponse(u))
                 .get();
     }
 
