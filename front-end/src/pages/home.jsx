@@ -1,4 +1,6 @@
-import React, { useEffect, useState , useRef } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from "react-redux";
+
 import { Link } from 'react-router-dom';
 
 import { Center, SimpleGrid } from '@chakra-ui/layout';
@@ -6,45 +8,31 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel, Image } from "@chakra-ui/react
 
 import { Section } from '../components/theme/common.style.js';
 
-function Home(){
-    const tabList = useRef(["company", "stack", "job"]);
+import { fetchTags } from "../redux/indexAction.js"
 
-    const [ companyImages, setcompanyImages ] = useState([
-        "kakao", 
-        "naver", 
-        "deliver", 
-        "line", 
-        "coupang"
-    ]) 
-
-    const [ stackImages, setstackImage ] = useState([
-        "spring",
-        "reactjs",
-        "nodejs",
-        "vuejs",
-        "django",
-    ]);
-
-    const [ jobImages, setjobImage ] = useState([
-        "front-end",
-        "back-end",
-        "Android",
-        "data-engineer",
-        "ios",
-    ]); 
-
-    useEffect(() => {})
+function Home({ fetchTags, loading, homeTags }){
+    
+    useEffect(() => {
+        fetchTags();
+    },[])   
 
     return (
-        <Section >
-            <Center>
+        <Section>
+            {
+                homeTags.map(tag => {
+                    return (<div>
+                        {JSON.stringify(tag.tabList)}
+                    </div>)
+                })
+            }
+            {/* <Center>
                 <Tabs w= "80%" p = {4}>
                 <TabList 
                     w = "100%" 
                     h = "50px" 
                     bgGradient = "linear(to-r, #E6F0FF, #5078E7)" >
                     {
-                        tabList.current.map((tab) => {
+                        tabList.map((tab) => {
                             return (
                                 <Tab w = "100px">
                                     {tab === "company" && "기업별"}
@@ -57,7 +45,7 @@ function Home(){
                 </TabList>
                 <TabPanels bg = "white">
                     {
-                        tabList.current.map((tab) => {
+                        tabList.map((tab) => {
                             return (
                                 <TabPanel>
                                     { tab === "company" && <HomeTabPanel images = {companyImages} tab = {tab}/> }
@@ -69,7 +57,7 @@ function Home(){
                     }
                 </TabPanels>
                 </Tabs>
-            </Center>
+            </Center> */}
         </Section>
     )
 }
@@ -99,5 +87,15 @@ function HomeTabPanel({ images, tab }){
     )
 }
 
+const mapStateToProps = ({ homeTags }) => { 
+    return {
+        homeTags : homeTags.items
+    }
+}
 
-export default Home;
+const mapDispatchToProps = {
+    fetchTags
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
