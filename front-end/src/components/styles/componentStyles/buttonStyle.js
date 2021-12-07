@@ -1,5 +1,3 @@
-import { mode, darken, whiten } from '@chakra-ui/theme-tools'
-
 export const ButtonStyles = {
     // style object for base or default style
     baseStyle: {},
@@ -14,7 +12,14 @@ export const ButtonStyles = {
             bg : "primary",
             color : "white",
             _hover : {
-                bg : mode(darken("primary", 20), whiten("primary", 20))(props),
+                transform : "scale(1.02)"
+            },
+        }),
+
+        secondary: (props) => ({
+            bg : "secondary",
+            color : "primary",
+            _hover : {
                 transform : "scale(1.02)"
             },
         }),
@@ -23,14 +28,13 @@ export const ButtonStyles = {
             bg : "danger",
             color : "white",
             _hover : {
-                bg : mode(darken("danger", 20), whiten("danger", 20))(props),
                 transform : "scale(1.02)"
             },
         }),
 
         
     },
+
     // default values for `size` and `variant`
-    defaultProps: {
-    },
+    defaultProps: { },
   }

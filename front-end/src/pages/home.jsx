@@ -17,7 +17,7 @@ function Home({ fetchTags, loading, homeTags }){
     },[])   
 
     return (
-        <Section>
+        <div>
             {
                 homeTags.map(tag => {
                     return (<div>
@@ -58,7 +58,7 @@ function Home({ fetchTags, loading, homeTags }){
                 </TabPanels>
                 </Tabs>
             </Center> */}
-        </Section>
+        </div>
     )
 }
 

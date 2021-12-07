@@ -12,13 +12,11 @@ import CardNews from './pages/cardNews.jsx';
 import CardNewsAnswer from './pages/cardNewsAnswer.jsx';
 
 import ChippoHeader from './components/header.jsx';
-import Test from './components/test.jsx'
 
 function App(){
     return (
         <Router>
             <ChippoHeader />
-            <Test />
             <Routes>
                 <Route path = "/" element = {<Home />} />
                 <Route path = "/login" element = {<Login />} />
