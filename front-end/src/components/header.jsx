@@ -33,8 +33,8 @@ function ChippoHeader(){
                     </HStack>
                     <Spacer />
                     <HStack spacing = "48px">
-                        <Button variant="normal"> 새 글 작성 </Button>
-                        <Button variant="normal" onClick = {loginBtnClick}> 로그인 </Button>   
+                        <Button variant="primary"> 새 글 작성 </Button>
+                        <Button variant="primary" onClick = {loginBtnClick}> 로그인 </Button>   
                     </HStack>
                 </Flex>
             </Header>
