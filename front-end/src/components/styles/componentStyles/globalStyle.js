@@ -8,17 +8,6 @@ export const GlobalStyles = extendTheme({
           fontFamily: "'IBM Plex Sans KR', sans-serif",
           color: props.colorMode === "dark" ? "white" : "black"
         },
-        
-        section : {},
-
-        header : {
-            color : '#5078E7',
-            fontSize : '32px',
-            fontStyle : 'italic',
-            p : '10px',
-        },
-
-        footer : {},
       }),
     },
   })
