@@ -11,9 +11,7 @@ const Header = styled.header`
 `
 
 const Section = styled.section`
-    color : black;
-    font-size : 20px;
-    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-size : 32px;
 `
 
 const LoginTitle = styled.div`

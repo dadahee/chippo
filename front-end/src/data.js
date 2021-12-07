@@ -62,7 +62,7 @@ const homeTags = [
         tabList : ["company", "stack", "job"],
         tags : {
             company : ["kakao", "naver", "deliver", "line", "coupang"],
-            stack : ["spring", "react", "nodejs", "vuejs", "django"],
+            stack : ["spring", "reactjs", "nodejs", "vuejs", "django"],
             job : ["front-end","back-end","android","ios","data-engineer"], 
         }
     }
