@@ -1,32 +1,28 @@
 package com.j2kb5th.chippo.user.controller.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j2kb5th.chippo.user.domain.Provider;
 import com.j2kb5th.chippo.user.domain.Role;
 import com.j2kb5th.chippo.user.domain.User;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+@AllArgsConstructor
+@Builder
 @Getter
 public class UserDetailResponse {
 
-    private Long id;
-    private String email;
-    private String nickname;
-    private Role role;
-    private Provider provider;
-    private LocalDateTime createdAt;
+    private final Long id;
+    private final String email;
+    private final String nickname;
+    private final Role role;
+    private final Provider provider;
 
-    @Builder
-    public UserDetailResponse(Long id, String email, String nickname, Role role, Provider provider, LocalDateTime createdAt) {
-        this.id = id;
-        this.email = email;
-        this.nickname = nickname;
-        this.role = role;
-        this.provider = provider;
-        this.createdAt = createdAt;
-    }
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+    private final LocalDateTime createdAt;
 
     public UserDetailResponse(User user) {
         this.id = user.getId();

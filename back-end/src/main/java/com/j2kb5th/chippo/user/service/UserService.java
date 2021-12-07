@@ -4,19 +4,19 @@ import com.j2kb5th.chippo.config.auth.dto.SessionUser;
 import com.j2kb5th.chippo.user.controller.dto.request.UpdateUserRequest;
 import com.j2kb5th.chippo.user.controller.dto.request.ValidateNicknameRequest;
 import com.j2kb5th.chippo.user.controller.dto.response.UserDetailResponse;
-import com.j2kb5th.chippo.user.controller.dto.response.UserResponse;
+import com.j2kb5th.chippo.user.controller.dto.response.UserUpdateResponse;
 import com.j2kb5th.chippo.user.controller.dto.response.UserRoleResponse;
-import com.j2kb5th.chippo.user.domain.Role;
+import com.j2kb5th.chippo.user.controller.dto.response.ValidateNicknameResponse;
 
 public interface UserService {
 
     UserDetailResponse getUserDetail(SessionUser user);
 
-    UserResponse update(SessionUser user, UpdateUserRequest request);
+    UserUpdateResponse updateUser(SessionUser user, UpdateUserRequest request);
 
-    Long withdraw(SessionUser user);
+    void deleteUser(SessionUser user);
 
-    boolean validateNickname(ValidateNicknameRequest request);
+    ValidateNicknameResponse validateNickname(SessionUser user, ValidateNicknameRequest request);
 
     UserRoleResponse getUserRole(Long userId);
 }
