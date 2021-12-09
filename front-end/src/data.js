@@ -57,6 +57,18 @@ const interviewList = [
     },
 ];
 
+const homeTags = [
+    {
+        tabList : ["company", "stack", "job"],
+        tags : {
+            company : ["kakao", "naver", "deliver", "line", "coupang"],
+            stack : ["spring", "reactjs", "nodejs", "vuejs", "django"],
+            job : ["front-end","back-end","android","ios","data-engineer"], 
+        }
+    }
+]
+
 export {
     interviewList,
+    homeTags,
 }

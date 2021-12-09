@@ -61,6 +61,10 @@ public class User extends BaseTimeEntity {
         return this;
     }
 
+    public void delete() {
+        this.deleted = true;
+    }
+
     public String getRoleKey() {
         return this.role.getKey();
     }
