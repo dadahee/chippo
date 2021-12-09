@@ -1,19 +1,16 @@
 import React, { useRef, useEffect } from 'react';
 import GoogleLogin from 'react-google-login';
-import NaverLogin from 'react-naver-login';
 
 import { useNavigate } from 'react-router-dom';
-import { Button, HStack, Image, Center, VStack } from "@chakra-ui/react";
+import { HStack, Image, Center, VStack } from "@chakra-ui/react";
 
 import { LoginPage, NaverLoginButton, NaverLoginImage } from '../components/styles/css.js';
 
 function Login(){
-    const navigate = useNavigate();
+    const navigator = useNavigate();
 
-    const loginOkBtnClick = () => {
-        navigate("/username");
-    }
-
+    const goHomeUrl = () => navigator("/");
+    
     const responseGoogle = (response) => {
         console.log(response);
         console.log(response.profileObj);
@@ -29,8 +26,8 @@ function Login(){
 
         naverScript.onload = () => {
             const naverLogin = new window.naver.LoginWithNaverId({
-                clientId: "",
-                callbackUrl: "http://localhost:3000/oauth/callback/naver",
+                clientId: "0z1iMRiVzf35XmtJQDEb",
+                callbackUrl: "http://localhost:3000/oauth2/authorization/naver",
                 callbackHandle: true,
                 isPopup: true,
                 loginButton: {
@@ -52,7 +49,7 @@ function Login(){
     
         <LoginPage>
             <Center>
-                <HStack spacing = "24px">
+                <HStack spacing = "24px" onClick = {goHomeUrl} cursor = "pointer">
                     <Image 
                         objectFit="cover" 
                         boxSize="100px" 
@@ -66,7 +63,7 @@ function Login(){
             <VStack>
                 
                 <GoogleLogin 
-                    clientId = ""
+                    clientId = "467415209681-9up8i9t57pl38fo1corrlo97s35ereqn.apps.googleusercontent.com"
                     buttonText = "구글 아이디로 로그인"
                     onSuccess = {responseGoogle}
                     onFailure = {responseGoogle}
