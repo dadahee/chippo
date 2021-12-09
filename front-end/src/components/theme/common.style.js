@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import emotionReset from 'emotion-reset';
 
 const Header = styled.header`
     color : #5078E7;
@@ -15,7 +16,10 @@ const Section = styled.section`
 `
 
 const LoginTitle = styled.div`
+
+    height : 100vh;
     color : #5078E7;
+    background-color: #E6F0FF;
     font-family: 'IBM Plex Sans KR', sans-serif;
     font-weight: bold;
     font-style: italic; 
