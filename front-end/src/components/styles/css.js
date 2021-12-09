@@ -21,7 +21,32 @@ const LoginPage = styled.div`
     padding-top : 2em; 
 `
 
+const NaverLoginButton = styled.button`
+    padding: 0.6em 1.0em;
+    border-radius: 0.25em;
+    font-size: 0.8rem;
+    margin-top: 0.7em;
+    
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    background-color: #03C75A;
+    color: white;
+`
+
+const NaverLoginImage = styled.img`
+    position : relative;
+    height : 1.8rem;
+    width : 2.0rem;
+    left : -8px;
+
+`
+
 export {
     Header,
     LoginPage,
+    NaverLoginButton,
+    NaverLoginImage,
+
 }
