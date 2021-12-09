@@ -28,5 +28,4 @@ public class Tag {
 
     @OneToMany(mappedBy = "interview", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<InterviewTag> interviewTags = new ArrayList<>();
-    
 }
