@@ -5,14 +5,12 @@ import com.j2kb5th.chippo.global.controller.dto.UserResponse;
 import com.j2kb5th.chippo.interview.domain.Interview;
 import com.j2kb5th.chippo.preanswer.domain.PreAnswer;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-@RequiredArgsConstructor // 임시용
 public class InterviewDetailResponse {
 
     private final Long id;

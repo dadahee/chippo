@@ -1,5 +1,6 @@
 package com.j2kb5th.chippo.preanswer.service;
 
+import com.j2kb5th.chippo.preanswer.domain.PreAnswer;
 import com.j2kb5th.chippo.preanswer.repository.PreAnswerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,4 +10,9 @@ import org.springframework.stereotype.Service;
 public class PreAnswerServiceImpl implements PreAnswerService {
 
     private final PreAnswerRepository preAnswerRepository;
+
+    @Override
+    public PreAnswer findPreAnswerByInterviewId(Long interviewId) {
+        return null;
+    }
 }
