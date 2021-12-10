@@ -19,7 +19,7 @@ public class InterviewResponse {
     private final List<InterviewTagDetailResponse> interviewTags;
     private final Long thumbCount;
 
-    @JsonFormat(pattern = "yyyy-NN-dd`T`HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private final LocalDateTime updatedAt;
 
     public InterviewResponse(Interview interview) {

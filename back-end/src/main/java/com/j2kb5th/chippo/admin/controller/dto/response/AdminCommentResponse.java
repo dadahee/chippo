@@ -1,5 +1,6 @@
 package com.j2kb5th.chippo.admin.controller.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j2kb5th.chippo.comment.domain.Comment;
 import com.j2kb5th.chippo.global.controller.dto.UserResponse;
 import com.j2kb5th.chippo.interview.domain.Interview;
@@ -14,6 +15,8 @@ public class AdminCommentResponse {
     private final Long id;
     private final UserResponse user;
     private final String content;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private final LocalDateTime createdAt;
 
     public AdminCommentResponse(Comment comment){
