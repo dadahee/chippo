@@ -24,7 +24,7 @@ public class InterviewDetailResponse {
     private final List<InterviewTagDetailResponse> interviewTags;
     private final List<InterviewCommentResponse> comments;
 
-    @JsonFormat(pattern = "yyyy-NN-dd`T`HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private final LocalDateTime updatedAt;
 
     public InterviewDetailResponse(Interview interview, PreAnswer preAnswer, boolean thumbClicked) {

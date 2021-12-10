@@ -13,7 +13,7 @@ public class ThumbResponse {
 
     private final Long id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private final LocalDateTime createdAt;
 
     public ThumbResponse(Thumb thumb) {

@@ -12,7 +12,6 @@ public class InterviewTagDetailResponse {
     private final String name;
 
     public InterviewTagDetailResponse(Tag tag){
-        // 예외처리 필요
         this.id = tag.getId();
         this.type = tag.getType();
         this.name = tag.getName();
