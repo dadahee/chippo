@@ -11,9 +11,6 @@ public class UserResponse {
     private final String nickname;
 
     public UserResponse(User user) {
-        if (user == null) {
-            // 처리 필요
-        }
         this.id = user.getId();
         this.nickname = user.getNickname();
     }

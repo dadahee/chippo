@@ -3,7 +3,7 @@ package com.j2kb5th.chippo.interview.controller;
 import com.j2kb5th.chippo.config.auth.LoginUser;
 import com.j2kb5th.chippo.config.auth.dto.SessionUser;
 import com.j2kb5th.chippo.global.controller.dto.UserResponse;
-import co현m.j2kb5th.chippo.interview.controller.dto.request.SaveInterviewRequest;
+import com.j2kb5th.chippo.interview.controller.dto.request.SaveInterviewRequest;
 import com.j2kb5th.chippo.interview.controller.dto.request.SaveInterviewTagDetailRequest;
 import com.j2kb5th.chippo.interview.controller.dto.request.UpdateInterviewRequest;
 import com.j2kb5th.chippo.interview.controller.dto.request.UpdateInterviewTagDetailRequest;
@@ -28,6 +28,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 @Tag(name = "기술면접(Interview)", description = "기술면접 API")
@@ -45,12 +46,9 @@ public class InterviewController {
             @LoginUser SessionUser user,
             @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId
     ){
-        if (user == null) {
-            //
-        }
         Interview interview = interviewService.findInterviewById(interviewId);
         PreAnswer preAnswer = preAnswerService.findPreAnswerByInterviewId(interviewId);
-        boolean clicked = thumbService.checkThumb(user.getUserId(), interviewId);
+        boolean clicked = (user == null)? false: thumbService.checkThumb(user.getUserId(), interviewId);
         return ResponseEntity.ok(new InterviewDetailResponse(interview, preAnswer, clicked));
     }
 
