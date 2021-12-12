@@ -11,24 +11,27 @@ function CardNews(){
     const params = useParams();
     const navigator = useNavigate();
 
+    console.log(params);
+
     const linkToAnswerEvent = () => {
-        navigator("answer");
+        navigator(`/interviews/${params.interviewId}/answer`);
     }
 
-    const choiceInterview = interviewList.find(interview =>{
-        return interview._id === parseInt(params.interviewId)
-    }).context
+    // const choiceInterview = interviewList.find(interview =>{
+        
+    //     return interview._id === parseInt(params.interviewId)
+    // }).context
 
     return (
         <div>
             <SectionUseBox>
                 <Center>
-                    <VStack w = "80%" spacing = {4}>
-                        <Box w = "100%" h = "150px" color = "black"
+                    <VStack w = "70%" spacing = {4}>
+                        <Box w = "100%" h = "100px" color = "black"
                             bgGradient = "linear(to-r, #E6F0FF, #5078E7)"
                             display = "flex" alignItems = "center" pl = "10px" 
                         >
-                            {choiceInterview}
+                        
                         </Box>
                         <Textarea h = "300px" size='lg'
                          placeholder='나라면 어떻게 답변했을까요? 답변을 간단히 적어보세요' />
@@ -40,16 +43,16 @@ function CardNews(){
 
             <SectionUseBox>
                 <Center>
-                    <HStack w = "80%" spacing = {4} mt = {5}>
+                    <HStack w = "70%" spacing = {4} mt = {5}>
                         <Spacer />
                         <Button 
-                            w = "250px" variant = "normal"
+                            w = "250px" variant = "primary"
                             onClick = {linkToAnswerEvent}
                         >
                             작성자 답변 보기
                         </Button>
                         <Button 
-                            w = "250px" variant = "normal"
+                            w = "250px" variant = "primary"
                             onClick = {linkToAnswerEvent}
                         >
                             내 답변 제출하기
