@@ -33,7 +33,7 @@ public class InterviewDetailResponse {
         this.question = interview.getQuestion();
         this.answer = interview.getAnswer();
         this.extraInfo = interview.getExtraInfo();
-        this.preAnswer = new InterviewPreAnswerResponse(preAnswer);
+        this.preAnswer = (preAnswer == null)? null: new InterviewPreAnswerResponse(preAnswer);
         this.thumb = new InterviewThumbResponse(thumbClicked, interview.getThumbs().stream().count());
         this.interviewTags = interview.getInterviewTags().stream()
                 .map((interviewTag) -> new InterviewTagDetailResponse(interviewTag.getTag()))

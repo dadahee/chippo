@@ -93,6 +93,7 @@ public class InterviewController {
 
         URI uri = uriBuilder.path("/api/interviews/{interviewId}").buildAndExpand(testInterviewId).toUri();
         return ResponseEntity.created(uri).body(testResponse);
+//        return ResponseEntity.ok(null);
     }
 
 
@@ -129,6 +130,7 @@ public class InterviewController {
                 LocalDateTime.now()
         );
         return ResponseEntity.ok(testResponse);
+//        return ResponseEntity.ok(null);
     }
 
     @Operation(summary = "기술면접 삭제", description = "id를 이용해 기술면접 게시글을 삭제합니다. (실제 삭제)")

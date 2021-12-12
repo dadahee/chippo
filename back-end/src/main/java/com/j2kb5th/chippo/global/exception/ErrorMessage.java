@@ -9,6 +9,7 @@ public enum ErrorMessage {
      * GL### : Global Error
      */
     GL001("유저 정보를 찾을 수 없습니다."),
+    GL002("인터뷰 정보를 찾을 수 없습니다."),
 
 
     /**
@@ -41,7 +42,7 @@ public enum ErrorMessage {
     /**
      * US### : User Error
      */
-    ;
+
 
     private final String message;
 
