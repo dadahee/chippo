@@ -43,7 +43,7 @@ public enum ErrorMessage {
      * US### : User Error
      */
 
-
+    ;
     private final String message;
 
     ErrorMessage(String message) {
