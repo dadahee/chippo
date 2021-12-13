@@ -141,8 +141,52 @@ const homeTags = [
     }
 ]
 
+const idInterview = {
+    "id": 0,
+    "user": {
+      "id": 0,
+      "nickname": "string"
+    },
+    "question": "string",
+    "answer": "string",
+    "extraInfo": "string",
+    "preAnswer": {
+      "id": 0,
+      "content": "string",
+      "user": {
+        "id": 0,
+        "nickname": "string"
+      },
+      "updatedAt": "2021-12-13T13:43:32.050Z"
+    },
+    "thumb": {
+      "clicked": true,
+      "count": 0
+    },
+    "interviewTags": [
+      {
+        "id": 0,
+        "type": "TECHSTACK",
+        "name": "string"
+      }
+    ],
+    "comments": [
+      {
+        "id": 0,
+        "user": {
+          "id": 0,
+          "nickname": "string"
+        },
+        "content": "string",
+        "updatedAt": "2021-12-13T13:43:32.050Z"
+      }
+    ],
+    "updatedAt": "2021-12-13T13:43:32.050Z"
+  }
+
 export {
     interviewList,
     homeTags,
     kakaoInterviewLists,
+    idInterview,
 }
