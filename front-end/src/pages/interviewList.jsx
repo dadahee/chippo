@@ -1,9 +1,10 @@
 import React, { useState, useEffect }  from 'react';
 import { connect } from "react-redux";
 
-import { Center, Box, VStack, Image, StatHelpText } from "@chakra-ui/react"
+import { Center, Box, VStack, Image, Spacer, HStack } from "@chakra-ui/react"
 import { Link, useLocation } from "react-router-dom";
 
+import { AiFillLike } from "react-icons/ai"
 import { fetchInterviewTags } from "../redux/indexAction.js"
 
 function useQuery(){
@@ -40,6 +41,13 @@ function InterviewList({ fetchInterviewTags, loading, interviewTags }){
                                 border = "5px solid #5078E7"
                             >
                                 <Link to = {`${interview.id}/pre-answer`}>{interview.question}</Link>
+                                <Spacer />
+                                <HStack p = "15px">
+                                    <AiFillLike />
+                                    <Box>{interview.thumbCount}</Box>
+                                </HStack>
+                                    
+                                
                             </Box>
                         )   
                     })
