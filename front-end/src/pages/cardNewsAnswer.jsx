@@ -10,12 +10,12 @@ import { SectionUseBox, SectionUseText } from '../components/theme/common.style.
 function CardNewsAnswer(){
     const params = useParams();
 
-    const choiceInterview = interviewList.find(interview =>{
-        return interview._id === parseInt(params.interviewId)
-    })
+    // const choiceInterview = interviewList.find(interview =>{
+    //     return interview._id === parseInt(params.interviewId)
+    // })
 
-    const { answer, addInfo } = choiceInterview.answer_context.ownWriter;
-    const commentList = choiceInterview.answer_context.other;
+    // const { answer, addInfo } = choiceInterview.answer_context.ownWriter;
+    // const commentList = choiceInterview.answer_context.other;
 
     return (
         <div>
@@ -26,7 +26,7 @@ function CardNewsAnswer(){
                             bgGradient = "linear(to-r, #E6F0FF, #5078E7)"
                             display = "flex" alignItems = "center" pl = "20px" 
                         >
-                            {choiceInterview.context}
+                            {/* {choiceInterview.context} */}
                         </Box>
                     </VStack>
                 </Center>
@@ -38,14 +38,14 @@ function CardNewsAnswer(){
                         <Box w = "100%">
                             <Container mt = {4} maxW='container.xl'> 작성자 답안 </Container>
                             <Box bg = "#E6F0FF" h = "200px" color = "black"
-                                mt = {4} borderRadius = "30px" p = "20px" 
-                            > { answer }
+                                mt = {4} borderRadius = "30px" p = "20px" > 
+                                {/* { answer } */}
                             </Box>
 
                             <Container mt = {4} maxW='container.xl'> 추가 정보 </Container>
                             <Box bg = "#E6F0FF" h = "100px" color = "black"
-                                mt = {4} borderRadius = "30px" p = "20px" 
-                            > { addInfo }
+                                mt = {4} borderRadius = "30px" p = "20px" > 
+                                {/* { addInfo } */}
                             </Box>
                             
                             <Box textAlign="right">
@@ -62,7 +62,7 @@ function CardNewsAnswer(){
                 <Center>
                     <VStack w = "80%" spacing = {4}>
                         <Box w = "100%">
-                        {
+                        {/* {
                             commentList.map(comment => {
                                 return (
                                     <>
@@ -76,7 +76,7 @@ function CardNewsAnswer(){
                                     </>
                                 )
                             })
-                        }
+                        } */}
                             
                         </Box>
                     </VStack>
