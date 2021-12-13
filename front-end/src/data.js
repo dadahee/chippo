@@ -145,9 +145,9 @@ const idInterview = {
     "id": 0,
     "user": {
       "id": 0,
-      "nickname": "string"
+      "nickname": "구희승"
     },
-    "question": "string",
+    "question": "해당 프로젝트를 할 때 리액트를 선택한 이유는 무엇인가?",
     "answer": "string",
     "extraInfo": "string",
     "preAnswer": {

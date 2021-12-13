@@ -33,7 +33,7 @@ const fetchInterviewIdApi = (interview) => {
     })
 }
 
-export const fetchInterviewId = () => {
+export const fetchInterviewId = (id) => {
     return (dispatch) => {
         dispatch(fetchInterviewIdRequest());
         fetchInterviewIdApi(idInterview)
