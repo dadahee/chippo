@@ -4,7 +4,7 @@ import {
     FETCH_INTERVIEWTAGS_REQUEST,
 } from "./types.js";
 
-import { kakaoInterviewList } from "../../data.js";
+import { kakaoInterviewLists } from "../../data.js";
 
 const fetchInterviewListSuccess = (comment) => {
     return {
@@ -25,3 +25,19 @@ const fetchInterviewListRequest = () => {
         type : FETCH_INTERVIEWTAGS_REQUEST,
     }
 } 
+
+const fetchInterviewTagApi = (InterviewList) => {
+    return new Promise((res, rej) => {
+        if(InterviewList) res(InterviewList);
+        else rej("에러 발생");
+    })
+}
+
+export const fetchInterviewTags = () => {
+    return (dispatch) => {
+        dispatch(fetchInterviewListRequest());
+        fetchInterviewTagApi(kakaoInterviewLists)
+            .then(res => dispatch(fetchInterviewListSuccess(res)))
+            .catch(err => dispatch(fetchInterviewListFailure(err)))
+    }
+}

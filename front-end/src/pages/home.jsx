@@ -57,7 +57,7 @@ function Home({ fetchTags, loading, homeTags }){
     )
 }
 
-function HomeTabPanel({ images, tab }){
+function HomeTabPanel({ images }){
 
     return (
         <SimpleGrid columns = {3} spacing = {8} minChildWidth = "30%" color = "black" fontSize = "24px">
