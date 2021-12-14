@@ -3,6 +3,8 @@ package com.j2kb5th.chippo.interview.controller;
 import com.j2kb5th.chippo.config.auth.LoginUser;
 import com.j2kb5th.chippo.config.auth.dto.SessionUser;
 import com.j2kb5th.chippo.global.controller.dto.UserResponse;
+import com.j2kb5th.chippo.global.exception.ErrorMessage;
+import com.j2kb5th.chippo.global.exception.GlobalException;
 import com.j2kb5th.chippo.interview.controller.dto.request.SaveInterviewRequest;
 import com.j2kb5th.chippo.interview.controller.dto.request.SaveInterviewTagDetailRequest;
 import com.j2kb5th.chippo.interview.controller.dto.request.UpdateInterviewRequest;
@@ -18,6 +20,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -60,7 +63,7 @@ public class InterviewController {
             @RequestParam(name = "tag_name") String tagName,
             @RequestParam(name = "tag_type") TagType tagType,
             @RequestParam(name = "size") Long size
-    ){
+    ) throws Exception {
         List<Interview> interviews = interviewService.findInterviewsByTag(tagName, tagType, size);
         return ResponseEntity.ok(new InterviewListResponse(interviews));
     }
@@ -68,32 +71,18 @@ public class InterviewController {
     @Operation(summary = "기술면접 저장", description = "요청한 정보를 기술면접 게시글로 등록합니다.")
     @PostMapping
     public ResponseEntity<InterviewDetailResponse> saveInterview(
+            @LoginUser SessionUser user,
             UriComponentsBuilder uriBuilder,
             @Valid @RequestBody SaveInterviewRequest interviewRequest
     ){
-        List<InterviewTagDetailResponse> testTags = new ArrayList<>();
-        List<SaveInterviewTagDetailRequest> tags = interviewRequest.getInterviewTags();
-        for (int i=0; i<interviewRequest.getInterviewTags().size(); i++){
-            testTags.add(new InterviewTagDetailResponse(1L, tags.get(i).getType(), tags.get(i).getName()));
+        if (user == null) {
+            throw new GlobalException(HttpStatus.UNAUTHORIZED, ErrorMessage.GL003);
         }
+        Interview interview = interviewService.saveInterview(interviewRequest, user.getUserId());
+        InterviewDetailResponse detailResponse = new InterviewDetailResponse(interview, null, false);
 
-        Long testInterviewId = 100L;
-        InterviewDetailResponse testResponse = new InterviewDetailResponse(
-                testInterviewId,
-                new UserResponse(101L, "면접본사람"),
-                interviewRequest.getQuestion(),
-                interviewRequest.getAnswer(),
-                interviewRequest.getExtraInfo(),
-                null,
-                new InterviewThumbResponse(true, 9L),
-                testTags,
-                null,
-                LocalDateTime.now()
-        );
-
-        URI uri = uriBuilder.path("/api/interviews/{interviewId}").buildAndExpand(testInterviewId).toUri();
-        return ResponseEntity.created(uri).body(testResponse);
-//        return ResponseEntity.ok(null);
+        URI uri = uriBuilder.path("/api/interviews/{interviewId}").buildAndExpand(interview.getId()).toUri();
+        return ResponseEntity.created(uri).body(detailResponse);
     }
 
 
@@ -103,34 +92,34 @@ public class InterviewController {
             @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
             @Valid @RequestBody UpdateInterviewRequest interviewRequest
     ){
-        List<InterviewCommentResponse> testComments = new ArrayList<>();
-        testComments.add(new InterviewCommentResponse(1L, new UserResponse(123L, "카카오꿈나무"),
-                "헉 정말 좋은 답변이네요!", LocalDateTime.now()));
-        testComments.add(new InterviewCommentResponse(2L, new UserResponse(123L, "배민에서 탈주한 사람"),
-                "여기저기거기에서 본 면접 질문과 비슷하네요.", LocalDateTime.now()));
-
-        List<InterviewTagDetailResponse> testTags = new ArrayList<>();
-        List<UpdateInterviewTagDetailRequest> tags = interviewRequest.getInterviewTags();
-        for (int i=0; i<interviewRequest.getInterviewTags().size(); i++){
-            testTags.add(new InterviewTagDetailResponse(1L, tags.get(i).getType(), tags.get(i).getName()));
-        }
-
-        Long testInterviewId = 100L;
-
-        InterviewDetailResponse testResponse = new InterviewDetailResponse(
-                testInterviewId,
-                new UserResponse(101L, "면접본사람"),
-                interviewRequest.getQuestion(),
-                interviewRequest.getAnswer(),
-                interviewRequest.getExtraInfo(),
-                null,
-                new InterviewThumbResponse(false, 9L),
-                testTags,
-                testComments,
-                LocalDateTime.now()
-        );
-        return ResponseEntity.ok(testResponse);
-//        return ResponseEntity.ok(null);
+//        List<InterviewCommentResponse> testComments = new ArrayList<>();
+//        testComments.add(new InterviewCommentResponse(1L, new UserResponse(123L, "카카오꿈나무"),
+//                "헉 정말 좋은 답변이네요!", LocalDateTime.now()));
+//        testComments.add(new InterviewCommentResponse(2L, new UserResponse(123L, "배민에서 탈주한 사람"),
+//                "여기저기거기에서 본 면접 질문과 비슷하네요.", LocalDateTime.now()));
+//
+//        List<InterviewTagDetailResponse> testTags = new ArrayList<>();
+//        List<UpdateInterviewTagDetailRequest> tags = interviewRequest.getInterviewTags();
+//        for (int i=0; i<interviewRequest.getInterviewTags().size(); i++){
+//            testTags.add(new InterviewTagDetailResponse(1L, tags.get(i).getType(), tags.get(i).getName()));
+//        }
+//
+//        Long testInterviewId = 100L;
+//
+//        InterviewDetailResponse testResponse = new InterviewDetailResponse(
+//                testInterviewId,
+//                new UserResponse(101L, "면접본사람"),
+//                interviewRequest.getQuestion(),
+//                interviewRequest.getAnswer(),
+//                interviewRequest.getExtraInfo(),
+//                null,
+//                new InterviewThumbResponse(false, 9L),
+//                testTags,
+//                testComments,
+//                LocalDateTime.now()
+//        );
+//        return ResponseEntity.ok(testResponse);
+        return ResponseEntity.ok(null);
     }
 
     @Operation(summary = "기술면접 삭제", description = "id를 이용해 기술면접 게시글을 삭제합니다. (실제 삭제)")

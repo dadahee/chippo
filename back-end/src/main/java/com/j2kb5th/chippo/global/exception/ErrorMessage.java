@@ -10,6 +10,7 @@ public enum ErrorMessage {
      */
     GL001("유저 정보를 찾을 수 없습니다."),
     GL002("인터뷰 정보를 찾을 수 없습니다."),
+    GL003("로그인이 필요합니다."),
 
 
     /**
@@ -27,6 +28,7 @@ public enum ErrorMessage {
      */
     IN001("interview"),
 
+
     /**
      * PR### : PreAnswer Error
      */
@@ -34,6 +36,8 @@ public enum ErrorMessage {
     /**
      * TA### : Tag Error
      */
+    TA001("기술스택 태그를 1개 이상 작성해야 합니다."),
+    TA002("기술스택 태그는 3개까지 작성 가능합니다."),
 
     /**
      * TH### : Thumb Error
