@@ -1,13 +1,17 @@
 package com.j2kb5th.chippo.preanswer.controller;
 
+import com.j2kb5th.chippo.config.auth.LoginUser;
+import com.j2kb5th.chippo.config.auth.dto.SessionUser;
 import com.j2kb5th.chippo.global.controller.dto.UserResponse;
 import com.j2kb5th.chippo.preanswer.controller.dto.request.SavePreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.controller.dto.request.UpdatePreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.controller.dto.response.PreAnswerResponse;
+import com.j2kb5th.chippo.preanswer.service.PreAnswerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -21,6 +25,8 @@ import java.time.LocalDateTime;
 @RequestMapping("/api/interviews/{interviewId}/pre-answers")
 @RestController
 public class PreAnswerController {
+
+    private final PreAnswerService preAnswerService;
 
     // 현재는 interview 조회 시 preanswer도 있으면 동시에 전달
     // 혹시 몰라 단건 조회도 첨부
@@ -44,10 +50,15 @@ public class PreAnswerController {
     public ResponseEntity<PreAnswerResponse> savePreAnswer(
         UriComponentsBuilder uriBuilder,
         @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
-        @Valid @RequestBody SavePreAnswerRequest preAnswerRequest
+        @Valid @RequestBody SavePreAnswerRequest preAnswerRequest,
+        @LoginUser SessionUser user
     ){
-        URI uri = uriBuilder.path("/api/interviews/{interviewId}/pre-answers").buildAndExpand(interviewId).toUri();
-        PreAnswerResponse response = new PreAnswerResponse(interviewId, preAnswerRequest.getContent(), new UserResponse(10L, "리액트개발자"), LocalDateTime.now());
+        if (user == null || user.getUserId() != preAnswerRequest.getUserId()) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        URI uri = uriBuilder.path("/api/interviews/{interviewId}").buildAndExpand(interviewId).toUri();
+
+        PreAnswerResponse response = new PreAnswerResponse(preAnswerService.save(preAnswerRequest, interviewId));
         return ResponseEntity.created(uri).body(response);
     }
 
