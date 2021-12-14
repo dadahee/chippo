@@ -67,6 +67,7 @@ const mapStateToProps = ({ interviewId }) => {
     return {
         interviewId : interviewId.items,
         interviewUser : interviewId.items.user,
+        
     }
 }
 
