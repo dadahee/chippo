@@ -3,6 +3,7 @@ package com.j2kb5th.chippo.preanswer.service;
 import com.j2kb5th.chippo.interview.domain.Interview;
 import com.j2kb5th.chippo.interview.repository.InterviewRepository;
 import com.j2kb5th.chippo.preanswer.controller.dto.request.SavePreAnswerRequest;
+import com.j2kb5th.chippo.preanswer.controller.dto.request.UpdatePreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.domain.PreAnswer;
 import com.j2kb5th.chippo.preanswer.repository.PreAnswerRepository;
 import com.j2kb5th.chippo.user.domain.User;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -35,5 +38,14 @@ public class PreAnswerServiceImpl implements PreAnswerService {
 
         return preAnswerRepository.findByIdAndUserId(interviewId, userId)
                 .orElseGet(null);
+    }
+
+    @Transactional
+    @Override
+    public PreAnswer updatePreAnswer(UpdatePreAnswerRequest request, Long interviewId) {
+
+        return preAnswerRepository.findById(request.getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "존재하지 않는 사전답변입니다."))
+                .update(request.getContent());
     }
 }

@@ -68,9 +68,16 @@ public class PreAnswerController {
     @PatchMapping("/{preAnswerId}")
     public ResponseEntity<PreAnswerResponse> updatePreAnswer(
         @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
-        @Valid @RequestBody UpdatePreAnswerRequest preAnswerRequest
+        @Parameter(description = "사전답안 ID") @PathVariable(name = "preAnswerId") Long preAnswerId,
+        @Valid @RequestBody UpdatePreAnswerRequest preAnswerRequest,
+        @LoginUser SessionUser user
     ){
-        PreAnswerResponse response = new PreAnswerResponse(interviewId, preAnswerRequest.getContent(), new UserResponse(11L, "노드개발자"), LocalDateTime.now());
+        if (user == null || preAnswerRequest.getUserId() != user.getUserId() || preAnswerRequest.getId() != preAnswerId) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        PreAnswerResponse response = new PreAnswerResponse(preAnswerService.updatePreAnswer(preAnswerRequest, interviewId));
+
         return ResponseEntity.ok(response);
     }
 
