@@ -29,4 +29,11 @@ public class PreAnswerServiceImpl implements PreAnswerService {
 
         return preAnswerRepository.save(request.toEntity(user, interview));
     }
+
+    @Override
+    public PreAnswer getOnePreAnswer(Long interviewId, Long userId) {
+
+        return preAnswerRepository.findByIdAndUserId(interviewId, userId)
+                .orElseGet(null);
+    }
 }

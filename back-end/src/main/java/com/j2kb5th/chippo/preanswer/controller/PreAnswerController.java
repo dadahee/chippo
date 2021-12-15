@@ -30,19 +30,21 @@ public class PreAnswerController {
 
     // 현재는 interview 조회 시 preanswer도 있으면 동시에 전달
     // 혹시 몰라 단건 조회도 첨부
-    @Operation(summary = "사전답안 단건 조회(임시용)",
-            description = "현재는 기술면접 단건 조회 시 등록된 사전답안 게시글이 있다면 함께 전달됩니다. 혹시 몰라 추가해둔 API입니다.")
-    @GetMapping("/{preAnswerId}")
+    @Operation(summary = "사전답안 기술면접 및 사용자별 조회",
+            description = "특정 기술면접에 대해 특정 사용자가 등록한 사전답안 게시글이 있다면 함께 전달됩니다.")
+    @GetMapping({"", "/"})
     public ResponseEntity<PreAnswerResponse> findPreAnswer(
-        @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId
+        @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
+        @LoginUser SessionUser user
     ){
-        PreAnswerResponse testPreAnswer = new PreAnswerResponse(
-                interviewId,
-                "저는 말하는 감자라 모르겠어요..",
-                new UserResponse(9L, "말하는감자"),
-                LocalDateTime.now()
-        );
-        return ResponseEntity.ok(testPreAnswer);
+        Long userId = user == null ? 0L : user.getUserId();
+
+        PreAnswerResponse response = null;
+        try {
+            response = new PreAnswerResponse(preAnswerService.getOnePreAnswer(interviewId, userId));
+        } catch (NullPointerException e) {}
+
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "사전답안 저장", description = "요청된 정보를 사전답안으로 등록합니다.")

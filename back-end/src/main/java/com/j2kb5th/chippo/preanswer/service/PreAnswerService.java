@@ -6,4 +6,6 @@ import com.j2kb5th.chippo.preanswer.domain.PreAnswer;
 public interface PreAnswerService {
 
     PreAnswer save(SavePreAnswerRequest request, Long interviewId);
+
+    PreAnswer getOnePreAnswer(Long interviewId, Long userId);
 }
