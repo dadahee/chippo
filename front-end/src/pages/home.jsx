@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { Center, SimpleGrid } from '@chakra-ui/layout';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Image } from "@chakra-ui/react"
 
-import { Section } from '../components/theme/common.style.js';
 import { fetchTags } from "../redux/indexAction.js"
 
 function Home({ fetchTags, loading, homeTags }){
@@ -58,14 +57,14 @@ function Home({ fetchTags, loading, homeTags }){
     )
 }
 
-function HomeTabPanel({ images, tab }){
+function HomeTabPanel({ images }){
 
     return (
         <SimpleGrid columns = {3} spacing = {8} minChildWidth = "30%" color = "black" fontSize = "24px">
             {
                 images.map((img) => {
                     return (
-                        <Link to = {`/${img}`}>
+                        <Link to = {`/interviews?tag_type=${img}`}>
                             <Image 
                                 objectFit="contain" 
                                 htmlHeight = "200px"
