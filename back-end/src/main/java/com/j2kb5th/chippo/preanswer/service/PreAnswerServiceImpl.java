@@ -1,11 +1,13 @@
 package com.j2kb5th.chippo.preanswer.service;
 
+import com.j2kb5th.chippo.config.auth.dto.SessionUser;
 import com.j2kb5th.chippo.interview.domain.Interview;
 import com.j2kb5th.chippo.interview.repository.InterviewRepository;
 import com.j2kb5th.chippo.preanswer.controller.dto.request.SavePreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.controller.dto.request.UpdatePreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.domain.PreAnswer;
 import com.j2kb5th.chippo.preanswer.repository.PreAnswerRepository;
+import com.j2kb5th.chippo.user.domain.Role;
 import com.j2kb5th.chippo.user.domain.User;
 import com.j2kb5th.chippo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -47,5 +49,21 @@ public class PreAnswerServiceImpl implements PreAnswerService {
         return preAnswerRepository.findById(request.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "존재하지 않는 사전답변입니다."))
                 .update(request.getContent());
+    }
+
+    @Transactional
+    @Override
+    public void deletePreAnswer(Long interviewId, Long preAnswerId, SessionUser user) {
+        PreAnswer preAnswer = preAnswerRepository.findById(preAnswerId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "존재하지 않는 사전답변입니다."));
+
+        if (interviewId != preAnswer.getInterview().getId()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        if ((user.getRole() != Role.ADMIN) && (user.getUserId() != preAnswer.getUser().getId())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+
+        preAnswerRepository.delete(preAnswer);
     }
 }

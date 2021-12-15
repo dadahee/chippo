@@ -85,8 +85,10 @@ public class PreAnswerController {
     @DeleteMapping("/{preAnswerId}")
     public ResponseEntity<Void> deletePreAnswer(
         @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
-        @Parameter(description = "사전답안 ID") @PathVariable(name = "preAnswerId") Long preAnswerId
+        @Parameter(description = "사전답안 ID") @PathVariable(name = "preAnswerId") Long preAnswerId,
+        @LoginUser SessionUser user
     ){
+        preAnswerService.deletePreAnswer(interviewId, preAnswerId, user);
         return ResponseEntity.noContent().build();
     }
 

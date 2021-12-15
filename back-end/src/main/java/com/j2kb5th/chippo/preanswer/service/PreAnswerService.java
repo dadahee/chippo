@@ -1,5 +1,6 @@
 package com.j2kb5th.chippo.preanswer.service;
 
+import com.j2kb5th.chippo.config.auth.dto.SessionUser;
 import com.j2kb5th.chippo.preanswer.controller.dto.request.SavePreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.controller.dto.request.UpdatePreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.domain.PreAnswer;
@@ -11,4 +12,6 @@ public interface PreAnswerService {
     PreAnswer getOnePreAnswer(Long interviewId, Long userId);
 
     PreAnswer updatePreAnswer(UpdatePreAnswerRequest request, Long interviewId);
+
+    void deletePreAnswer(Long interviewId, Long preAnswerId, SessionUser user);
 }
