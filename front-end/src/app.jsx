@@ -24,6 +24,7 @@ function App(){
                 <Route path = "/interviews" element = {<InterviewList />} /> 
                 <Route path = "/interviews/:interviewId/pre-answer" element = {<CardNews />} /> 
                 <Route path = "/interviews/:interviewId/answer" element = {<CardNewsAnswer />} /> 
+                <Route path = "/username/myPage"></Route>
                 
             </Routes>
             
