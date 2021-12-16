@@ -1,5 +1,6 @@
 package com.j2kb5th.chippo.config.auth.dto;
 
+import com.j2kb5th.chippo.user.domain.Role;
 import com.j2kb5th.chippo.user.domain.User;
 import lombok.Getter;
 import lombok.ToString;

@@ -49,9 +49,10 @@ public class InterviewController {
             @LoginUser SessionUser user,
             @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId
     ){
+        Long userId = (user == null) ? null : user.getUserId();
         Interview interview = interviewService.findInterviewById(interviewId);
-        PreAnswer preAnswer = preAnswerService.findPreAnswerByInterviewId(interviewId);
-        boolean clicked = (user == null)? false: thumbService.checkThumb(user.getUserId(), interviewId);
+        PreAnswer preAnswer = preAnswerService.findUserPreAnswer(interviewId, userId);
+        boolean clicked = (user == null)? false: thumbService.checkThumb(userId, interviewId);
         return ResponseEntity.ok(new InterviewDetailResponse(interview, preAnswer, clicked));
     }
 
@@ -92,33 +93,6 @@ public class InterviewController {
             @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
             @Valid @RequestBody UpdateInterviewRequest interviewRequest
     ){
-//        List<InterviewCommentResponse> testComments = new ArrayList<>();
-//        testComments.add(new InterviewCommentResponse(1L, new UserResponse(123L, "카카오꿈나무"),
-//                "헉 정말 좋은 답변이네요!", LocalDateTime.now()));
-//        testComments.add(new InterviewCommentResponse(2L, new UserResponse(123L, "배민에서 탈주한 사람"),
-//                "여기저기거기에서 본 면접 질문과 비슷하네요.", LocalDateTime.now()));
-//
-//        List<InterviewTagDetailResponse> testTags = new ArrayList<>();
-//        List<UpdateInterviewTagDetailRequest> tags = interviewRequest.getInterviewTags();
-//        for (int i=0; i<interviewRequest.getInterviewTags().size(); i++){
-//            testTags.add(new InterviewTagDetailResponse(1L, tags.get(i).getType(), tags.get(i).getName()));
-//        }
-//
-//        Long testInterviewId = 100L;
-//
-//        InterviewDetailResponse testResponse = new InterviewDetailResponse(
-//                testInterviewId,
-//                new UserResponse(101L, "면접본사람"),
-//                interviewRequest.getQuestion(),
-//                interviewRequest.getAnswer(),
-//                interviewRequest.getExtraInfo(),
-//                null,
-//                new InterviewThumbResponse(false, 9L),
-//                testTags,
-//                testComments,
-//                LocalDateTime.now()
-//        );
-//        return ResponseEntity.ok(testResponse);
         return ResponseEntity.ok(null);
     }
 

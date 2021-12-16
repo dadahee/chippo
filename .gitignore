@@ -60,3 +60,8 @@ out/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+## deploy setting files
+back-end/Dockerfile
+back-end/deploy.sh
