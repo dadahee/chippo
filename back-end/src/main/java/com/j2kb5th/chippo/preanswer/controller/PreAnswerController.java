@@ -1,20 +1,22 @@
 package com.j2kb5th.chippo.preanswer.controller;
 
-import com.j2kb5th.chippo.global.controller.dto.UserResponse;
+import com.j2kb5th.chippo.config.auth.LoginUser;
+import com.j2kb5th.chippo.config.auth.dto.SessionUser;
 import com.j2kb5th.chippo.preanswer.controller.dto.request.SavePreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.controller.dto.request.UpdatePreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.controller.dto.response.PreAnswerResponse;
+import com.j2kb5th.chippo.preanswer.service.PreAnswerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.time.LocalDateTime;
 
 @Tag(name = "사전답안(PreAnswer)", description = "사전답안 API")
 @RequiredArgsConstructor
@@ -22,21 +24,24 @@ import java.time.LocalDateTime;
 @RestController
 public class PreAnswerController {
 
+    private final PreAnswerService preAnswerService;
+
     // 현재는 interview 조회 시 preanswer도 있으면 동시에 전달
-    // 혹시 몰라 단건 조회도 첨부
-    @Operation(summary = "사전답안 단건 조회(임시용)",
-            description = "현재는 기술면접 단건 조회 시 등록된 사전답안 게시글이 있다면 함께 전달됩니다. 혹시 몰라 추가해둔 API입니다.")
-    @GetMapping("/{preAnswerId}")
+    @Operation(summary = "사전답안 기술면접 및 사용자별 조회",
+            description = "특정 기술면접에 대해 특정 사용자가 등록한 사전답안 게시글이 있다면 함께 전달됩니다.")
+    @GetMapping
     public ResponseEntity<PreAnswerResponse> findPreAnswer(
-        @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId
+        @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
+        @Parameter(hidden = true) @LoginUser SessionUser user
     ){
-        PreAnswerResponse testPreAnswer = new PreAnswerResponse(
-                interviewId,
-                "저는 말하는 감자라 모르겠어요..",
-                new UserResponse(9L, "말하는감자"),
-                LocalDateTime.now()
-        );
-        return ResponseEntity.ok(testPreAnswer);
+        Long userId = user == null ? 0L : user.getUserId();
+
+        PreAnswerResponse response = null;
+        try {
+            response = new PreAnswerResponse(preAnswerService.findUserPreAnswer(interviewId, userId));
+        } catch (NullPointerException e) {}
+
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "사전답안 저장", description = "요청된 정보를 사전답안으로 등록합니다.")
@@ -44,10 +49,18 @@ public class PreAnswerController {
     public ResponseEntity<PreAnswerResponse> savePreAnswer(
         UriComponentsBuilder uriBuilder,
         @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
-        @Valid @RequestBody SavePreAnswerRequest preAnswerRequest
+        @Valid @RequestBody SavePreAnswerRequest preAnswerRequest,
+        @Parameter(hidden = true) @LoginUser SessionUser user
     ){
-        URI uri = uriBuilder.path("/api/interviews/{interviewId}/pre-answers").buildAndExpand(interviewId).toUri();
-        PreAnswerResponse response = new PreAnswerResponse(interviewId, preAnswerRequest.getContent(), new UserResponse(10L, "리액트개발자"), LocalDateTime.now());
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        if (user.getUserId() != preAnswerRequest.getUserId()) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        URI uri = uriBuilder.path("/api/interviews/{interviewId}").buildAndExpand(interviewId).toUri();
+
+        PreAnswerResponse response = new PreAnswerResponse(preAnswerService.savePreAnswer(preAnswerRequest, interviewId));
         return ResponseEntity.created(uri).body(response);
     }
 
@@ -55,9 +68,19 @@ public class PreAnswerController {
     @PatchMapping("/{preAnswerId}")
     public ResponseEntity<PreAnswerResponse> updatePreAnswer(
         @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
-        @Valid @RequestBody UpdatePreAnswerRequest preAnswerRequest
+        @Parameter(description = "사전답안 ID") @PathVariable(name = "preAnswerId") Long preAnswerId,
+        @Valid @RequestBody UpdatePreAnswerRequest preAnswerRequest,
+        @Parameter(hidden = true) @LoginUser SessionUser user
     ){
-        PreAnswerResponse response = new PreAnswerResponse(interviewId, preAnswerRequest.getContent(), new UserResponse(11L, "노드개발자"), LocalDateTime.now());
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        if (preAnswerRequest.getUserId() != user.getUserId() || preAnswerRequest.getId() != preAnswerId) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+        PreAnswerResponse response = new PreAnswerResponse(preAnswerService.updatePreAnswer(preAnswerRequest, interviewId));
+
         return ResponseEntity.ok(response);
     }
 
@@ -65,8 +88,13 @@ public class PreAnswerController {
     @DeleteMapping("/{preAnswerId}")
     public ResponseEntity<Void> deletePreAnswer(
         @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
-        @Parameter(description = "사전답안 ID") @PathVariable(name = "preAnswerId") Long preAnswerId
+        @Parameter(description = "사전답안 ID") @PathVariable(name = "preAnswerId") Long preAnswerId,
+        @Parameter(hidden = true) @LoginUser SessionUser user
     ){
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        preAnswerService.deletePreAnswer(interviewId, preAnswerId, user.getUserId());
         return ResponseEntity.noContent().build();
     }
 
