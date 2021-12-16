@@ -32,7 +32,7 @@ public class PreAnswerController {
     @GetMapping
     public ResponseEntity<PreAnswerResponse> findPreAnswer(
         @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
-        @LoginUser SessionUser user
+        @Parameter(hidden = true) @LoginUser SessionUser user
     ){
         Long userId = user == null ? 0L : user.getUserId();
 
@@ -50,7 +50,7 @@ public class PreAnswerController {
         UriComponentsBuilder uriBuilder,
         @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
         @Valid @RequestBody SavePreAnswerRequest preAnswerRequest,
-        @LoginUser SessionUser user
+        @Parameter(hidden = true) @LoginUser SessionUser user
     ){
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -70,7 +70,7 @@ public class PreAnswerController {
         @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
         @Parameter(description = "사전답안 ID") @PathVariable(name = "preAnswerId") Long preAnswerId,
         @Valid @RequestBody UpdatePreAnswerRequest preAnswerRequest,
-        @LoginUser SessionUser user
+        @Parameter(hidden = true) @LoginUser SessionUser user
     ){
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -89,7 +89,7 @@ public class PreAnswerController {
     public ResponseEntity<Void> deletePreAnswer(
         @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
         @Parameter(description = "사전답안 ID") @PathVariable(name = "preAnswerId") Long preAnswerId,
-        @LoginUser SessionUser user
+        @Parameter(hidden = true) @LoginUser SessionUser user
     ){
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
