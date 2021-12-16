@@ -17,3 +17,7 @@ spring:
   ### Spring Session
   session:
     store-type: jdbc
+
+### default port
+server:
+  port: 80
