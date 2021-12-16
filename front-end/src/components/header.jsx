@@ -8,13 +8,13 @@ import { Header } from './theme/common.style.js';
 
 import DarkModeComponent from "./darkComponent.jsx";
 
-function ChippoHeader(){
-    const navigate = useNavigate();
 
-    const loginBtnClick = () => {
-        navigate("/login");
-    }
-    
+function ChippoHeader(){
+    const navigator = useNavigate();
+
+    const goHomeUrl = () => navigator("/");
+    const goLoginUrl = () => navigator("/login");
+
     // 로그인 페이지 방문 시 헤더 제거
     if (window.location.pathname === "/login") return null;
 
@@ -22,7 +22,7 @@ function ChippoHeader(){
         <div>
             <Header>
                 <Flex> 
-                    <HStack spacing = "24px">
+                    <HStack spacing = "24px" onClick = {goHomeUrl} cursor = "pointer">
                         <Image 
                             objectFit="cover" 
                             boxSize="64px" 
@@ -34,7 +34,7 @@ function ChippoHeader(){
                     <Spacer />
                     <HStack spacing = "48px">
                         <Button variant="primary"> 새 글 작성 </Button>
-                        <Button variant="primary" onClick = {loginBtnClick}> 로그인 </Button>   
+                        <Button variant="primary" onClick = {goLoginUrl}> 로그인 </Button>   
                     </HStack>
                 </Flex>
             </Header>

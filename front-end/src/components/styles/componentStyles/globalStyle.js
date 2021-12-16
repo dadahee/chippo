@@ -6,7 +6,7 @@ export const GlobalStyles = extendTheme({
       global: (props) => ({
         body : {
           fontFamily: "'IBM Plex Sans KR', sans-serif",
-          color: props.colorMode === "dark" ? "white" : "black"
+          color: props.colorMode === "dark" ? "white" : "black",
         },
       }),
     },
