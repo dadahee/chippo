@@ -2,7 +2,6 @@ package com.j2kb5th.chippo.preanswer.controller;
 
 import com.j2kb5th.chippo.config.auth.LoginUser;
 import com.j2kb5th.chippo.config.auth.dto.SessionUser;
-import com.j2kb5th.chippo.global.controller.dto.UserResponse;
 import com.j2kb5th.chippo.preanswer.controller.dto.request.SavePreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.controller.dto.request.UpdatePreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.controller.dto.response.PreAnswerResponse;
@@ -18,7 +17,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.time.LocalDateTime;
 
 @Tag(name = "사전답안(PreAnswer)", description = "사전답안 API")
 @RequiredArgsConstructor
@@ -29,10 +27,9 @@ public class PreAnswerController {
     private final PreAnswerService preAnswerService;
 
     // 현재는 interview 조회 시 preanswer도 있으면 동시에 전달
-    // 혹시 몰라 단건 조회도 첨부
     @Operation(summary = "사전답안 기술면접 및 사용자별 조회",
             description = "특정 기술면접에 대해 특정 사용자가 등록한 사전답안 게시글이 있다면 함께 전달됩니다.")
-    @GetMapping({"", "/"})
+    @GetMapping
     public ResponseEntity<PreAnswerResponse> findPreAnswer(
         @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
         @LoginUser SessionUser user
@@ -41,7 +38,7 @@ public class PreAnswerController {
 
         PreAnswerResponse response = null;
         try {
-            response = new PreAnswerResponse(preAnswerService.getOnePreAnswer(interviewId, userId));
+            response = new PreAnswerResponse(preAnswerService.findUserPreAnswer(interviewId, userId));
         } catch (NullPointerException e) {}
 
         return ResponseEntity.ok(response);
@@ -55,12 +52,15 @@ public class PreAnswerController {
         @Valid @RequestBody SavePreAnswerRequest preAnswerRequest,
         @LoginUser SessionUser user
     ){
-        if (user == null || user.getUserId() != preAnswerRequest.getUserId()) {
+        if (user == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        if (user.getUserId() != preAnswerRequest.getUserId()) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         URI uri = uriBuilder.path("/api/interviews/{interviewId}").buildAndExpand(interviewId).toUri();
 
-        PreAnswerResponse response = new PreAnswerResponse(preAnswerService.save(preAnswerRequest, interviewId));
+        PreAnswerResponse response = new PreAnswerResponse(preAnswerService.savePreAnswer(preAnswerRequest, interviewId));
         return ResponseEntity.created(uri).body(response);
     }
 
@@ -72,8 +72,11 @@ public class PreAnswerController {
         @Valid @RequestBody UpdatePreAnswerRequest preAnswerRequest,
         @LoginUser SessionUser user
     ){
-        if (user == null || preAnswerRequest.getUserId() != user.getUserId() || preAnswerRequest.getId() != preAnswerId) {
+        if (user == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        if (preAnswerRequest.getUserId() != user.getUserId() || preAnswerRequest.getId() != preAnswerId) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
         PreAnswerResponse response = new PreAnswerResponse(preAnswerService.updatePreAnswer(preAnswerRequest, interviewId));
@@ -88,7 +91,10 @@ public class PreAnswerController {
         @Parameter(description = "사전답안 ID") @PathVariable(name = "preAnswerId") Long preAnswerId,
         @LoginUser SessionUser user
     ){
-        preAnswerService.deletePreAnswer(interviewId, preAnswerId, user);
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        preAnswerService.deletePreAnswer(interviewId, preAnswerId, user.getUserId());
         return ResponseEntity.noContent().build();
     }
 

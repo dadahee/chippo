@@ -14,12 +14,10 @@ public class SessionUser implements Serializable {
     private Long userId;
     private String email;
     private String nickname;
-    private Role role;
 
     public SessionUser(User user) {
         this.userId = user.getId();
         this.email = user.getEmail();
         this.nickname = user.getNickname();
-        this.role = user.getRole();
     }
 }
