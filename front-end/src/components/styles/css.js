@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 const Header = styled.header`
+    
     font-weight: bold;
     font-style: italic; 
     padding : 10px;

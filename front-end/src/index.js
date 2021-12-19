@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import { ChakraProvider } from '@chakra-ui/react';
-import { theme } from "./components/theme/custom.js"
 
 import { customTheme } from './components/styles/theme.js';
 
