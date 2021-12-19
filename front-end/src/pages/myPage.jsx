@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from "react-redux";
 
 import { Center, VStack, Button, Box, Flex, HStack, Spacer } from "@chakra-ui/react";
 import { MdPerson } from "react-icons/md";
 
-function MyPage(){
+function MyPage({ logined }){
+
+    if (logined === false) return (<div>로그인하셔야합니다...</div>) 
 
     return (
         <Center>
@@ -43,4 +46,10 @@ function MyPage(){
     )
 }
 
-export default MyPage;
+const mapStateToProps = ({ logined }) => {
+    return {
+        logined : logined.login
+    }
+}
+
+export default connect(mapStateToProps)(MyPage);
