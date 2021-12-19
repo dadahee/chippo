@@ -10,14 +10,14 @@ import { LoginPage, NaverLoginButton, NaverLoginImage } from '../components/styl
 
 import { doLogin, doLogout } from "../redux/indexAction.js";
 
-function Login({ logined, doLogin, doLogout }){
+function Login({ doLogin }){
     const navigator = useNavigate();
 
     const goHomeUrl = () => navigator("/");
 
     const goLoginAndHome = () => {
         doLogin();
-        goHomeUrl();
+        navigator("/username")
     }
     
     const responseGoogle = (response) => {
