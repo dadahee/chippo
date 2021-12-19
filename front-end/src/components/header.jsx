@@ -1,46 +1,88 @@
-import React, { useEffect, useRef } from 'react';
-import { useNavigate , useLocation } from 'react-router-dom';
+import React from 'react';
+import { connect } from "react-redux";
 
-import { Button, HStack, Image } from "@chakra-ui/react";
+import { useNavigate , useLocation, Link } from 'react-router-dom';
+
+import { Button, HStack, Image, Box, Heading } from "@chakra-ui/react";
 import { Flex, Spacer } from '@chakra-ui/layout';
 
-import { Header } from './theme/common.style.js';
+import { MdPerson } from "react-icons/md";
+
+import { doLogin, doLogout } from "../redux/indexAction.js";
+
+import { Header } from "./styles/css.js"
 
 import DarkModeComponent from "./darkComponent.jsx";
 
 
-function ChippoHeader(){
+function ChippoHeader({ logined, doLogout }){
+
+    const { pathname } = useLocation();
     const navigator = useNavigate();
 
     const goHomeUrl = () => navigator("/");
     const goLoginUrl = () => navigator("/login");
+    const goMyPage = () => navigator(`${pathname}/myPage`)
 
     // 로그인 페이지 방문 시 헤더 제거
     if (window.location.pathname === "/login") return null;
 
     return (
-        <div>
-            <Header>
+        <>
+        <Header>
                 <Flex> 
-                    <HStack spacing = "24px" onClick = {goHomeUrl} cursor = "pointer">
+                    <HStack spacing = "24px" onClick = {goHomeUrl} 
+                            cursor = "pointer" color ="#5078E7">
                         <Image 
                             objectFit="cover" 
                             boxSize="64px" 
                             src= {process.env.PUBLIC_URL + '/img/logo.png'} 
                             alt="chippo_logo" 
                         />
-                        <h1>CHIPPO</h1>
+                        <Heading>CHIPPO</Heading>
                     </HStack>
                     <Spacer />
                     <HStack spacing = "48px">
                         <Button variant="primary"> 새 글 작성 </Button>
-                        <Button variant="primary" onClick = {goLoginUrl}> 로그인 </Button>   
+                        {
+                            (logined)
+                            ? 
+                            ( 
+                                <>
+                                    <Box display = "flex" cursur = "pointer" onClick = {goMyPage}>
+                                        <MdPerson size = "1.8em" />
+                                        <Box pl = "20px" fontSize= "20px">
+                                            {/* 로그인 유저 데이터 넣기 */}
+                                            황준승
+                                        </Box>
+                                    </Box>
+                                    
+                                    <Button variant="primary" onClick = {doLogout}> 
+                                    로그아웃 
+                                    </Button> 
+                                </>
+                                
+                            )  
+                            : <Button variant="primary" onClick = {goLoginUrl}> 로그인 </Button>   
+                        }
                     </HStack>
                 </Flex>
-            </Header>
+                </Header>
             <DarkModeComponent />
-        </div>
+        </>
     )
 }
 
-export default ChippoHeader;
+const mapStateToProps = ({ logined }) => {
+    return {
+        logined : logined.login
+    }
+}
+
+const mapDispatchToProps = {
+    doLogin,
+    doLogout,    
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChippoHeader);
