@@ -12,6 +12,9 @@ import {
     FormHelperText,
     Input,
     Button,
+    Center,
+    VStack,
+    Flex,
     Container
   } from '@chakra-ui/react'
 
@@ -22,7 +25,18 @@ function Writing({ logined }){
     if (logined === false) navigator("/login");
     
       return (
-          <FormikExample />
+          <Center>
+            <VStack w ="70%">
+                <Flex w = "100%">
+                    <Form>
+                        <FormikExample />
+                    </Form>
+                    
+                </Flex>
+            </VStack>
+            
+          </Center>
+          
       )
     
 }
@@ -31,6 +45,8 @@ function FormikExample() {
     function validateName(value) {
         let error
         if (!value) error = 'Name is required'
+        else if (value.toLowerCase() !== 'naruto') error = "Jeez! You're not a fan 😱"
+      
         return error
     }
   
@@ -45,7 +61,7 @@ function FormikExample() {
         }}
       >
         {(props) => (
-          <Form>
+          
             <Field name='name' validate={validateName}>
               {({ field, form }) => (
                 <FormControl isInvalid={form.errors.name && form.touched.name}>
@@ -55,8 +71,7 @@ function FormikExample() {
                 </FormControl>
               )}
             </Field>
-            <Button variant="primary">업로드 하기</Button>
-          </Form>
+          
         )}
       </Formik>
     )
