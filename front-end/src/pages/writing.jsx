@@ -14,68 +14,87 @@ import {
     Button,
     Center,
     VStack,
+    Box,
     Flex,
+    Spacer,
     Container
   } from '@chakra-ui/react'
 
 function Writing({ logined }){
 
+    const checkKorean = (value) => {
+        let error;
+        if (!/^[가-힣]+$/.test(value)){
+            error = "한국어로 입력하세요"
+        }
+
+        return error;
+    }
+
     const navigator = useNavigate();
     
     if (logined === false) navigator("/login");
     
-      return (
-          <Center>
-            <VStack w ="70%">
-                <Flex w = "100%">
-                    <Form>
-                        <FormikExample />
-                    </Form>
+    return (
+        <Center>
+        <VStack w ="70%">
+            <Box w = "100%">
+            <Formik
+                initialValues={{
+                    question: '',
+                    company: '',
+                    stack1 : '',
+                    stack2 : '',
+                    stack3 : '',
+                    job: '',
+
+                }}
+
+                onSubmit={async (values) => {
+                    await new Promise((r) => setTimeout(r, 500));
+                    alert(JSON.stringify(values, null, 2));
+                }}
+            >
+                <Form>
+                    <VStack spacing={12}>
+                    <Field
+                        name="question"
+                        render={({ field, form: { isSubmitting } }) => (
+                            <FormControl>
+                            <FormLabel htmlFor="question">면접 질문</FormLabel>
+                            <Input {...field} disabled={isSubmitting} 
+                                type="text" placeholder="30자 이내로 입력하세요" maxLength="40" />
+                            </FormControl> 
+                        )}
+                    />
                     
-                </Flex>
-            </VStack>
+                    <Field
+                        name="company" validate = {checkKorean}
+                        render={({ field, form : { isSubmitting, errors, touched } }) => (
+                            <FormControl isInvalid = {errors.company && touched.company}>
+                                <FormLabel htmlFor="company">기업명</FormLabel>
+                                <Input {...field} disabled={isSubmitting} 
+                                    type="text" placeholder="한글로 작성 ex) 카카오, 네이버" />
+                                <FormErrorMessage>{errors.company}</FormErrorMessage>
+                            </FormControl>
+                        )}
+                    />
+                    
+                    <Button variant="primary" type="submit">Submit</Button>
+                    </VStack>
+                </Form>
+                </Formik>
+            </Box>
+                
             
-          </Center>
-          
-      )
+            
+        </VStack>
+        </Center>
+        
+    )
     
 }
 
-function FormikExample() {
-    function validateName(value) {
-        let error
-        if (!value) error = 'Name is required'
-        else if (value.toLowerCase() !== 'naruto') error = "Jeez! You're not a fan 😱"
-      
-        return error
-    }
-  
-    return (
-      <Formik
-        initialValues={{ name: 'Sasuke' }}
-        onSubmit={(values, actions) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2))
-            actions.setSubmitting(false)
-          }, 1000)
-        }}
-      >
-        {(props) => (
-          
-            <Field name='name' validate={validateName}>
-              {({ field, form }) => (
-                <FormControl isInvalid={form.errors.name && form.touched.name}>
-                  <FormLabel htmlFor='name'>First name</FormLabel>
-                  <Input {...field} id='name' placeholder='name' />
-                  <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
-          
-        )}
-      </Formik>
-    )
-  }
 
 const mapStateToProps = ({ logined }) => {
     return {
