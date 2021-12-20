@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { connect } from "react-redux";
 
-import { Center, VStack, Button, Box, Flex, HStack, Spacer } from "@chakra-ui/react";
+import { Center, VStack, Button, Box, Flex, Spacer } from "@chakra-ui/react";
 import { MdPerson } from "react-icons/md";
 
 function MyPage({ logined }){
-
-    if (logined === false) return (<div>로그인하셔야합니다...</div>) 
+    const navigator = useNavigate();
+    
+    if (logined === false) navigator("/login");
 
     return (
         <Center>
