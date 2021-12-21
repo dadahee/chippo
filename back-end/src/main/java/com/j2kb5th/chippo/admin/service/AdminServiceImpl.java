@@ -12,9 +12,4 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdminServiceImpl implements AdminService {
 
-    private final UserRepository userRepository;
-    private final InterviewRepository interviewRepository;
-    private final TagRepository tagRepository;
-    private final CommentRepository commentRepository;
-    private final PreAnswerRepository preAnswerRepository;
 }

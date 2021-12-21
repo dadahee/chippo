@@ -1,5 +1,6 @@
 package com.j2kb5th.chippo.preanswer.controller.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j2kb5th.chippo.global.controller.dto.UserResponse;
 import com.j2kb5th.chippo.preanswer.domain.PreAnswer;
 import lombok.Getter;
@@ -13,6 +14,8 @@ public class PreAnswerResponse {
     private final Long id;
     private final String content;
     private final UserResponse user;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private final LocalDateTime updatedAt; // 논의 필요
 
     public PreAnswerResponse(PreAnswer preAnswer) {

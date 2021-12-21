@@ -13,7 +13,7 @@ public class AdminThumbResponse {
 
     private final Long interviewId;
 
-    @JsonFormat(pattern = "yyyy-NN-dd`T`HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private final LocalDateTime createdAt;
 
     public AdminThumbResponse(Thumb thumb){

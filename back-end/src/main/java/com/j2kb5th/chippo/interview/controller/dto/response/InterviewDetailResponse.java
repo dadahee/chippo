@@ -5,14 +5,12 @@ import com.j2kb5th.chippo.global.controller.dto.UserResponse;
 import com.j2kb5th.chippo.interview.domain.Interview;
 import com.j2kb5th.chippo.preanswer.domain.PreAnswer;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-@RequiredArgsConstructor // 임시용
 public class InterviewDetailResponse {
 
     private final Long id;
@@ -26,7 +24,7 @@ public class InterviewDetailResponse {
     private final List<InterviewTagDetailResponse> interviewTags;
     private final List<InterviewCommentResponse> comments;
 
-    @JsonFormat(pattern = "yyyy-NN-dd`T`HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private final LocalDateTime updatedAt;
 
     public InterviewDetailResponse(Interview interview, PreAnswer preAnswer, boolean thumbClicked) {
@@ -35,7 +33,7 @@ public class InterviewDetailResponse {
         this.question = interview.getQuestion();
         this.answer = interview.getAnswer();
         this.extraInfo = interview.getExtraInfo();
-        this.preAnswer = new InterviewPreAnswerResponse(preAnswer);
+        this.preAnswer = (preAnswer == null)? null: new InterviewPreAnswerResponse(preAnswer);
         this.thumb = new InterviewThumbResponse(thumbClicked, interview.getThumbs().stream().count());
         this.interviewTags = interview.getInterviewTags().stream()
                 .map((interviewTag) -> new InterviewTagDetailResponse(interviewTag.getTag()))

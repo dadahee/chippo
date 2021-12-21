@@ -8,4 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ThumbServiceImpl implements ThumbService {
     private final ThumbRepository thumbRepository;
+
+    @Override
+    public boolean checkThumb(Long userId, Long interviewId) {
+        return false;
+    }
 }
