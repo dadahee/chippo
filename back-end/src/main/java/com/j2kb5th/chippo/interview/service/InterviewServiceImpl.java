@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -40,7 +41,6 @@ public class InterviewServiceImpl implements InterviewService {
 
 
         // 태그 객체(태그 id) -> 인터뷰태그 객체 찾기
-        // 중복 방지를 위해 Set 타입 사용
         List<InterviewTag> interviewTags = tags.stream()
                 .map(tag -> tag.getInterviewTags())
                 .flatMap(Collection::stream)
@@ -49,6 +49,7 @@ public class InterviewServiceImpl implements InterviewService {
         // 인터뷰태그 객체(의 인터뷰 id) -> 인터뷰 객체 찾기
         List<Interview> interviews = interviewTags.stream()
                 .map(interviewTag -> findInterviewById(interviewTag.getInterview().getId()))
+                .distinct() // 중복 방지
                 .collect(Collectors.toList());
         return interviews;
     }
