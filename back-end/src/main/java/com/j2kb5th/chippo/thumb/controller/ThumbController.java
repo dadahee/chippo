@@ -1,11 +1,16 @@
 package com.j2kb5th.chippo.thumb.controller;
 
+import com.j2kb5th.chippo.config.auth.LoginUser;
+import com.j2kb5th.chippo.config.auth.dto.SessionUser;
 import com.j2kb5th.chippo.thumb.controller.dto.response.CheckThumbResponse;
 import com.j2kb5th.chippo.thumb.controller.dto.response.ThumbResponse;
+import com.j2kb5th.chippo.thumb.domain.Thumb;
+import com.j2kb5th.chippo.thumb.service.ThumbService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -20,16 +25,22 @@ import java.time.LocalDateTime;
 @RestController
 public class ThumbController {
 
+    private final ThumbService thumbService;
+
     @Operation(summary = "따봉 저장", description = "해당 id의 기술면접에 따봉(좋아요)을 등록합니다.")
     @PostMapping("/thumbs")
     public ResponseEntity<ThumbResponse> saveThumb(
             UriComponentsBuilder uriBuilder,
-            @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId
+            @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
+            @LoginUser SessionUser user
     ){
-        ThumbResponse testResponse = new ThumbResponse((123L), LocalDateTime.now());
-
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        ThumbResponse response = new ThumbResponse(thumbService.saveThumb(interviewId, user.getUserId()));
         URI uri = uriBuilder.path("/api/interviews/{interviewId}").build().toUri();
-        return ResponseEntity.created(uri).body(testResponse);
+
+        return ResponseEntity.created(uri).body(response);
     }
 
     @Operation(summary = "따봉 취소", description = "해당 id의 기술면접에서, 해당 id의 따봉(좋아요)을 취소합니다.")
