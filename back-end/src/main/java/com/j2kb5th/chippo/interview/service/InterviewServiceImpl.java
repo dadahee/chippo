@@ -8,11 +8,11 @@ import com.j2kb5th.chippo.interview.repository.InterviewRepository;
 import com.j2kb5th.chippo.tag.domain.InterviewTag;
 import com.j2kb5th.chippo.tag.domain.Tag;
 import com.j2kb5th.chippo.tag.domain.TagType;
-import com.j2kb5th.chippo.tag.repository.InterviewTagRepository;
 import com.j2kb5th.chippo.tag.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -25,12 +25,14 @@ public class InterviewServiceImpl implements InterviewService {
     private final TagRepository tagRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public Interview findInterviewById(Long interviewId) {
         return interviewRepository.findById(interviewId)
                 .orElseThrow(() -> new GlobalException(HttpStatus.NOT_FOUND, ErrorMessage.IN001));
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Interview> findInterviewsByTag(String tagName, TagType tagType, Long size) {
         // 처리 순서
         // 태그 정보(name, type) -> 태그 객체 찾기
@@ -46,13 +48,13 @@ public class InterviewServiceImpl implements InterviewService {
 
         // 인터뷰태그 객체(의 인터뷰 id) -> 인터뷰 객체 찾기
         List<Interview> interviews = interviewTags.stream()
-                .map(interviewTag -> interviewRepository.findById(interviewTag.getInterview().getId())
-                        .orElseThrow(() -> new GlobalException(HttpStatus.NOT_FOUND, ErrorMessage.GL002)))
+                .map(interviewTag -> findInterviewById(interviewTag.getInterview().getId()))
                 .collect(Collectors.toList());
         return interviews;
     }
 
     @Override
+    @Transactional
     public Interview saveInterview(SaveInterviewRequest interviewRequest, Long userId) {
         ///// 태그
         // 기술스택 미작성 시 에러

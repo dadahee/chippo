@@ -49,10 +49,13 @@ public class InterviewController {
             @LoginUser SessionUser user,
             @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId
     ){
-        Long userId = (user == null) ? null : user.getUserId();
+        PreAnswer preAnswer = null;
+        boolean clicked = false;
+        if (user != null){
+            preAnswer = preAnswerService.findUserPreAnswer(interviewId, user.getUserId());
+            clicked = thumbService.checkThumb(user.getUserId(), interviewId);
+        }
         Interview interview = interviewService.findInterviewById(interviewId);
-        PreAnswer preAnswer = preAnswerService.findUserPreAnswer(interviewId, userId);
-        boolean clicked = (user == null)? false: thumbService.checkThumb(userId, interviewId);
         return ResponseEntity.ok(new InterviewDetailResponse(interview, preAnswer, clicked));
     }
 

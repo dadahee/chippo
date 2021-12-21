@@ -26,7 +26,7 @@ public enum ErrorMessage {
     /**
      * IN### : Interview Error
      */
-    IN001("interview"),
+    IN001("인터뷰 정보를 찾을 수 없습니다."),
 
 
     /**
