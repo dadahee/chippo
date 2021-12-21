@@ -9,6 +9,7 @@ import com.j2kb5th.chippo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 @RequiredArgsConstructor
@@ -19,10 +20,10 @@ public class ThumbServiceImpl implements ThumbService {
     private final UserRepository userRepository;
     private final InterviewRepository interviewRepository;
 
+    @Transactional
     @Override
     public Thumb saveThumb(Long interviewId, Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다."));
+        User user = userRepository.findById(userId).get();
         Interview interview = interviewRepository.findById(interviewId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "존재하지 않는 게시물입니다."));
 
@@ -32,5 +33,14 @@ public class ThumbServiceImpl implements ThumbService {
                 .build();
 
         return thumbRepository.save(thumb);
+    }
+
+    @Override
+    public void cancelThumb(Long interviewId, Long userId) {
+
+        Thumb thumb = thumbRepository.findByInterviewAndUser(interviewId, userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "회원님의 좋아요 기록이 없습니다."));
+
+        thumbRepository.delete(thumb);
     }
 }

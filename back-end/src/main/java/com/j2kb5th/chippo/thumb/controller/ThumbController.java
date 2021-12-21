@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -34,9 +35,8 @@ public class ThumbController {
             @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
             @LoginUser SessionUser user
     ){
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+
+        checkLogin(user);
         ThumbResponse response = new ThumbResponse(thumbService.saveThumb(interviewId, user.getUserId()));
         URI uri = uriBuilder.path("/api/interviews/{interviewId}").build().toUri();
 
@@ -44,11 +44,15 @@ public class ThumbController {
     }
 
     @Operation(summary = "따봉 취소", description = "해당 id의 기술면접에서, 해당 id의 따봉(좋아요)을 취소합니다.")
-    @DeleteMapping("/thumbs/{thumbId}")
+    @DeleteMapping("/thumbs")
     public ResponseEntity<Void> deleteThumb(
             @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
-            @Parameter(description = "따봉 ID") @PathVariable(name = "thumbId") Long thumbId
+            @LoginUser SessionUser user
     ){
+
+        checkLogin(user);
+        thumbService.cancelThumb(interviewId, user.getUserId());
+
         return ResponseEntity.noContent().build();
     }
 
@@ -64,5 +68,11 @@ public class ThumbController {
         ThumbResponse testThumbResponse = new ThumbResponse(123L, LocalDateTime.now());
         CheckThumbResponse testCheckResponse = new CheckThumbResponse(false, testThumbResponse);
         return ResponseEntity.ok(testCheckResponse);
+    }
+
+    private void checkLogin(SessionUser user) {
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
     }
 }
