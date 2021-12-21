@@ -1,15 +1,24 @@
 import React, { useRef, useEffect } from 'react';
+import { connect } from "react-redux";
+
 import GoogleLogin from 'react-google-login';
 
 import { useNavigate } from 'react-router-dom';
-import { HStack, Image, Center, VStack } from "@chakra-ui/react";
+import { HStack, Image, Center, VStack, Button } from "@chakra-ui/react";
 
 import { LoginPage, NaverLoginButton, NaverLoginImage } from '../components/styles/css.js';
 
-function Login(){
+import { doLogin, doLogout } from "../redux/indexAction.js";
+
+function Login({ doLogin }){
     const navigator = useNavigate();
 
     const goHomeUrl = () => navigator("/");
+
+    const goLoginAndHome = () => {
+        doLogin();
+        navigator("/username")
+    }
     
     const responseGoogle = (response) => {
         console.log(response);
@@ -75,10 +84,24 @@ function Login(){
                     네이버 아이디로 로그인
                 </NaverLoginButton>
             </VStack>
-            
+            <Button 
+                variant = "primary"
+                onClick = {goLoginAndHome}
+            > 임시 로그인 버튼
+            </Button>
         </LoginPage>
-        
     )
 }
 
-export default Login;
+const mapStateToProps = ({ logined }) => {
+    return {
+        logined : logined
+    }
+}
+
+const mapDispatchToProps = {
+    doLogin,
+    doLogout,    
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
