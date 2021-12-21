@@ -43,4 +43,10 @@ public class ThumbServiceImpl implements ThumbService {
 
         thumbRepository.delete(thumb);
     }
+
+    @Override
+    public boolean checkThumb(Long interviewId, Long userId) {
+        return thumbRepository.findByInterviewAndUser(interviewId, userId).isPresent();
+    }
+
 }

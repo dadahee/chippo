@@ -63,11 +63,16 @@ public class ThumbController {
     @GetMapping("/users/{userId}/thumbs")
     public ResponseEntity<CheckThumbResponse> checkThumb (
         @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
-        @Parameter(description = "유저 ID") @PathVariable(name = "userId") Long userId
+        @Parameter(description = "유저 ID") @PathVariable(name = "userId") Long userId,
+        @LoginUser SessionUser user
     ){
-        ThumbResponse testThumbResponse = new ThumbResponse(123L, LocalDateTime.now());
-        CheckThumbResponse testCheckResponse = new CheckThumbResponse(false, testThumbResponse);
-        return ResponseEntity.ok(testCheckResponse);
+        if (user == null || user.getUserId() != userId) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        CheckThumbResponse response = new CheckThumbResponse(thumbService.checkThumb(interviewId, userId));
+
+        return ResponseEntity.ok(response);
     }
 
     private void checkLogin(SessionUser user) {

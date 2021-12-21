@@ -7,4 +7,6 @@ public interface ThumbService {
     Thumb saveThumb(Long interviewId, Long userId);
 
     void cancelThumb(Long interviewId, Long userId);
+
+    boolean checkThumb(Long interviewId, Long userId);
 }
