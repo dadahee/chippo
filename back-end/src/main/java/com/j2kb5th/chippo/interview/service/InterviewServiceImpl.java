@@ -210,7 +210,13 @@ public class InterviewServiceImpl implements InterviewService {
         // 기술스택 미작성 시 에러
         validateTechStackTags(tagTypeListMap);
 
+        /////// 기술면접 불러오기
+        Interview interview = findInterviewById(interviewRequest.getId());
+
         List<Tag> tags = new ArrayList<>();
+
+        //// 기존 기술면접에 태깅되어 있던 인터뷰 태그 정보
+        Set<InterviewTag> interviewTags = interview.getInterviewTags().stream().collect(Collectors.toSet());
 
         for (List<InterviewTagDetailRequest> tagList: tagTypeListMap.values()){
             // 태그 타입별 개수 초과 작성 시 에러
@@ -220,15 +226,24 @@ public class InterviewServiceImpl implements InterviewService {
 
             // 중복 검사하여 없을 경우 저장
             for (InterviewTagDetailRequest tagRequest: tagList) {
-                if (((UpdateInterviewTagDetailRequest) tagRequest).getId() == null) { // 사용자가 새로 등록한 태그
-                    Tag tag = findOrSaveTagByNameAndType(tagRequest);
+                if (((UpdateInterviewTagDetailRequest) tagRequest).getId() == null) { // 사용자가 새로 추가한 태그
+                    Tag tag = findOrSaveTagByNameAndType(tagRequest); // 다른 사용자가 등록했는지 검사, DB에 없으면 새로 저장
                     tags.add(tag);
-                } // 이미 등록한 태그는 등록 필요 없음
+                } else { // 이미 등록한 태그는 등록 필요 없음
+                    interviewTags.removeIf(interviewTag -> interviewTag.getTag().getId() == ((UpdateInterviewTagDetailRequest) tagRequest).getId());
+                }
             }
         }
 
-        /////// 기술면접 불러오기
-        Interview interview = findInterviewById(interviewRequest.getId());
+        // 원래 있다가 없어진 태그들 삭제: 기존 태그 - update 시에도 유지된 태그 = 버려진 태그
+        // 해당 기술면접에서만 사용되었던 태그들(참조횟수 1인 태그 -> 곧 0이될 태그)을 삭제
+        List<Tag> abandonedTags = interviewTags.stream().map(interviewTag -> interviewTag.getTag()).collect(Collectors.toList());
+        abandonedTags.stream()
+                .filter(tag -> interviewTagRepository.countByTagId(tag.getId()) == 1)
+                .forEach(tag -> tagRepository.delete(tag));
+
+        // 다른 기술면접에서 사용된 태그들은 인터뷰-태그 관계만 삭제함
+        interviewTags.forEach(interviewTag -> interview.removeInterviewTag(interviewTag));
 
         // 기술면접 업데이트
         interview.updateQuestion(interviewRequest.getQuestion());
@@ -251,6 +266,14 @@ public class InterviewServiceImpl implements InterviewService {
         //// 기술면접
         // 조회
         Interview interview = findInterviewById(interviewId);
+
+        /// 태그
+        // 해당 기술면접에서만 사용되었던 태그들(참조횟수 1인 태그 -> 곧 0이될 태그)을 삭제
+        Set<InterviewTag> interviewTags = interview.getInterviewTags().stream().collect(Collectors.toSet());
+        List<Tag> abandonedTags = interviewTags.stream().map(interviewTag -> interviewTag.getTag()).collect(Collectors.toList());
+        abandonedTags.stream()
+                .filter(tag -> interviewTagRepository.countByTagId(tag.getId()) == 1)
+                .forEach(tag -> tagRepository.delete(tag));
 
         // 권한 검사
         validateUserAuthority(user, interview.getUser().getId());

@@ -7,4 +7,7 @@ import java.util.List;
 
 public interface InterviewTagRepository extends JpaRepository<InterviewTag, Long> {
     List<InterviewTag> findByTagId(Long id);
+    List<InterviewTag> findByInterviewId(Long id);
+
+    Long countByTagId(Long id);
 }

@@ -62,6 +62,10 @@ public class Interview extends BaseTimeEntity {
         this.interviewTags.add(interviewTag);
     }
 
+    public void removeInterviewTag(InterviewTag interviewTag) {
+        this.interviewTags.removeIf(it -> it.getId() == interviewTag.getId());
+    }
+
     public void updateQuestion(String question) {
         this.question = question;
     }
@@ -73,4 +77,5 @@ public class Interview extends BaseTimeEntity {
     public void updateExtraInfo(String extraInfo) {
         this.extraInfo = extraInfo;
     }
+
 }
