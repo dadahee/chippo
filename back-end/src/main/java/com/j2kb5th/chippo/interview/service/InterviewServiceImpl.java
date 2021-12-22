@@ -244,6 +244,17 @@ public class InterviewServiceImpl implements InterviewService {
     @Override
     @Transactional
     public void deleteInterview(Long interviewId, Long userId) {
+        //// 유저
+        // 조회
+        User user = findUserById(userId);
 
+        //// 기술면접
+        // 조회
+        Interview interview = findInterviewById(interviewId);
+
+        // 권한 검사
+        validateUserAuthority(user, interview.getUser().getId());
+
+        interviewRepository.delete(interview);
     }
 }
