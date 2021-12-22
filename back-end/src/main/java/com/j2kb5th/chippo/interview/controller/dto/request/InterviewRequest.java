@@ -28,7 +28,7 @@ public class InterviewRequest {
     @Size(max = 300)
     private String extraInfo;
 
-    private List<InterviewTagDetailRequest> interviewTags;
+    private List<? extends InterviewTagDetailRequest> interviewTags;
 
     public Interview toEntity(User user){
         return Interview.builder()
