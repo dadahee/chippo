@@ -22,6 +22,7 @@ public enum ErrorMessage {
     /**
      * CO### : Comment Error
      */
+    CO001("댓글을 찾을 수 없습니다."),
 
     /**
      * IN### : Interview Error
