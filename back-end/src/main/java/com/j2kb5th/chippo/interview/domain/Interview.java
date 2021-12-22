@@ -57,4 +57,8 @@ public class Interview extends BaseTimeEntity {
         this.thumbs = thumbs;
         this.comments = comments;
     }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
 }

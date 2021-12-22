@@ -79,7 +79,7 @@ public class CommentController {
         validateUserAuthentication(user);
 
         // delete comment
-        commentService.deleteComment(commentId, interviewId);
+        commentService.deleteComment(user.getUserId(), commentId, interviewId);
         return ResponseEntity.noContent().build();
     }
 

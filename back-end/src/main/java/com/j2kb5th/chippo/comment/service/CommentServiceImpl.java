@@ -39,6 +39,19 @@ public class CommentServiceImpl implements CommentService {
                 .orElseThrow(() -> new GlobalException(HttpStatus.NOT_FOUND, ErrorMessage.GL002));
     }
 
+
+//    /**
+//     * 유저 권한 검사
+//     * @param user: 세션 유저에서 받아온 id를 통해 조회한 유저 정보
+//     * @param requestUserId: comment request에 담긴 유저 정보
+//     */
+//    private void validateUserAuthority(User user, Long requestUserId) {
+//        // 유저 권한 체크: 활성화 유저이거나 관리자거나
+//        if (! (user.hasAuthority(requestUserId))) {
+//            throw new GlobalException(HttpStatus.FORBIDDEN, ErrorMessage.GL004);
+//        }
+//    }
+
     @Override
     @Transactional(readOnly = true)
     public List<Comment> findByInterviewId(Long interviewId) {
@@ -47,12 +60,38 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment saveComment(CommentRequest commentRequest, Long interviewId) {
-        return null;
+        //// 유저
+        // 조회
+        User user = findUserById(commentRequest.getUserId());
+
+        // 권한 체크
+        // 51번 이슈 머지 되면 추가함
+//        validateUserAuthority(user, commentRequest.getUserId());
+
+        //// 기술면접
+        Interview interview = findInterviewById(interviewId);
+        Comment comment = commentRequest.toEntity(user, interview);
+
+        // 기술면접에 덧글 추가
+        interview.addComment(comment);
+
+        // 저장
+        return commentRepository.save(comment);
     }
 
     @Override
-    public void deleteComment(Long commentId, Long interviewId) {
+    public void deleteComment(Long userId, Long commentId, Long interviewId) {
+        //// 유저
+        // 조회
+        User user = findUserById(userId);
+
+        //// 기술면접
+        Interview interview = findInterviewById(interviewId);
         Comment comment = findCommentById(commentId);
+
+        // 권한 체크
+        // 51번 이슈 머지 되면 추가함
+//        validateUserAuthority(user, comment.getUser().getId());
         commentRepository.delete(comment);
     }
 }

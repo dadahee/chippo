@@ -8,5 +8,5 @@ import java.util.List;
 public interface CommentService {
     List<Comment> findByInterviewId(Long interviewId);
     Comment saveComment(CommentRequest commentRequest, Long interviewId);
-    void deleteComment(Long commentId, Long interviewId);
+    void deleteComment(Long userId, Long commentId, Long interviewId);
 }
