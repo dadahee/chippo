@@ -10,7 +10,8 @@ function MyPage({ logined }){
     const navigator = useNavigate();
 
     const goMyWirtePage = () => navigator("myWritePage");
-    const goMyLikePage = () => navigator("myLikePage")
+    const goMyLikePage = () => navigator("myLikePage");
+    const goMyWithdrawlPage = () => navigator("myWithdrawlPage")
     
     if (logined === false) navigator("/login");
 
@@ -48,7 +49,9 @@ function MyPage({ logined }){
                     </Center>
                 </Flex>
 
-                <Button variant="danger"> 탈퇴하기 </Button>
+                <Button variant="danger" onClick={goMyWithdrawlPage}> 
+                    탈퇴하기 
+                </Button>
             </VStack>
 
             
