@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { AiFillLike } from "react-icons/ai"
 import { fetchInterviewTags } from "../redux/indexAction.js"
 
-import { Center, VStack, Button, Box, Flex, Spacer, Link, HStack } from "@chakra-ui/react";
+import { Center, VStack, Button, Box, Flex, Link, HStack, Spacer } from "@chakra-ui/react";
 
 function MyWritePage({ fetchInterviewTags, loading, interviewTags }){
 
@@ -19,13 +19,14 @@ function MyWritePage({ fetchInterviewTags, loading, interviewTags }){
                     >
                         내가 작성한 게시물
                     </Center>
-                    <VStack spacing={8} mt = "20px">
+                    <VStack spacing={8} mt = "40px">
                     {
                         interviewTags && interviewTags.map(interview => {
                             
                             return (
+                                <Flex w = "100%">
                                 <Box key = {interview.id}
-                                    fontWeight = "bold" w = "100%" h = "100px" 
+                                    fontWeight = "bold" w = "80%" h = "100px" 
                                     pl = "10px" display = "flex" alignItems = "center"
                                     border = "5px solid #5078E7"
                                 >
@@ -35,9 +36,14 @@ function MyWritePage({ fetchInterviewTags, loading, interviewTags }){
                                         <AiFillLike />
                                         <Box>{interview.thumbCount}</Box>
                                     </HStack>
-                                        
-                                    
                                 </Box>
+                                
+                                <Spacer />
+
+                                <Center w = "15%" h = "100px" bg = "#5078E7" color = "white">
+                                    수정
+                                </Center>
+                                </Flex>
                             )   
                         })
                     }
