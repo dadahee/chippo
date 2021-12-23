@@ -12,6 +12,7 @@ import CardNews from './pages/cardNews.jsx';
 import CardNewsAnswer from './pages/cardNewsAnswer.jsx';
 import MyPage from "./pages/myPage.jsx"
 import Writing from './pages/writing.jsx';
+import MyWritePage from './pages/myWritePage.jsx';
 
 import ChippoHeader from './components/header.jsx';
 
@@ -26,6 +27,7 @@ function App(){
                 <Route path = "/interviews/:interviewId/pre-answer" element = {<CardNews />} /> 
                 <Route path = "/interviews/:interviewId/answer" element = {<CardNewsAnswer />} /> 
                 <Route path = "/username" element = {<MyPage />} />
+                <Route path = "/username/myWritePage" element = {<MyWritePage />} />
                 <Route path = "/writing" element = {<Writing />} />
                 
             </Routes>
