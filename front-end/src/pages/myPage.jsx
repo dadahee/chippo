@@ -10,6 +10,7 @@ function MyPage({ logined }){
     const navigator = useNavigate();
 
     const goMyWirtePage = () => navigator("myWritePage");
+    const goMyLikePage = () => navigator("myLikePage")
     
     if (logined === false) navigator("/login");
 
@@ -40,6 +41,8 @@ function MyPage({ logined }){
                     
                     <Center w = "300px" h = "150px"
                         bgGradient='linear(to-r, #E6F0FF, #5078E7)' color = "black"
+                        onClick = {goMyLikePage}
+                        cursor = "pointer"
                     >
                         내가 좋아요 한 게시물
                     </Center>

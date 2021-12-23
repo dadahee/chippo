@@ -13,6 +13,7 @@ import CardNewsAnswer from './pages/cardNewsAnswer.jsx';
 import MyPage from "./pages/myPage.jsx"
 import Writing from './pages/writing.jsx';
 import MyWritePage from './pages/myWritePage.jsx';
+import MyLikePage from './pages/myLikePage.jsx';
 
 import ChippoHeader from './components/header.jsx';
 
@@ -29,7 +30,7 @@ function App(){
                 <Route path = "/username" element = {<MyPage />} />
                 <Route path = "/username/myWritePage" element = {<MyWritePage />} />
                 <Route path = "/writing" element = {<Writing />} />
-                
+                <Route path = "/username/myLikePage" element = {<MyLikePage />} />
             </Routes>
             
         </Router>   
