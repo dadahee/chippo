@@ -1,6 +1,7 @@
 import { extendTheme } from '@chakra-ui/react';
 import { ButtonStyles as Button } from './componentStyles/buttonStyle.js';
 import { GlobalStyles as styles } from './componentStyles/globalStyle.js';
+import { InputStyles as Input } from './componentStyles/inputStyle.js';
 
 export const customTheme = extendTheme({
     colors : {
@@ -13,5 +14,6 @@ export const customTheme = extendTheme({
 
     components : {
         Button,
+        Input,
     }
 }) 

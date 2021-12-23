@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 
-import { useNavigate , useLocation, Link } from 'react-router-dom';
+import { useNavigate , useLocation } from 'react-router-dom';
 
 import { Button, HStack, Image, Box, Heading } from "@chakra-ui/react";
 import { Flex, Spacer } from '@chakra-ui/layout';
@@ -16,13 +16,26 @@ import DarkModeComponent from "./darkComponent.jsx";
 
 
 function ChippoHeader({ logined, doLogout }){
-
     const { pathname } = useLocation();
     const navigator = useNavigate();
 
-    const goHomeUrl = () => navigator("/");
+    const goHomeUrl = () => navigator("/")
     const goLoginUrl = () => navigator("/login");
-    const goMyPage = () => navigator(`${pathname}/myPage`)
+
+    const goMyPage = () => {
+        if (logined) navigator("/username")
+        else navigator("/login")
+    }
+    const goWriting = () => {
+        if (logined) navigator("/writing");
+        else navigator("/login")
+    }
+
+    // 로그아웃 시 
+    const goLogoutHome = () => {
+        navigator("/");
+        doLogout();
+    }
 
     // 로그인 페이지 방문 시 헤더 제거
     if (window.location.pathname === "/login") return null;
@@ -43,7 +56,7 @@ function ChippoHeader({ logined, doLogout }){
                     </HStack>
                     <Spacer />
                     <HStack spacing = "48px">
-                        <Button variant="primary"> 새 글 작성 </Button>
+                        <Button variant="primary" onClick = {goWriting}> 새 글 작성 </Button>
                         {
                             (logined)
                             ? 
@@ -57,7 +70,7 @@ function ChippoHeader({ logined, doLogout }){
                                         </Box>
                                     </Box>
                                     
-                                    <Button variant="primary" onClick = {doLogout}> 
+                                    <Button variant="primary" onClick = {goLogoutHome}> 
                                     로그아웃 
                                     </Button> 
                                 </>

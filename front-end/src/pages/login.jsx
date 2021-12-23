@@ -15,9 +15,9 @@ function Login({ doLogin }){
 
     const goHomeUrl = () => navigator("/");
 
-    const goLoginAndHome = () => {
+    const goLoginAndPrevious = () => {
         doLogin();
-        navigator("/username")
+        navigator(-1)
     }
     
     const responseGoogle = (response) => {
@@ -86,7 +86,7 @@ function Login({ doLogin }){
             </VStack>
             <Button 
                 variant = "primary"
-                onClick = {goLoginAndHome}
+                onClick = {goLoginAndPrevious}
             > 임시 로그인 버튼
             </Button>
         </LoginPage>
