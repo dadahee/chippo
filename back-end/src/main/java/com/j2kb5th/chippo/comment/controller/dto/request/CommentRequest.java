@@ -1,5 +1,8 @@
 package com.j2kb5th.chippo.comment.controller.dto.request;
 
+import com.j2kb5th.chippo.comment.domain.Comment;
+import com.j2kb5th.chippo.interview.domain.Interview;
+import com.j2kb5th.chippo.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,5 +20,11 @@ public class CommentRequest {
     @NotNull
     private String content;
 
-    // toEntity 삽입
+    public Comment toEntity(User user, Interview interview) {
+        return Comment.builder()
+                .user(user)
+                .content(content)
+                .interview(interview)
+                .build();
+    }
 }
