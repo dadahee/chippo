@@ -90,8 +90,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = findCommentById(commentId);
 
         // 권한 체크
-        // 51번 이슈 머지 되면 추가함
-//        validateUserAuthority(user, comment.getUser().getId());
+        validateUserAuthority(user, comment.getUser().getId());
         commentRepository.delete(comment);
     }
 }
