@@ -39,22 +39,21 @@ public class CommentServiceImpl implements CommentService {
                 .orElseThrow(() -> new GlobalException(HttpStatus.NOT_FOUND, ErrorMessage.GL002));
     }
 
-
-//    /**
-//     * 유저 권한 검사
-//     * @param user: 세션 유저에서 받아온 id를 통해 조회한 유저 정보
-//     * @param requestUserId: comment request에 담긴 유저 정보
-//     */
-//    private void validateUserAuthority(User user, Long requestUserId) {
-//        // 유저 권한 체크: 활성화 유저이거나 관리자거나
-//        if (! (user.hasAuthority(requestUserId))) {
-//            throw new GlobalException(HttpStatus.FORBIDDEN, ErrorMessage.GL004);
-//        }
-//    }
+    /**
+     * 유저 권한 검사
+     * @param user: 세션 유저에서 받아온 id를 통해 조회한 유저 정보
+     * @param requestUserId: comment request에 담긴 유저 정보
+     */
+    private void validateUserAuthority(User user, Long requestUserId) {
+        // 유저 권한 체크: 활성화 유저이거나 관리자거나
+        if (! (user.hasAuthority(requestUserId))) {
+            throw new GlobalException(HttpStatus.FORBIDDEN, ErrorMessage.GL004);
+        }
+    }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Comment> findByInterviewId(Long interviewId) {
+    public List<Comment> findCommentsByInterviewId(Long interviewId) {
         return commentRepository.findByInterviewId(interviewId);
     }
 
@@ -65,8 +64,7 @@ public class CommentServiceImpl implements CommentService {
         User user = findUserById(commentRequest.getUserId());
 
         // 권한 체크
-        // 51번 이슈 머지 되면 추가함
-//        validateUserAuthority(user, commentRequest.getUserId());
+        validateUserAuthority(user, commentRequest.getUserId());
 
         //// 기술면접
         Interview interview = findInterviewById(interviewId);

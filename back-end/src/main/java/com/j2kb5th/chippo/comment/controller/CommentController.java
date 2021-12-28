@@ -7,7 +7,6 @@ import com.j2kb5th.chippo.comment.domain.Comment;
 import com.j2kb5th.chippo.comment.service.CommentService;
 import com.j2kb5th.chippo.config.auth.LoginUser;
 import com.j2kb5th.chippo.config.auth.dto.SessionUser;
-import com.j2kb5th.chippo.global.controller.dto.UserResponse;
 import com.j2kb5th.chippo.global.exception.ErrorMessage;
 import com.j2kb5th.chippo.global.exception.GlobalException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,8 +20,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Tag(name = "댓글(Comment)", description = "댓글 API")
@@ -46,7 +43,7 @@ public class CommentController {
     public ResponseEntity<CommentListResponse> findComments(
         @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId
     ){
-        List<Comment> comments = commentService.findByInterviewId(interviewId);
+        List<Comment> comments = commentService.findCommentsByInterviewId(interviewId);
         return ResponseEntity.ok(new CommentListResponse(comments));
     }
 
