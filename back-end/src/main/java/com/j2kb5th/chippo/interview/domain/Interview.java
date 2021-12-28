@@ -37,7 +37,7 @@ public class Interview extends BaseTimeEntity {
     @Column(length = 300, nullable = false)
     private String extraInfo;
 
-    @OneToMany(mappedBy = "interview", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "interview", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InterviewTag> interviewTags = new ArrayList<>();
 
     @OneToMany(mappedBy = "interview", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -56,5 +56,9 @@ public class Interview extends BaseTimeEntity {
         this.interviewTags = interviewTags;
         this.thumbs = thumbs;
         this.comments = comments;
+    }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
     }
 }

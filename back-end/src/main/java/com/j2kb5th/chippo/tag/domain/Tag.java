@@ -28,4 +28,8 @@ public class Tag {
 
     @OneToMany(mappedBy = "interview", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<InterviewTag> interviewTags = new ArrayList<>();
+
+    public void addInterviewTag(InterviewTag interviewTag) {
+        this.interviewTags.add(interviewTag);
+    }
 }

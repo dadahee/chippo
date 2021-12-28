@@ -6,7 +6,7 @@ import com.j2kb5th.chippo.comment.domain.Comment;
 import java.util.List;
 
 public interface CommentService {
-    List<Comment> findByInterviewId(Long interviewId);
+    List<Comment> findCommentsByInterviewId(Long interviewId);
     Comment saveComment(CommentRequest commentRequest, Long interviewId);
-    void deleteComment(Long commentId, Long interviewId);
+    void deleteComment(Long userId, Long commentId, Long interviewId);
 }

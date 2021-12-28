@@ -10,6 +10,19 @@ import javax.validation.constraints.Size;
 
 @Getter
 @NoArgsConstructor
-public class SaveInterviewTagDetailRequest extends InterviewTagDetailRequest {
+public class InterviewTagDetailRequest {
 
+    @NotNull
+    private TagType type;
+
+    @Size(max = 20)
+    @NotNull
+    private String name;
+
+    public Tag toEntity() {
+        return Tag.builder()
+                .type(type)
+                .name(name)
+                .build();
+    }
 }

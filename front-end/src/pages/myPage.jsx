@@ -1,12 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { connect } from "react-redux";
 
-import { Center, VStack, Button, Box, Flex, HStack, Spacer } from "@chakra-ui/react";
+import { Center, VStack, Button, Box, Flex, Spacer } from "@chakra-ui/react";
 import { MdPerson } from "react-icons/md";
 
 function MyPage({ logined }){
+    const navigator = useNavigate();
 
-    if (logined === false) return (<div>로그인하셔야합니다...</div>) 
+    const goMyWirtePage = () => navigator("myWritePage");
+    const goMyLikePage = () => navigator("myLikePage")
+    
+    if (logined === false) navigator("/login");
 
     return (
         <Center>
@@ -22,18 +28,23 @@ function MyPage({ logined }){
                 </Flex>
 
                 <Flex w = "100%">
-                    <Center w = "300px" h = "150px"
-                        bgGradient='linear(to-r, #E6F0FF, #5078E7)' color = "black"
-                    >
-                        내가 작성한 게시물
-                    </Center>
+                    
+                        <Center w = "300px" h = "150px"
+                            bgGradient='linear(to-r, #E6F0FF, #5078E7)' color = "black"
+                            onClick = {goMyWirtePage}
+                            cursor = "pointer"
+                        >
+                            내가 작성한 게시물
+                        </Center>
 
                     <Spacer />
                     
                     <Center w = "300px" h = "150px"
                         bgGradient='linear(to-r, #E6F0FF, #5078E7)' color = "black"
+                        onClick = {goMyLikePage}
+                        cursor = "pointer"
                     >
-                        내가 작성한 게시물
+                        내가 좋아요 한 게시물
                     </Center>
                 </Flex>
 
