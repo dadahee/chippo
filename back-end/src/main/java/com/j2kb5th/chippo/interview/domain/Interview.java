@@ -58,24 +58,7 @@ public class Interview extends BaseTimeEntity {
         this.comments = comments;
     }
 
-    public void addInterviewTag(InterviewTag interviewTag) {
-        this.interviewTags.add(interviewTag);
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
     }
-
-    public void removeInterviewTag(InterviewTag interviewTag) {
-        this.interviewTags.removeIf(it -> it.getId() == interviewTag.getId());
-    }
-
-    public void updateQuestion(String question) {
-        this.question = question;
-    }
-
-    public void updateAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    public void updateExtraInfo(String extraInfo) {
-        this.extraInfo = extraInfo;
-    }
-
 }
