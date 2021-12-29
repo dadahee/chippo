@@ -1,10 +1,10 @@
 package com.j2kb5th.chippo.preanswer.service;
 
+import com.j2kb5th.chippo.preanswer.domain.PreAnswer;
 import com.j2kb5th.chippo.interview.domain.Interview;
 import com.j2kb5th.chippo.interview.repository.InterviewRepository;
 import com.j2kb5th.chippo.preanswer.controller.dto.request.SavePreAnswerRequest;
 import com.j2kb5th.chippo.preanswer.controller.dto.request.UpdatePreAnswerRequest;
-import com.j2kb5th.chippo.preanswer.domain.PreAnswer;
 import com.j2kb5th.chippo.preanswer.repository.PreAnswerRepository;
 import com.j2kb5th.chippo.user.domain.Role;
 import com.j2kb5th.chippo.user.domain.User;

@@ -1,34 +1,20 @@
 package com.j2kb5th.chippo.interview.controller.dto.request;
 
+import com.j2kb5th.chippo.interview.domain.Interview;
+import com.j2kb5th.chippo.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor // 접근제한 추가 필요
 @Getter
-public class UpdateInterviewRequest {
+public class UpdateInterviewRequest extends InterviewRequest {
 
-    @NotNull
     private Long id;
 
-    @NotNull
-    private Long userId;
-
-    @Size(max = 150)
-    @NotNull
-    private String question;
-
-    @Size(max = 300)
-    @NotNull
-    private String answer;
-
-    @Size(max = 300)
-    private String extraInfo;
-
     private List<UpdateInterviewTagDetailRequest> interviewTags;
-
-    // toEntity 삽입
 }

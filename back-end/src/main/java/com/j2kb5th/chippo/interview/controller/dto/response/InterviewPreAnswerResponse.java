@@ -1,18 +1,19 @@
 package com.j2kb5th.chippo.interview.controller.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j2kb5th.chippo.global.controller.dto.UserResponse;
 import com.j2kb5th.chippo.preanswer.domain.PreAnswer;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
-@RequiredArgsConstructor // 임시 어노테이션
 public class InterviewPreAnswerResponse {
     private final Long id;
     private final String content;
     private final UserResponse user;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private final LocalDateTime updatedAt;
 
     public InterviewPreAnswerResponse(PreAnswer preAnswer) {

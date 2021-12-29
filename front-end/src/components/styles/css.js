@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
 
 const Header = styled.header`
-    color : #5078E7;
-    font-size : 32px;
+    
     font-weight: bold;
     font-style: italic; 
     padding : 10px;
