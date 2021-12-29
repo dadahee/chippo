@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -60,9 +60,7 @@ function MyRevisedPage(){
                 initialValues={{
                     question: '',
                     company: '',
-                    stack1 : '',
-                    stack2 : '',
-                    stack3 : '',
+                    stacks : [''],
                     job: '',
                     answer : '',
                     additionalInformation : '',
@@ -79,10 +77,10 @@ function MyRevisedPage(){
                     <Field
                         name="question"
                         render={({ field, form: { isSubmitting } }) => (
-                            <FormControl>
+                            <FormControl isRequired>
                                 <Flex>
                                 <FormLabel htmlFor="question" w = "100px" pt = "8px">면접 질문</FormLabel>
-                                <Input {...field} disabled={isSubmitting} w = "300px" variant= "primary"
+                                <Input isRequired = {true} {...field} disabled={isSubmitting} w = "600px" variant= "primary"
                                     type="text" placeholder="40자 이내로 입력하세요" maxLength="40" />
                                 </Flex>
                             
@@ -93,7 +91,7 @@ function MyRevisedPage(){
                     <Field
                         name="company" validate = {checkKorean}
                         render={({ field, form : { isSubmitting, errors, touched } }) => (
-                            <FormControl isInvalid = {errors.company && touched.company}>
+                            <FormControl isInvalid = {errors.company && touched.company} >
                                 <Flex>
                                     <FormLabel htmlFor="company" w = "100px" pt = "8px">기업명</FormLabel>
                                     <Input {...field} disabled={isSubmitting} w = "300px" variant = "primary"
@@ -106,85 +104,72 @@ function MyRevisedPage(){
                         )}
                     />
 
-                    <HStack w = "100%" spacing={20}>
-                    <FormLabel htmlFor="stack" w = "120px" pt = "8px"> 스택 </FormLabel>
-                    
-                    <Field
-                        name="stack1" validate = {checkEnglish}
-                        render={({ field, form : { isSubmitting, errors, touched } }) => (
-                            
-                            <FormControl isInvalid = {errors.stack1 && touched.stack1}>
+                    <FieldArray name = "stacks"> 
+                        
+                        {
+                            fieldArrayProps => {
+                                const { push, pop, form } = fieldArrayProps
+                                const { values } = form;
+                                const { stacks } = values;
                                 
-                                    <Input {...field} disabled={isSubmitting} ml = "-10px"
-                                    variant="primary"
-                                    type="text" name = "stack1" list = "stack1" />
-                                    <datalist id="stack1">
-                                        <option value="python"></option>
-                                        <option value="javascript"></option>
-                                        <option value="java"></option>
-                                        <option value="php"></option>
-                                        <option value="go"></option>
-                                        <option value="c"></option>
-                                        <option value="c#"></option>
-                                        <option value="c++"></option>
-                                        <option value="없음"></option>
-                                    </datalist>
-                                    
-                                
-                                <FormErrorMessage>{errors.stack1}</FormErrorMessage>
-                            </FormControl>
-                        )}
-                    />
+                                return (
+                                    <>
+                                        <FormControl isRequired >
+                                        <Flex w = "100%">
+                                        <FormLabel htmlFor="stack" w = "100px" pt = "8px"> 스택 </FormLabel>
+                                        
+                                            {
+                                                stacks.map((stack, index) => {
+                                                    return (
+                                                        <div key = {index}>
+                                                            <Field name = {`stacks[${index}]`} validate = {checkEnglish}
+                                                                render = {({ field, form : { isSubmitting, errors, touched } }) => {
+                                                                    return (
+                                                                        <>
+                                                                           <Input {...field} disabled={isSubmitting} 
+                                                                           variant="primary" w = "300px" 
+                                                                           type="text" name = {`stacks[${index}]`} list = "stackList" />
+                                                                           <datalist id="stackList">
+                                                                               <option value="python"></option>
+                                                                               <option value="javascript"></option>
+                                                                               <option value="java"></option>
+                                                                               <option value="php"></option>
+                                                                               <option value="go"></option>
+                                                                               <option value="c"></option>
+                                                                               <option value="c#"></option>
+                                                                               <option value="c++"></option>
+                                                                               <option value="없음"></option>
+                                                                           </datalist>
+                                                                           <FormErrorMessage>{errors.stack1}</FormErrorMessage>
+                                                                        </>
+                                                                    )
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                            {
+                                                (stacks.length < 2) 
+                                                ? <Button type = "button" onClick = {() => push("")}>+</Button>
+                                                : (stacks.length < 3) 
+                                                ? (
+                                                    <>
+                                                    <Button type = "button" onClick = {() => push("")}>+</Button>
+                                                    <Button type = "button" onClick = {() => pop()}>-</Button>
+                                                    </>
+                                                )
+                                                : <Button type = "button" onClick = {() => pop()}>-</Button>
+                                            }
+                                            </Flex>
+                                        </FormControl>
+                                        
+                                    </>
+                                )
+                            }
+                        }
+                    </FieldArray>
 
-                    <Field
-                        name="stack2" validate = {checkEnglish}
-                        render={({ field, form : { isSubmitting, errors, touched } }) => (
-                            <FormControl isInvalid = {errors.stack2 && touched.stack2}>
-                                <Input {...field} disabled={isSubmitting} 
-                                    variant = "primary"
-                                    type="text" name = "stack2" list = "stack2" />
-                                <datalist id="stack2">
-                                    <option value="python"></option>
-                                    <option value="javascript"></option>
-                                    <option value="java"></option>
-                                    <option value="php"></option>
-                                    <option value="go"></option>
-                                    <option value="c"></option>
-                                    <option value="c#"></option>
-                                    <option value="c++"></option>
-                                    <option value="없음"></option>
-                                </datalist>
-                                <FormErrorMessage>{errors.stack2}</FormErrorMessage>
-                            </FormControl>
-                        )}
-                    />
-
-                    <Field
-                        name="stack3" validate = {checkEnglish}
-                        render={({ field, form : { isSubmitting, errors, touched } }) => (
-                            <FormControl isInvalid = {errors.stack3 && touched.stack3}>
-                                <Input {...field} disabled={isSubmitting} 
-                                    variant = "primary"
-                                    type="text" name = "stack3" list = "stack3" />
-                                <datalist id="stack3">
-                                    <option value="python"></option>
-                                    <option value="javascript"></option>
-                                    <option value="java"></option>
-                                    <option value="php"></option>
-                                    <option value="go"></option>
-                                    <option value="c"></option>
-                                    <option value="c#"></option>
-                                    <option value="c++"></option>
-                                    <option value="없음"></option>
-                                </datalist>
-                                <FormErrorMessage>{errors.stack3}</FormErrorMessage>
-                            </FormControl>
-                        )}
-                    />
-
-
-
-                    </HStack>
                     <Field
                         name="job" validate = {checkEnglish}
                         render={({ field, form : { isSubmitting, errors, touched } }) => (
@@ -208,10 +193,14 @@ function MyRevisedPage(){
                         )}
                     />
 
+                    
+
                     <Field
                         name="answer" validate = {checkLength}
                         render={({ field, form : { isSubmitting, errors, touched } }) => (
-                            <FormControl isInvalid = {errors.answer && touched.answer}>
+                            
+                            <FormControl isInvalid = {errors.answer && touched.answer} isRequired>
+                                <FormLabel htmlFor="stack" w = "100px"> 제출 답변 </FormLabel>
                                 <Textarea {...field} disabled={isSubmitting} 
                                     h = "200px" minLength = "300"
                                     type="text" name = "answer" placeholder='내가 생각하는 질문에 대한 답변을 300자 이내에 적어주세요!!' />
@@ -231,11 +220,11 @@ function MyRevisedPage(){
                         )}
                     />
                     
-
-                    <Flex p ={8}>
+                    <Flex w = "100%">
                         <Spacer />
-                        <Button variant="primary" type="submit">수정하기</Button>
+                        <Button variant="primary" w = "300px"  type="submit">수정하기</Button>
                     </Flex>
+
                     </VStack>
                     
                 </Form>
