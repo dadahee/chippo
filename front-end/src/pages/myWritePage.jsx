@@ -1,12 +1,20 @@
 import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 
+import { useNavigate } from 'react-router-dom';
+
 import { AiFillLike } from "react-icons/ai"
 import { fetchInterviewTags } from "../redux/indexAction.js"
 
 import { Center, VStack, Button, Box, Flex, Link, HStack, Spacer } from "@chakra-ui/react";
 
 function MyWritePage({ fetchInterviewTags, loading, interviewTags }){
+
+    const navigator = useNavigate();
+
+    const goMyRevisedPage = () => {
+        navigator("/username/myRevisedPage")
+    }
 
     useEffect(() => fetchInterviewTags(),[])
 
@@ -22,11 +30,10 @@ function MyWritePage({ fetchInterviewTags, loading, interviewTags }){
                     <VStack spacing={8} mt = "40px">
                     {
                         interviewTags && interviewTags.map(interview => {
-                            
                             return (
                                 <Flex w = "100%">
                                 <Box key = {interview.id}
-                                    fontWeight = "bold" w = "80%" h = "100px" 
+                                    fontWeight = "bold" w = "80%" h = "80px" 
                                     pl = "10px" display = "flex" alignItems = "center"
                                     border = "5px solid #5078E7"
                                 >
@@ -40,7 +47,7 @@ function MyWritePage({ fetchInterviewTags, loading, interviewTags }){
                                 
                                 <Spacer />
 
-                                <Center w = "15%" h = "100px" bg = "#5078E7" color = "white">
+                                <Center w = "10%" h = "80px" bg = "#5078E7" color = "white" cursor = "pointer" onClick = {goMyRevisedPage}>
                                     수정
                                 </Center>
                                 </Flex>

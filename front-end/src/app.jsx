@@ -15,6 +15,7 @@ import Writing from './pages/writing.jsx';
 import MyWritePage from './pages/myWritePage.jsx';
 import MyLikePage from './pages/myLikePage.jsx';
 import MyWithdrawlPage from './pages/myWithdrawlPage.jsx';
+import MyRevisedPage from './pages/myRevisedPage.jsx';
 
 import ChippoHeader from './components/header.jsx';
 
@@ -33,6 +34,7 @@ function App(){
                 <Route path = "/writing" element = {<Writing />} />
                 <Route path = "/username/myLikePage" element = {<MyLikePage />} />
                 <Route path = "/username/myWithdrawlPage" element = {<MyWithdrawlPage />} />
+                <Route path = "/username/myRevisedPage" element = {<MyRevisedPage />} />
             </Routes>
             
         </Router>   
