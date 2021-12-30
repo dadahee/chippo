@@ -70,6 +70,63 @@ const kakaoInterviewLists = {
         },
     ]
 }
+const naverInterviewLists = {
+    interviews : [
+        {
+            id : 0,
+            user : {
+                id : 0, 
+                nickname : "구희승"
+            },
+            question : "가비지 컬렉션에 대해 설명해보세요",
+            interviewTags : [
+                {
+                    id : 0,
+                    type : "naver",
+                    name : "string"
+                }
+            ],
+            thumbCount : 0,
+            updatedAt : "2021-12-03"
+        },
+        {
+            id : 1,
+            user : {
+                id : 0, 
+                nickname : "구다희"
+            },
+            question : "리버스 프락시란 무엇인가요?",
+            interviewTags : [
+                {
+                    id : 0,
+                    type : "kakao",
+                    name : "string"
+                }
+            ],
+            thumbCount : 1,
+            updatedAt : "2021-12-03"
+        },
+        {
+            id : 2,
+            user : {
+                id : 0, 
+                nickname : "정재원"
+            },
+            question : "Q. Call by value, Call by reference의 차이에 대해 설명해 보세요.",
+            interviewTags : [
+                {
+                    id : 0,
+                    type : "kakao",
+                    name : "string"
+                }
+            ],
+            thumbCount : 2,
+            updatedAt : "2021-12-03"
+        },
+        
+    ]
+}
+
 
 const homeTags = [
     {
@@ -129,4 +186,5 @@ export {
     homeTags,
     kakaoInterviewLists,
     idInterview,
+    naverInterviewLists,
 }
