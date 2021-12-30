@@ -39,6 +39,7 @@ function ChippoHeader({ logined, doLogout }){
 
     // 로그인 페이지 방문 시 헤더 제거
     if (window.location.pathname === "/login") return null;
+    if (window.location.pathname === "/404") return null;
 
     return (
         <>
