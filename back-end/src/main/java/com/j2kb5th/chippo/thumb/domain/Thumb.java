@@ -1,9 +1,7 @@
 package com.j2kb5th.chippo.thumb.domain;
 
-import com.j2kb5th.chippo.global.domain.BaseTimeEntity;
 import com.j2kb5th.chippo.interview.domain.Interview;
 import com.j2kb5th.chippo.user.domain.User;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -15,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Entity
-public class Thumb extends BaseTimeEntity {
+public class Thumb {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,5 +26,9 @@ public class Thumb extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @CreatedDate
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
 
 }

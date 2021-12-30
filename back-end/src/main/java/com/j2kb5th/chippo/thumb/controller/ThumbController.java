@@ -4,7 +4,6 @@ import com.j2kb5th.chippo.config.auth.LoginUser;
 import com.j2kb5th.chippo.config.auth.dto.SessionUser;
 import com.j2kb5th.chippo.thumb.controller.dto.response.CheckThumbResponse;
 import com.j2kb5th.chippo.thumb.controller.dto.response.ThumbResponse;
-import com.j2kb5th.chippo.thumb.domain.Thumb;
 import com.j2kb5th.chippo.thumb.service.ThumbService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
-import java.time.LocalDateTime;
 
 @Tag(name = "따봉(좋아요)", description = "따봉 API")
 @RequiredArgsConstructor

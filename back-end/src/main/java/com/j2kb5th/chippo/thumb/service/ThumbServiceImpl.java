@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
+
 @RequiredArgsConstructor
 @Service
 public class ThumbServiceImpl implements ThumbService {
@@ -23,13 +25,15 @@ public class ThumbServiceImpl implements ThumbService {
   @Transactional
   @Override
   public Thumb saveThumb(Long interviewId, Long userId) {
-    User user = userRepository.findById(userId).get();
+    User user = userRepository.findById(userId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "탈퇴했거나 존재하지 않는 회원입니다."));
     Interview interview = interviewRepository.findById(interviewId)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "존재하지 않는 게시물입니다."));
 
     Thumb thumb = Thumb.builder()
         .user(user)
         .interview(interview)
+        .createdAt(LocalDateTime.now())
         .build();
 
     return thumbRepository.save(thumb);
