@@ -42,10 +42,16 @@ const NaverLoginImage = styled.img`
 
 `
 
+const ErrorComponent = styled.div`
+    color : white;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    position : "absolute";
+`
+
 export {
     Header,
     LoginPage,
     NaverLoginButton,
     NaverLoginImage,
-
+    ErrorComponent,
 }
