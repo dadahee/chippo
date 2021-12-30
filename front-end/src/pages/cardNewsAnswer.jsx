@@ -1,15 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 
 import { useParams } from 'react-router';
 
 import { MdPerson } from "react-icons/md";
-import { Center, Box, VStack, Textarea, Container, Button } from "@chakra-ui/react"
+import { AiFillLike } from "react-icons/ai";
+import { AiOutlineLike } from "react-icons/ai";
+
+
+import { Center, Box, VStack, Textarea, Container, Button, Flex, Spacer } from "@chakra-ui/react"
 
 import { fetchInterviewId } from "../redux/indexAction.js"
 
 function CardNewsAnswer({ fetchInterviewId, loading, interviewId, interviewUser, interviewComments }){
+    const [ goodState, setGoodState ] = useState(false);
     const params = useParams();
+
+    const goodEvent = () => {
+        (!!goodState) ? setGoodState(false) : setGoodState(true)
+    }
 
     useEffect(() => fetchInterviewId(params.interviewId),[])
 
@@ -22,10 +31,20 @@ function CardNewsAnswer({ fetchInterviewId, loading, interviewId, interviewUser,
                         bgGradient = "linear(to-r, #E6F0FF, #5078E7)"
                         alignItems = "center" pl = "2%" pt = "20px"
                     >   
-                        <Box display = "flex">
-                            <MdPerson size = "1.5em"/>
+                        <Flex>
+                            <MdPerson size = "1.5em" />
                             <Box pl = "10px">{interviewUser && interviewUser.nickname}</Box>
-                        </Box>
+
+                            <Spacer />
+                            <Flex position="absolute" w = "65%" pt = "16px" cursor = "pointer" onClick = {goodEvent}>
+                                <Spacer />
+                                {
+                                    (goodState === true) ? <AiFillLike size= "1.5em" /> : <AiOutlineLike size = "1.5em"/>
+                                }
+                                
+                            </Flex>    
+                        </Flex>
+                        
                         <Box mt = "10px">{interviewId.question}</Box>
                         
                     </Box>

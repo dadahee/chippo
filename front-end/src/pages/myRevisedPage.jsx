@@ -21,8 +21,7 @@ import {
     HStack,
   } from '@chakra-ui/react'
 
-function Writing({ logined }){
-
+function MyRevisedPage(){
     const checkKorean = (value) => {
         let error;
         if (!/^[가-힣]+$/.test(value)){
@@ -51,8 +50,6 @@ function Writing({ logined }){
     } 
 
     const navigator = useNavigate();
-    
-    if (logined === false) navigator("/login");
     
     return (
         <>
@@ -239,16 +236,7 @@ function Writing({ logined }){
         </Center>
         
         </>
-        
     )
-    
 }
 
-
-const mapStateToProps = ({ logined }) => {
-    return {
-        logined : logined.login
-    }
-}
-
-export default connect(mapStateToProps)(Writing);
+export default MyRevisedPage;
