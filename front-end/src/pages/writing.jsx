@@ -225,7 +225,7 @@ function Writing({ logined }){
                     
                     <Flex w = "100%">
                         <Spacer />
-                        <Button variant="primary" w = "300px"  type="submit">수정하기</Button>
+                        <Button variant="primary" w = "300px" type="submit">업로드하기</Button>
                     </Flex>
 
                     </VStack>

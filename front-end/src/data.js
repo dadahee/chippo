@@ -73,7 +73,7 @@ const kakaoInterviewLists = {
 const naverInterviewLists = {
     interviews : [
         {
-            id : 0,
+            id : 4,
             user : {
                 id : 0, 
                 nickname : "구희승"
@@ -81,7 +81,7 @@ const naverInterviewLists = {
             question : "가비지 컬렉션에 대해 설명해보세요",
             interviewTags : [
                 {
-                    id : 0,
+                    id : 5,
                     type : "naver",
                     name : "string"
                 }
@@ -90,7 +90,7 @@ const naverInterviewLists = {
             updatedAt : "2021-12-03"
         },
         {
-            id : 1,
+            id : 5,
             user : {
                 id : 0, 
                 nickname : "구다희"
@@ -107,7 +107,7 @@ const naverInterviewLists = {
             updatedAt : "2021-12-03"
         },
         {
-            id : 2,
+            id : 6,
             user : {
                 id : 0, 
                 nickname : "정재원"
@@ -145,9 +145,9 @@ const idInterview = {
       "id": 0,
       "nickname": "구희승"
     },
-    "question": "해당 프로젝트를 할 때 리액트를 선택한 이유는 무엇인가?",
-    "answer": "string",
-    "extraInfo": "string",
+    "question": "가비지 컬렉션에 대해 설명해보세요. ",
+    "answer": "Garbage Collection은 유효하지 않은 메모리인 Garbage를 처리하기 위한 JVM의 방법입니다. 명시적으로 불필요한 데이터를 표현하기 위해서 일반적으로 null을 선언합니다. ",
+    "extraInfo": "",
     "preAnswer": {
       "id": 0,
       "content": "string",
@@ -173,9 +173,9 @@ const idInterview = {
         "id": 0,
         "user": {
           "id": 0,
-          "nickname": "string"
+          "nickname": "황준승"
         },
-        "content": "string",
+        "content": "간략하게 정리를 잘하셨군요!!",
         "updatedAt": "2021-12-13T13:43:32.050Z"
       }
     ],
