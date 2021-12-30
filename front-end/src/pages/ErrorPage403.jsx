@@ -48,7 +48,6 @@ function ErrorPage403(){
 
                 <HStack spacing={20}>
                     <Button variant="primary" w = "200px" onClick={goHomeUrl}>홈으로</Button>
-                    <Button variant="primary" w = "200px" onClick={goBefore}>이전페이지로</Button>
                 </HStack>
                 
               </VStack>

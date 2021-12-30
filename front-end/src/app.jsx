@@ -18,6 +18,8 @@ import MyWithdrawlPage from './pages/myWithdrawlPage.jsx';
 import MyRevisedPage from './pages/myRevisedPage.jsx';
 import ErrorPage404 from './pages/ErrorPage404.jsx';
 import ErrorPage403 from "./pages/ErrorPage403.jsx";
+import ErrorPage401 from './pages/ErrorPage401.jsx';
+import ErrorPage400 from './pages/ErrorPage400.jsx';
 
 import ChippoHeader from './components/header.jsx';
 
@@ -37,8 +39,8 @@ function App(){
                 <Route path = "/username/myLikePage" element = {<MyLikePage />} />
                 <Route path = "/username/myWithdrawlPage" element = {<MyWithdrawlPage />} />
                 <Route path = "/username/myRevisedPage" element = {<MyRevisedPage />} />
-                {/* <Route path = "/400" element = {<ErrorPage400 />} />
-                <Route path = "/401" element = {<ErrorPage401 />} /> */}
+                <Route path = "/400" element = {<ErrorPage400 />} />
+                <Route path = "/401" element = {<ErrorPage401 />} />
                 <Route path = "/403" element = {<ErrorPage403 />} />
                 <Route path = "/404" element = {<ErrorPage404 />} />
             </Routes>

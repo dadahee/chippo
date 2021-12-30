@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Image, Box, Center , VStack, Button, HStack } from '@chakra-ui/react'
 
-function ErrorPage(){
+function ErrorPage404(){
     const navigator = useNavigate();
 
     const goHomeUrl = () => {
@@ -49,7 +49,6 @@ function ErrorPage(){
 
                 <HStack spacing={20}>
                     <Button variant="primary" w = "200px" onClick={goHomeUrl}>홈으로</Button>
-                    <Button variant="primary" w = "200px" onClick={goBefore}>이전페이지로</Button>
                 </HStack>
                 
               </VStack>
@@ -58,4 +57,4 @@ function ErrorPage(){
     )
 }
 
-export default ErrorPage;
+export default ErrorPage404;
