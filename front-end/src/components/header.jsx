@@ -63,10 +63,9 @@ function ChippoHeader({ logined, doLogout }){
                             ? 
                             ( 
                                 <>
-                                    <Box display = "flex" cursur = "pointer" onClick = {goMyPage}>
+                                    <Box display = "flex" cursor= "pointer" onClick = {goMyPage}>
                                         <MdPerson size = "1.8em" />
-                                        <Box pl = "20px" fontSize= "20px">
-                                            {/* 로그인 유저 데이터 넣기 */}
+                                        <Box pl = "20px" fontSize= "20px" cursor= "pointer">
                                             황준승
                                         </Box>
                                     </Box>

@@ -36,7 +36,7 @@ const fetchInterviewIdApi = (interview) => {
 export const fetchInterviewId = (id) => {
     return (dispatch) => {
         dispatch(fetchInterviewIdRequest());
-        fetchInterviewIdApi(idInterview)
+        fetchInterviewIdApi(idInterview[id])
             .then(res => dispatch(fetchInterviewIdSuccess(res)))
             .catch(err => dispatch(fetchInterviewIdFailure(err)))
     }

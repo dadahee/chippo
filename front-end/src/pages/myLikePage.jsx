@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { AiFillLike } from "react-icons/ai"
 import { fetchInterviewTags } from "../redux/indexAction.js"
 
+import { naverInterviewLists } from '../data.js';
+
 import { Center, VStack, Button, Box, Flex, Link, HStack, Spacer } from "@chakra-ui/react";
 
 function MyLikePage({ fetchInterviewTags, loading, interviewTags }){
@@ -21,24 +23,23 @@ function MyLikePage({ fetchInterviewTags, loading, interviewTags }){
                     </Center>
                     <VStack spacing={8} mt = "40px">
                     {
-                        interviewTags && interviewTags.map(interview => {
-                            
+                        naverInterviewLists.interviews.map(interview => {
                             return (
-                                <Flex w = "100%">
                                 <Box key = {interview.id}
-                                    fontWeight = "bold" w = "80%" h = "100px" 
-                                    pl = "10px" display = "flex" alignItems = "center"
-                                    border = "5px solid #5078E7"
-                                >
-                                    <Link to = {`${interview.id}/pre-answer`}>{interview.question}</Link>
-                                    <Spacer />
-                                    <HStack p = "15px">
-                                        <AiFillLike />
-                                        <Box>{interview.thumbCount}</Box>
-                                    </HStack>
-                                </Box>
-                                </Flex>
-                            )   
+                                fontWeight = "bold" w = "100%" h = "100px" 
+                                pl = "10px" display = "flex" alignItems = "center"
+                                border = "5px solid #5078E7"
+                            >
+                                <Link to = {`${interview.id}/pre-answer`}>{interview.question}</Link>
+                                <Spacer />
+                                <HStack p = "15px">
+                                    <AiFillLike />
+                                    <Box>{interview.thumbCount}</Box>
+                                </HStack>
+                                    
+                                
+                            </Box>
+                            )
                         })
                     }
                     </VStack>

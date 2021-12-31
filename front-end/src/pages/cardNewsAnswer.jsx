@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 
+import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
+
 import { useParams } from 'react-router';
 
 import { MdPerson } from "react-icons/md";
@@ -65,11 +67,37 @@ function CardNewsAnswer({ fetchInterviewId, loading, interviewId, interviewUser,
                             mt = {4} borderRadius = "30px" p = "20px" > 
                             {interviewId.extraInfo}
                         </Box>
+                    </Box>
                         
-                        <Box textAlign="right">
-                            <Textarea mt = {4} h = "100px" size='lg' />
-                            <Button variant="primary">댓글 작성하기</Button>
-                        </Box>
+                        <Box w = "100%">
+                        <Formik 
+                        initialValues={{
+                            id: 0,
+                            user: {
+                                nickname: "황준승"
+                            },
+                            content: "",
+                        }}
+                        onSubmit={async (values) => {
+                            await new Promise((r) => setTimeout(r, 500));
+                            alert(JSON.stringify(values, null, 2));
+                        }}
+                    >
+                        <Form>
+                        <Field 
+                            name = "content"
+                            render={({ field, form: { isSubmitting } }) => (
+                                <Textarea { ...field } mt = {4} h = "100px" size='lg' />
+                            )}
+                        />
+
+                        <Flex w = "100%">
+                            <Spacer />
+                            <Button variant="primary" type = "submit">댓글 작성하기</Button>
+                        </Flex>
+                            
+                        </Form>
+                        </Formik>
                         
                     </Box>
                 </VStack>

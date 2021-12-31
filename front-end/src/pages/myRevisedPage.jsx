@@ -222,7 +222,10 @@ function MyRevisedPage(){
                     
                     <Flex w = "100%">
                         <Spacer />
+                        <HStack spacing={12}>
                         <Button variant="primary" w = "300px"  type="submit">수정하기</Button>
+                        <Button variant="danger" w = "300px"  type="submit">삭제하기</Button>
+                        </HStack>
                     </Flex>
 
                     </VStack>
