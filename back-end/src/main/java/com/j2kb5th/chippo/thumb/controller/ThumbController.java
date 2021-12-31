@@ -41,14 +41,15 @@ public class ThumbController {
     }
 
     @Operation(summary = "따봉 취소", description = "해당 id의 기술면접에서, 해당 id의 따봉(좋아요)을 취소합니다.")
-    @DeleteMapping("/thumbs")
+    @DeleteMapping("/users/{userId}/thumb")
     public ResponseEntity<Void> deleteThumb(
             @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
+            @Parameter(description = "사용자 ID") @PathVariable(name = "userId") Long userId,
             @LoginUser SessionUser user
     ){
 
-        checkLogin(user);
-        thumbService.cancelThumb(interviewId, user.getUserId());
+        checkLogin(user, userId);
+        thumbService.cancelThumb(interviewId, userId);
 
         return ResponseEntity.noContent().build();
     }
@@ -74,6 +75,12 @@ public class ThumbController {
 
     private void checkLogin(SessionUser user) {
         if (user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    private void checkLogin(SessionUser user, Long userId) {
+        if (user == null || userId != user.getUserId()) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
     }
