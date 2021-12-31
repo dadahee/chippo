@@ -70,6 +70,80 @@ const kakaoInterviewLists = {
         },
     ]
 }
+
+const goodInterviewList = {
+    interviews : [
+        {
+            id : 0,
+            user : {
+                id : 0, 
+                nickname : "구희승"
+            },
+            question : "해당 프로젝트를 할 때 리액트를 선택한 이유는 무엇인가?",
+            interviewTags : [
+                {
+                    id : 0,
+                    type : "kakao",
+                    name : "string"
+                }
+            ],
+            thumbCount : 0,
+            updatedAt : "2021-12-03"
+        },
+        {
+            id : 1,
+            user : {
+                id : 0, 
+                nickname : "구다희"
+            },
+            question : "spring mvc 패턴이란 ?",
+            interviewTags : [
+                {
+                    id : 0,
+                    type : "kakao",
+                    name : "string"
+                }
+            ],
+            thumbCount : 1,
+            updatedAt : "2021-12-03"
+        },
+        {
+            id : 2,
+            user : {
+                id : 0, 
+                nickname : "정재원"
+            },
+            question : "javascript의 var, const, let의 차이는 무엇입니까??",
+            interviewTags : [
+                {
+                    id : 0,
+                    type : "kakao",
+                    name : "string"
+                }
+            ],
+            thumbCount : 2,
+            updatedAt : "2021-12-03"
+        },
+        {
+            id : 3,
+            user : {
+                id : 0, 
+                nickname : "황준승"
+            },
+            question : "함수형 프로그래밍에 대해 간략하게 설명해보세요",
+            interviewTags : [
+                {
+                    id : 0,
+                    type : "kakao",
+                    name : "string"
+                }
+            ],
+            thumbCount : 3,
+            updatedAt : "2021-12-03"
+        },
+    ]
+}
+
 const naverInterviewLists = {
     interviews : [
         {
@@ -86,7 +160,7 @@ const naverInterviewLists = {
                     name : "string"
                 }
             ],
-            thumbCount : 0,
+            thumbCount : 1,
             updatedAt : "2021-12-03"
         },
         {
@@ -103,7 +177,7 @@ const naverInterviewLists = {
                     name : "string"
                 }
             ],
-            thumbCount : 1,
+            thumbCount : 3,
             updatedAt : "2021-12-03"
         },
         {
