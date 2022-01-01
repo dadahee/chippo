@@ -2,8 +2,11 @@ package com.j2kb5th.chippo.thumb.controller;
 
 import com.j2kb5th.chippo.config.auth.LoginUser;
 import com.j2kb5th.chippo.config.auth.dto.SessionUser;
+import com.j2kb5th.chippo.global.exception.ErrorMessage;
+import com.j2kb5th.chippo.global.exception.GlobalException;
 import com.j2kb5th.chippo.thumb.controller.dto.response.CheckThumbResponse;
 import com.j2kb5th.chippo.thumb.controller.dto.response.ThumbResponse;
+import com.j2kb5th.chippo.thumb.domain.Thumb;
 import com.j2kb5th.chippo.thumb.service.ThumbService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -25,6 +28,12 @@ public class ThumbController {
 
     private final ThumbService thumbService;
 
+    private void validateUserAuthentication(SessionUser user) {
+        if (user == null) {
+            throw new GlobalException(HttpStatus.UNAUTHORIZED, ErrorMessage.GL003);
+        }
+    }
+
     @Operation(summary = "따봉 저장", description = "해당 id의 기술면접에 따봉(좋아요)을 등록합니다.")
     @PostMapping("/thumbs")
     public ResponseEntity<ThumbResponse> saveThumb(
@@ -32,11 +41,11 @@ public class ThumbController {
             @Parameter(description = "기술면접 ID") @PathVariable(name = "interviewId") Long interviewId,
             @LoginUser SessionUser user
     ){
-
-        checkLogin(user);
-        ThumbResponse response = new ThumbResponse(thumbService.saveThumb(interviewId, user.getUserId()));
+        // validate user
+        validateUserAuthentication(user);
+        Thumb thumb = thumbService.saveThumb(interviewId, user.getUserId());
+        ThumbResponse response = new ThumbResponse(thumb);
         URI uri = uriBuilder.path("/api/interviews/{interviewId}").build().toUri();
-
         return ResponseEntity.created(uri).body(response);
     }
 
@@ -47,10 +56,9 @@ public class ThumbController {
             @Parameter(description = "사용자 ID") @PathVariable(name = "userId") Long userId,
             @LoginUser SessionUser user
     ){
-
-        checkLogin(user, userId);
-        thumbService.cancelThumb(interviewId, userId);
-
+        // validate user
+        validateUserAuthentication(user);
+        thumbService.cancelThumb(interviewId, userId, user.getUserId());
         return ResponseEntity.noContent().build();
     }
 
@@ -64,24 +72,8 @@ public class ThumbController {
         @Parameter(description = "유저 ID") @PathVariable(name = "userId") Long userId,
         @LoginUser SessionUser user
     ){
-        if (user == null || user.getUserId() != userId) {
-            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-        }
-
-        CheckThumbResponse response = new CheckThumbResponse(thumbService.checkThumb(interviewId, userId));
-
+        boolean clicked = thumbService.checkThumb(interviewId, userId);
+        CheckThumbResponse response = new CheckThumbResponse(clicked);
         return ResponseEntity.ok(response);
-    }
-
-    private void checkLogin(SessionUser user) {
-        if (user == null) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-        }
-    }
-
-    private void checkLogin(SessionUser user, Long userId) {
-        if (user == null || userId != user.getUserId()) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-        }
     }
 }
