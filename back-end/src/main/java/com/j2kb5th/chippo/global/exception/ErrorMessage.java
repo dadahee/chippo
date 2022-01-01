@@ -47,6 +47,7 @@ public enum ErrorMessage {
     /**
      * TH### : Thumb Error
      */
+    TH001("따봉을 찾을 수 없습니다."),
 
     /**
      * US### : User Error

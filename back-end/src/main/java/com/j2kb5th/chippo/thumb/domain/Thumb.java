@@ -2,7 +2,6 @@ package com.j2kb5th.chippo.thumb.domain;
 
 import com.j2kb5th.chippo.interview.domain.Interview;
 import com.j2kb5th.chippo.user.domain.User;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -29,7 +28,7 @@ public class Thumb {
     private User user;
 
     @CreatedDate
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
 }
