@@ -43,9 +43,15 @@ public class ThumbController {
     ){
         // validate user
         validateUserAuthentication(user);
+
+        // save thumb && create thumbResponse Object
         Thumb thumb = thumbService.saveThumb(interviewId, user.getUserId());
         ThumbResponse response = new ThumbResponse(thumb);
+
+        // Content-Location
         URI uri = uriBuilder.path("/api/interviews/{interviewId}").build().toUri();
+
+        // 201 created
         return ResponseEntity.created(uri).body(response);
     }
 
@@ -58,7 +64,11 @@ public class ThumbController {
     ){
         // validate user
         validateUserAuthentication(user);
+
+        // cancel(delete) thumb
         thumbService.cancelThumb(interviewId, userId, user.getUserId());
+
+        // 204 no content
         return ResponseEntity.noContent().build();
     }
 
@@ -72,8 +82,13 @@ public class ThumbController {
         @Parameter(description = "유저 ID") @PathVariable(name = "userId") Long userId,
         @LoginUser SessionUser user
     ){
+        // check whether it's thumbs up or not
         boolean clicked = thumbService.checkThumb(interviewId, userId);
+
+        // create checkThumbResponse object
         CheckThumbResponse response = new CheckThumbResponse(clicked);
+
+        // 200 ok
         return ResponseEntity.ok(response);
     }
 }
