@@ -25,3 +25,9 @@
 | [황준승](https://github.com/turtle601) | poomaneoung1@gmail.com | 프론트엔드   |
 | [구희승](https://github.com/nrudev) | nrudev@naver.com | 팀장, 백엔드 |
 | [구다희](https://github.com/dadahee) | dadaahee@gmail.com | 백엔드     |
+
+## 협업 규칙
+- 브랜치 전략: git-flow
+- 브랜치명: `[종류]/[이슈넘버]-[프론트/백]-[주제 (카멜케이스)]`
+- 커밋 메시지: `[타입]: [커밋 내용 요약]`
+- PR 제목: `<#이슈넘버> [타입]: [PR 제목]`
